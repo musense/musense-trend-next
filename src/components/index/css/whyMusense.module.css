@@ -1,0 +1,179 @@
+.why-musense {
+    --why-musense-height: 564px;
+    --why-musense-width: 100vw;
+    
+    --why-musense-bird: url(./../../../assets/index/bird.webp);
+    --why-musense-blueBox: url(./../../../assets/index/blueBox.webp);
+    --why-musense-main: url(./../../../assets/index/whyMusense.webp);
+    --whi-musense-hr: unset;
+    position: relative;
+    margin: calc(258px - 78px) 0 0;
+    height: var(--why-musense-height);
+    background-color: var(--theme-color-hex);
+    user-select: none;
+}
+
+.why-musense .bird {
+    position: absolute;
+    left: 373px;
+    top: -155px;
+    background-image: var(--why-musense-bird);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 220px;
+    height: 187px;
+}
+
+.why-musense .main {
+    margin: 90px auto 0;
+    background-image: var(--why-musense-main);
+    height: 76px;
+    position: relative;
+    width: 538px;
+    z-index: 1;
+    background-color: var(--theme-color-hex);
+}
+
+.why-musense .main::before,
+.why-musense .main::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background-color: white;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 320px;
+}
+
+.why-musense .main::before {
+    left: -340px;
+}
+
+.why-musense .main::after {
+    right: -340px;
+}
+
+.why-musense .sub-title {
+    color: white;
+    margin: 60px auto 0;
+    position: relative;
+    width: fit-content;
+    line-height: 1;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.why-musense .article {
+    color: rgb(83, 87, 90);
+    margin: 60px auto 0;
+    position: relative;
+    width: fit-content;
+    line-height: 1;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 140px;
+}
+
+.why-musense .article>div {
+    margin-bottom: 20px;
+}
+
+.why-musense .article>div:last-child {
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.why-musense .blueBox {
+    position: absolute;
+    bottom: 49px;
+    right: 90px;
+    background-image: var(--why-musense-blueBox);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 377px;
+    height: 64px;
+}
+
+@media (max-width: 1200px) and (min-width: 768px) {}
+
+
+@media (max-width: 768px) {
+    .why-musense {
+        margin: 6rem 0 0;
+        height: 26rem;
+    }
+
+    .why-musense .bird {
+        top: -7rem;
+        width: 10rem;
+        height: 8rem;
+        left: 3rem;
+    }
+
+    .why-musense .main {
+        margin: 3rem auto 0;
+        height: 3rem;
+        width: 25.9rem;
+        background-color: transparent;
+    }
+
+    .why-musense .main::before,
+    .why-musense .main::after {
+        background-image: url(./../../../assets/mobile/service/flower_blue.webp);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 1.5rem;
+        width: 5.4rem;
+        background-position: center;
+    }
+
+    .why-musense .main::before {
+        left: -6rem;
+    }
+
+    .why-musense .main::after {
+        right: -6rem;
+    }
+
+    .why-musense .sub-title {
+        font-size: 2rem;
+        letter-spacing: 1rem;
+        margin: 3rem auto 0;
+    }
+
+    .why-musense .article {
+        margin: 2rem 1.6rem 0;
+        font-size: 1.5rem;
+        align-items: center;
+        text-align: center;
+        height: 11rem;
+        line-height: 1.5;
+    }
+
+    .why-musense .article>div {
+        margin-bottom: 20px;
+        margin: unset;
+    }
+
+    .why-musense .article>div:last-child {
+        margin-top: auto;
+        margin-bottom: 0;
+    }
+
+    .why-musense .blueBox {
+        position: absolute;
+        bottom: 49px;
+        right: 90px;
+        background-image: var(--why-musense--blueBox);
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 377px;
+        height: 64px;
+    }
+
+}

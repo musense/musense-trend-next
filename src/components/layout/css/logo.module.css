@@ -1,0 +1,31 @@
+.logo {
+  --logo-width: 27rem;
+  position: relative;
+  width: var(--logo-width);
+  display: block;
+  color: transparent;
+}
+.logo > img {
+  width: 100%;
+}
+/* tablets */
+@media (max-width: 1200px) {
+ 
+  .logo.header {
+    margin: 0 auto;
+    --logo-width:16rem;
+  }
+  .logo.footer {
+    --logo-width:16rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo{
+    height: 4rem;
+    margin: 0 auto;
+  }
+  .logo > img{
+    height: 4rem;
+  }
+}

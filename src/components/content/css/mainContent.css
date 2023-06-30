@@ -1,0 +1,116 @@
+.main-content-wrapper {
+  position: relative;
+  margin: calc(var(--banner-top-offset) + 33px) 465px 0;
+  padding: 0 21px 0 7px;
+  box-sizing: border-box;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: TaipeiSansTCBeta;
+}
+
+.content-left-side {
+  position: inherit;
+  width: 668px;
+  height: fit-content;
+}
+
+.content-title {
+  width: 100%;
+  height: 101px;
+  font-size: 30px;
+  letter-spacing: 3px;
+  text-align: center;
+  color: #000;
+  line-height: 1.2;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.content-misc {
+  position: inherit;
+  width: 100%;
+  height: 14px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 13.5px;
+
+  margin-top: 78px;
+  /* letter-spacing: 2px; */
+}
+
+.content-tags {
+  position: inherit;
+  display: flex;
+  flex-direction: row;
+  gap: 28px;
+}
+
+.content-create-date {
+  letter-spacing: 2px;
+  color: #f88d2a;
+}
+
+.content-main-content * {
+  all: unset;
+}
+
+.content-main-content {
+  position: inherit;
+  width: 100%;
+  height: fit-content;
+  margin-top: 26px;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  font-size: 16px;
+}
+
+.content-main-content img {
+  width: 100%;
+}
+
+.content-main-content p {
+  text-align: left;
+}
+
+.content-main-content h1,
+.content-main-content h2,
+.content-main-content h3 {
+  font-weight: bold;
+}
+
+.content-right-side {
+  position: inherit;
+  width: 154px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hot-trend {
+  position: inherit;
+  width: 100%;
+  height: 39px;
+  background-image: url(/assets/content/hot.webp);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.hot-tag-wrapper {
+  position: inherit;
+  width: 100%;
+  height: fit-content;
+  padding: 0 21px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 31px;
+  row-gap: 17px;
+  justify-content: center;
+}

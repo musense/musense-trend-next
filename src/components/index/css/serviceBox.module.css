@@ -1,0 +1,186 @@
+.service-box {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 84px;
+}
+
+.service-box>a,
+.service-box>div {
+  background-position: top;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: Openhuninn, Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  height: 392px;
+  padding: 130px 59px 30px;
+  position: relative;
+  width: 231px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  user-select: none;
+  justify-content: space-between;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  white-space: pre;
+}
+
+.service-box>a::after,
+.service-box>div::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 131px;
+  height: 67px;
+  background-image: url(./../../../assets/button/more.webp);
+  top: calc(27px + 100%);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.service-box>a:hover::after,
+.service-box>div:hover::after {
+  /* TODO: 正式需解除 */
+  /* background-image: url(/assets/button/more_h.webp); */
+}
+
+.service-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  color: grey;
+}
+
+.service-header:first-child {
+  /* white-space: nowrap; */
+}
+
+.service-header:last-child {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  /* white-space: wrap; */
+}
+
+.service-body {
+  display: block;
+  text-align: center;
+  color: white;
+  line-height: 2.5;
+}
+
+.advertising {
+  background-image: url(./../../../assets/index/advertising.webp)
+}
+
+.seo-service {
+  background-image: url(./../../../assets/index/seoService.webp)
+}
+
+.social-media {
+  background-image: url(./../../../assets/index/socialMedia.webp)
+}
+
+.cis {
+  background-image: url(./../../../assets/index/cis.webp)
+}
+
+
+@media (max-width: 1200px) and (min-width: 768px) {
+  .service-box {
+    position: relative;
+    width: calc(15rem * 2 + 30vw);
+    margin: 2.8rem auto 0;
+    column-gap: 0rem;
+    row-gap: 16rem;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 5rem auto 0;
+    position: relative;
+    width: -moz-fit-content;
+    width: fit-content;
+    width: 100vw;
+    height: 70rem;
+    justify-content: space-evenly;
+    gap: unset;
+  }
+
+  .service-box>a,
+  .service-box>div {
+    background-position: top;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-family: Openhuninn, Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    justify-content: space-between;
+    letter-spacing: 1px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    width: 15rem;
+    height: 26rem;
+    padding: unset;
+    padding-bottom: 1rem;
+    padding: unset;
+    ;
+  }
+
+  .service-box>a::after,
+  .service-box>div::after {
+    background-image: url(./../../../assets/button/more.webp);
+    content: "";
+    display: block;
+    height: 4.6rem;
+    left: 50%;
+    position: absolute;
+    top: calc(1.4rem + 100%);
+    transform: translateX(-50%);
+    width: 9rem;
+    background-size: cover;
+  }
+
+  .service-box>a:hover::after,
+  .service-box>div:hover::after {
+    /* TODO: 正式需解除 */
+    /* background-image: url(/assets/button/more_h.webp); */
+  }
+
+  .service-header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding-top: 9.3rem;
+    text-align: center;
+    transform: scale(0.7);
+  }
+
+  .service-header> :nth-child(2) {
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    padding: 0 2rem;
+  }
+
+  .service-body {
+    line-height: 2;
+
+  }
+}

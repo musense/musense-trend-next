@@ -1,0 +1,123 @@
+.modal-layout {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: hsla(0, 0%, 100%, 0.9);
+  overflow: hidden;
+  z-index: calc(var(--header-z-index) + 100);
+}
+.modal-layout.hide {
+  display: none;
+}
+.modal-layout.show {
+  display: block;
+}
+
+.modal-wrapper {
+  position: absolute;
+  background-color: hsla(0, 0%, 100%, 1);
+  /* height: 230px;
+  width: 300px; */
+  max-height: clamp(230px, 230px + 1rem, 250px);
+  max-width: clamp(300px, 340px + 1rem , 400px);
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #000;
+  border-radius: 15px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.modal-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 100%;
+  width: 100%;
+  gap: 20px;
+  font-family: Openhuninn;
+}
+.modal-container > div {
+  /* background-color: grey; */
+}
+
+.modal-close {
+  --modal-close-btn-size: 20px;
+  --modal-close-btn-padding: -10px;
+  appearance: none;
+  padding: unset;
+  position: absolute;
+  background-color: unset;
+  border: unset;
+  cursor: pointer;
+  width: var(--modal-close-btn-size);
+  height: var(--modal-close-btn-size);
+  top: var(--modal-close-btn-padding);
+  right: var(--modal-close-btn-padding);
+  /* background-color: grey; */
+}
+
+.modal-close::before,
+.modal-close::after {
+  --modal-close-rotate: 0deg;
+  position: absolute;
+  content: '';
+  background-color: #000;
+  width: 25px;
+  height: 3px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--modal-close-rotate));
+}
+
+.modal-close::before {
+  --modal-close-rotate: 45deg;
+}
+.modal-close::after {
+  --modal-close-rotate: -45deg;
+}
+
+.modal-header {
+  font-size: 24px;
+  font-weight: bolder;
+  flex-grow: 1;
+}
+.modal-header.success {
+  color: #000;
+}
+.modal-header.fail {
+  color: red;
+}
+.modal-body {
+  font-size: 18px;
+  line-height: 1.5;
+  overflow: hidden;
+  flex-grow: 3;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
+
+.modal-footer {
+}
+
+@media (max-width: 768px) {
+  .modal-layout {
+    height: 100lvh;
+  }
+  .modal-header{
+    font-size: 2.4rem;
+  }
+  .modal-body {
+    font-size: 1.8rem;
+    line-height: 2;
+    white-space: pre-wrap;
+  }
+}

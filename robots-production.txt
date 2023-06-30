@@ -1,0 +1,8 @@
+User-agent: Googlebot
+User-agent: AdsBot-Google
+Disallow: /nogooglebot/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.musense.tw/sitemap.xml

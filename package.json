@@ -1,25 +1,33 @@
 {
-  "name": "musense-trend-next",
+  "name": "musense-frontpage-next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001 -H 10.88.0.103",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:serve": "next build & next start -p 3001 -H 10.88.0.103"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.10.0",
+    "@n8tb1t/use-scroll-position": "^2.0.3",
     "@types/node": "20.3.2",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
+    "aos": "^2.3.4",
     "autoprefixer": "10.4.14",
+    "axios": "1.3.4",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
+    "mini-css-extract-plugin": "^2.7.6",
     "next": "13.4.7",
+    "next-seo": "^6.0.0",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sharp": "^0.32.1",
     "tailwindcss": "3.3.2",
-    "typescript": "5.1.6"
+    "typescript": "5.1.3"
   }
 }

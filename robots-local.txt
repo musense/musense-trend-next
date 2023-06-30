@@ -1,0 +1,8 @@
+User-agent: Googlebot
+User-agent: AdsBot-Google
+Disallow: /nogooglebot/
+
+User-agent: *
+Allow: /
+
+Sitemap: http://10.88.0.103:3001/sitemap.xml

@@ -1,0 +1,8 @@
+User-agent: Googlebot
+User-agent: AdsBot-Google
+Disallow: /fonts/
+
+User-agent: *
+Allow: /
+
+Sitemap: http://uat-officialwebsite.musense.tw/sitemap.xml
