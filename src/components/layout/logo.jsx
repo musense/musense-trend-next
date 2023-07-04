@@ -27,14 +27,15 @@ export default function Logo({ active, color = 'gray', position = "header" }) {
           width={logo.width}
           height={logo.height}
           style={{
-            width: '100%',
+            width: 'auto',
+            height: '100%',
             objectFit: 'contain'
           }}
         />
       </div>
     ) :
     (
-      <Link className={`${styles['logo']} ${styles[position]}`} href={process.env.NEXT_PUBLIC_FRONT_SITE}>
+      <Link className={`${styles['logo']} ${styles[position]}`} href="/">
         <div>
           <Image
             title="Musense Marketing"
@@ -43,7 +44,8 @@ export default function Logo({ active, color = 'gray', position = "header" }) {
             width={logo.width}
             height={logo.height}
             style={{
-              width: '100%',
+              width: 'auto',
+              height: '100%',
               objectFit: 'contain'
             }}
           />

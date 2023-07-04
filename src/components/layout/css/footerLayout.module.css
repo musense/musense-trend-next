@@ -147,7 +147,7 @@
 @media (max-width: 768px) {
   .footer-wrapper {
     height: 36rem;
-    margin-top: 5rem;
+    margin-top: 0;
     padding-top: 3rem;
     box-sizing: border-box;
   }

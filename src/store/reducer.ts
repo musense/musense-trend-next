@@ -5,7 +5,7 @@ import {
 } from './types';
 
 const initialState: StateProps = {
-    clientWidth: 1920,
+    clientWidth: 0,
     clientHeight: 0,
     contents: null,
     viewContents: null,

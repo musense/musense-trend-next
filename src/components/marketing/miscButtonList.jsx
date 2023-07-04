@@ -14,18 +14,17 @@ export default function MiscButtonList() {
           to={process.env.NEXT_PUBLIC_FRONT_SITE}
           name='回首頁'
         />
-        {state.categorySitemapUrl && (
-          <BtnMarketing title="看更多文章" name='看更多文章'
-            target={"_blank"}
-            to={state.categorySitemapUrl}
-            callback={() => dispatch({
-              type: "SEE_MORE",
-              payload: {
-                active: true,
-                categoryName: state.categoryName,
-              }
-            })}
-          />)}
+       {state.categorySitemapUrl && <BtnMarketing title="看更多文章" name='看更多文章'
+          target={"_blank"}
+          to={state.categorySitemapUrl}
+          callback={() => dispatch({
+            type: "SEE_MORE",
+            payload: {
+              active: true,
+              categoryName: state.categoryName,
+            }
+          })}
+        />}
       </BtnMarketingWrapper>
     </>
   );;
