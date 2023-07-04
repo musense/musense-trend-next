@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import styles from './pageTemplate.module.css'
 import { useAppContext } from "@store/context";
 
@@ -7,8 +7,8 @@ const PageTemplate = ({
     totalPage,
     __MAX_SHOW_NUMBERS__ = 5
 }) => {
-    // console.log("🚀 ~ file: pageTemplate.jsx:10 ~ currPage:", currPage)
-    const { state, dispatch } = useAppContext();
+    const { dispatch } = useAppContext();
+
     const prevPage = useCallback(() => {
         dispatch({
             type: 'SET_CURRENT_PAGE',
@@ -34,75 +34,47 @@ const PageTemplate = ({
         })
     }, [])
 
-    const [showArray, setShowArray] = useState(null);
-    // console.log("🚀 ~ file: pageTemplate.jsx:22 ~ showArray:", showArray)
-    const currentPage = currPage
     const middleRightPoint = Math.ceil(__MAX_SHOW_NUMBERS__ / 2)
     const middleLeftPoint = Math.floor(__MAX_SHOW_NUMBERS__ / 2)
 
-    const AnchorButton = ({
-        cb,
-        styles,
-        label,
-        // index = null,
-    }) => {
-        const props = {
-            onClick: cb,
-            value: "<",
-            className: styles,
-            // key: index,
-        }
-        return (
-            <button {...props}>
-                {label}
-            </button>
-        )
-    }
-
-    useEffect(() => {
-        if (!currentPage) return
+    const showArray = useMemo(() => {
+        if (!currPage) return
         if (!__MAX_SHOW_NUMBERS__) return
-        // console.log("🚀 ~ file pageTemplate.jsx:16 ~ totalPage:", totalPage)
-        // console.log("🚀 ~ file pageTemplate.jsx:16 ~ currentPage:", currentPage)
-        // console.log("🚀 ~ file pageTemplate.jsx:16 ~ middlePoint:", middleRightPoint)
         const array = Array.from(Array(__MAX_SHOW_NUMBERS__), (_, index) => index - middleLeftPoint)
-            .map(item => item + currentPage);
-        setShowArray(array);
-        // currentPageRef.current = currentPage
-    }, [__MAX_SHOW_NUMBERS__, currentPage]);
-
+            .map(item => item + currPage);
+        return array.filter((item) => {
+            return item > 0 && item <= totalPage
+        })
+    }, [__MAX_SHOW_NUMBERS__, currPage, totalPage])
 
     return (
         <div className={styles['page-wrapper']}>
             <div>
-                < AnchorButton
-                    cb={() => { prevPage() }}
-                    styles={currentPage === 1 ? styles.displayNone : ""}
+                <AnchorButton
+                    cb={() => prevPage()}
+                    styles={currPage === 1 ? styles.displayNone : ""}
                     label={'<'}
                 />
-                {totalPage - currentPage < middleLeftPoint && totalPage > __MAX_SHOW_NUMBERS__ && (
-                    <p>···</p>
-                )}
-                {showArray && showArray
-                    .map((item, index) => {
-                        if (item <= 0)
-                            return;
-                        if (item > totalPage)
-                            return;
-                        // console.log(`🚀 ~ file pageTemplate.jsx: item `, item);
-                        return <AnchorButton
-                            key={index}
-                            cb={() => setPage(item)}
-                            styles={currentPage === item ? styles.active : ""}
-                            label={(item)}
-                        />
-                    })}
-                {currentPage < middleRightPoint && totalPage > __MAX_SHOW_NUMBERS__ && (
-                    <p>···</p>
-                )}
-                < AnchorButton
-                    cb={() => { nextPage() }}
-                    styles={currentPage === totalPage || totalPage === 0 ? styles.displayNone : ""}
+                <LeftDots
+                    totalPage={totalPage}
+                    currentPage={currPage}
+                    middleLeftPoint={middleLeftPoint}
+                    __MAX_SHOW_NUMBERS__={__MAX_SHOW_NUMBERS__}
+                />
+                <PageNumber
+                    showArray={showArray}
+                    setPage={setPage}
+                    currentPage={currPage}
+                />
+                <RightDots
+                    currentPage={currPage}
+                    middleRightPoint={middleRightPoint}
+                    totalPage={totalPage}
+                    __MAX_SHOW_NUMBERS__={__MAX_SHOW_NUMBERS__}
+                />
+                <AnchorButton
+                    cb={() => nextPage()}
+                    styles={currPage === totalPage || totalPage === 0 ? styles.displayNone : ""}
                     label={'>'}
                 />
             </div>
@@ -112,3 +84,43 @@ const PageTemplate = ({
 
 
 export default PageTemplate
+
+
+const AnchorButton = ({ cb, styles, label }) => {
+    const props = {
+        onClick: cb,
+        value: "<",
+        className: styles,
+    }
+    return (
+        <button {...props}>
+            {label}
+        </button>
+    )
+}
+const LeftDots = ({
+    totalPage,
+    currentPage,
+    middleLeftPoint,
+    __MAX_SHOW_NUMBERS__
+}) => {
+    return totalPage - currentPage < middleLeftPoint && totalPage > __MAX_SHOW_NUMBERS__ && (<p>···</p>)
+};
+function PageNumber({ showArray, setPage, currentPage }) {
+    return showArray && showArray.map((item, index) => {
+        return <AnchorButton
+            key={index}
+            cb={() => setPage(item)}
+            styles={currentPage === item ? styles.active : ""}
+            label={(item)} />;
+    });
+}
+
+const RightDots = ({
+    currentPage,
+    middleRightPoint,
+    totalPage,
+    __MAX_SHOW_NUMBERS__
+}) => {
+    return currentPage < middleRightPoint && totalPage > __MAX_SHOW_NUMBERS__ && (<p>···</p>)
+};

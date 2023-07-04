@@ -8,22 +8,37 @@ export default function BtnMarketing({
   type = "link",
   callback = null,
   disabled = null,
-  active = null,
+  active = false,
+  target = "_self",
+  cancelHoverState = false
 }) {
 
+  const linkProps = React.useMemo(() => ({
+    target: target,
+    title: title,
+    className: `btn-marketing ${name}`,
+    href: to,
+    onClick: callback,
+  }), [target, title, name, to, callback])
+  const buttonProps = React.useMemo(() => ({
+    disabled: disabled || false,
+    title: title,
+    className: cancelHoverState
+      ? `btn-marketing ${name} `
+      : `btn-marketing ${name} ${active ? "active" : ""}`,
+    onClick: callback,
+  }), [disabled, title, cancelHoverState, name, active, callback])
+  console.log("🚀 ~ file: btnMarketing.jsx:31 ~ buttonProps ~ buttonProps:", buttonProps)
 
-  const linkComponent = <Link title={title} className={`btn-marketing ${name}`} href={to}>{name}</Link>;
-  const buttonComponent = (
-    <button
-      active={active}
-      disabled={disabled}
-      title={title}
-      className={`btn-marketing ${name} ${active? "active" : ""}`}
-      onClick={callback}
-    >{title}</button>)
+  const linkComponent = <Link {...linkProps}> {name}</Link>;
+  const buttonComponent = <button {...buttonProps}>{title}</button>
+  const titleComponent = <div {...buttonProps} style={{ cursor: 'default' }}>{title}</div>;
+
   switch (type) {
     case "link":
       return linkComponent;
+    case "title":
+      return titleComponent;
     case "button":
       return buttonComponent;
     default:

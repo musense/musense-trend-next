@@ -7,10 +7,14 @@ import useRefresh from './hook/useRefresh';
 import Hamburger from './hamburger';
 import NavWrapper from './NavWrapper';
 import NavBackDrop from './NavBackDrop';
+import { useRouter } from "next/router";
+
 import { useState, useEffect, useRef } from 'react';
 
 export default function HeaderLayout() {
+
   useRefresh()
+  const router = useRouter();
   const pathname = usePathname();
   const hamburgerRef = useRef(null);
 
@@ -22,7 +26,7 @@ export default function HeaderLayout() {
       localStorage.setItem('pathname', window.location.pathname)
     } else if (window.location.pathname !== localStorage.getItem('pathname')) {
       localStorage.setItem('pathname', window.location.pathname)
-    } 
+    }
 
     if (hamburgerRef.current == null) {
       hamburgerRef.current = "hamburger-check"
@@ -55,17 +59,15 @@ export default function HeaderLayout() {
           toggleHamburger={toggleHamburger}
           unCheck={unCheck}
         />
-        {pathname !== undefined &&
-          <div className={'navbar-wrapper'}>
-            <Logo active={active} color={'gray'} />
-            <NavWrapper
-              active={active}
-              pathname={pathname}
-              unCheck={unCheck}
-            />
+        <div className={'navbar-wrapper'}>
+          <Logo active={active} color={'gray'} />
+          <NavWrapper
+            active={active}
+            pathname={router.asPath}
+            unCheck={unCheck}
+          />
+        </div>
 
-          </div>
-        }
       </header>
     </>
   );

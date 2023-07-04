@@ -184,3 +184,26 @@ export async function getRelatedArticles(payload) {
 }
 
 
+/**
+ * Returns the popular articles by the page views
+ * 
+ * @param {string} apiUrl
+ * @returns response
+ */
+export async function getPopularContents(payload) {
+  const { apiUrl } = payload
+  const response = await instance(apiUrl).get(`/editor/popular?pageNumber=1&limit=6&popular=1`)
+    .then(res => res.data.data)
+    // .then(res => { console.log(res); return res })
+    // .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
+    .then(popularContents => popularContents.map(content => {
+      return {
+        ...content,
+        sitemapUrl: getRenamedContent(content.sitemapUrl)
+      }
+    }))
+  // .then(res => { console.log(res); return res })
+  return response
+}
+
+

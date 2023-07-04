@@ -14,6 +14,7 @@ import {
 import {
   getCategoryInfo,
   getEditorSitemapUrls,
+  getPopularContents,
   getRelatedArticles,
   getTitleContents,
   getTitleContentsByID,
@@ -26,13 +27,14 @@ import {
 } from '@services/tagContents';
 import Index from '@components/index/index';
 import ContentPage from '@components/content/index';
-import Marketing from '@components/marketing/index';
+import CommonPage from '@components/marketing/CommonPage';
 
 type CommonProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Page = ({
   titleContents,
   popularContents,
+  relatedArticles,
   sitemapUrl,
   meta,
   mainContent,
@@ -40,6 +42,8 @@ const Page = ({
   commonPageItems,
   categoryList,
 }: CommonProps) => {
+  console.log("🚀 ~ file: index.tsx:45 ~ mainTitle:", mainTitle)
+  console.log('🚀 ~ file: index.tsx:44 ~ popularContents:', popularContents);
   // console.log('🚀 ~ file: index.tsx:46 ~ commonPageItems:', commonPageItems);
   // console.log('🚀 ~ file: index.tsx:41 ~ sitemapUrl:', sitemapUrl);
   // console.log('🚀 ~ file: index.tsx:41 ~ meta:', meta);
@@ -49,20 +53,26 @@ const Page = ({
       <ContentPage
         mainContent={mainContent}
         titleContents={titleContents}
+        relatedArticles={relatedArticles}
+      />
+    ) : sitemapUrl.indexOf('tag_') !== -1 ? (
+      <CommonPage
+        paramName={mainTitle}
+        commonPageItems={commonPageItems}
+        popularContents={popularContents}
+        sitemapUrl={sitemapUrl}
       />
     ) : (
-      <Marketing
-        mainTitle={mainTitle}
+      <CommonPage
+        paramName={mainTitle}
         commonPageItems={commonPageItems}
         categoryList={categoryList}
+        popularContents={popularContents}
+        sitemapUrl={sitemapUrl}
       />
     )
   ) : (
-    <Marketing
-      mainTitle={mainTitle}
-      commonPageItems={commonPageItems}
-      categoryList={categoryList}
-    />
+    <h1>Not Found</h1>
   );
 
   return (
@@ -111,7 +121,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     tagList,
     tagItems,
     tagInfo,
-    editorTitleList;
+    editorTitleList,
+    popularContents;
 
   if (sitemapUrl.indexOf('p_') !== -1) {
     titleContents = await getTitleContents(payload);
@@ -161,6 +172,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         titleContents: titleContents,
         sitemapUrl: sitemapUrl,
         meta: mainContent,
+        popularContents: '',
       },
       revalidate: 10,
     };
@@ -171,7 +183,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       (category: any) => category.sitemapUrl === sitemapUrl
     );
     console.log(
-      '🚀 ~ file: index.tsx:173 ~ constgetStaticProps:GetStaticProps= ~ mainContent:',
+      '🚀 ~ file: index.tsx:173 ~ const getStaticProps:GetStaticProps= ~ mainContent:',
       mainContent
     );
     payload = {
@@ -182,14 +194,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
     categoryItems = await getTitleContentsByCategory(payload);
     categoryInfo = await getCategoryInfo(payload);
+    popularContents = await getPopularContents(payload);
     console.log(
-      '🚀 ~ file: index.tsx:63 ~ constgetStaticProps:GetStaticProps= ~ categoryItems:',
+      '🚀 ~ file: index.tsx:63 ~ const getStaticProps:GetStaticProps= ~ categoryItems:',
       categoryItems
     );
     editorTitleList = [...categoryItems];
     return {
       props: {
-        mainTitle: '',
+        mainTitle: mainContent.name,
         commonPageItems: editorTitleList,
         categoryList: categoryList,
         mainContent: '',
@@ -197,6 +210,47 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         titleContents: '',
         sitemapUrl: sitemapUrl,
         meta: categoryInfo,
+        popularContents: popularContents,
+      },
+      revalidate: 10,
+    };
+  }
+  if (sitemapUrl?.indexOf('tag_') !== -1) {
+    payload = {
+      ...payload,
+      page: 1,
+    };
+    tagList = await getTagList(payload);
+    console.log(
+      '🚀 ~ file: index.tsx:161 ~ const getStaticProps:GetStaticProps= ~ tagList:',
+      tagList
+    );
+    mainContent = tagList.find((tag: any) => tag.sitemapUrl === sitemapUrl);
+    console.log(
+      '🚀 ~ file: index.tsx:164 ~ const getStaticProps:GetStaticProps= ~ mainContent:',
+      mainContent
+    );
+
+    payload = {
+      ...payload,
+      tagName: mainContent.name,
+    };
+    tagItems = await getTagContents(payload);
+    tagInfo = await getTagInfo(payload);
+    popularContents = await getPopularContents(payload);
+    editorTitleList = [...tagItems];
+
+    return {
+      props: {
+        mainTitle: mainContent.name,
+        commonPageItems: editorTitleList,
+        categoryList: '',
+        mainContent: '',
+        relatedArticles: '',
+        titleContents: '',
+        sitemapUrl: sitemapUrl,
+        meta: tagInfo,
+        popularContents: popularContents,
       },
       revalidate: 10,
     };
@@ -211,6 +265,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       titleContents: '',
       sitemapUrl: null,
       meta: '',
+      popularContents: '',
     },
     revalidate: 10,
   };
@@ -222,12 +277,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
     apiUrl: process.env.NEXT_PUBLIC_SERVER_URL,
   };
   const editorPromise = getEditorSitemapUrls(payload);
-  //   const tagPromise = getTagSitemapUrls(payload);
+  const tagPromise = getTagSitemapUrls(payload);
   const categoryPromise = getCategorySitemapUrls(payload);
   const sitemapUrl = await Promise.all([
     editorPromise,
     categoryPromise,
-    // tagPromise,
+    tagPromise,
   ]).then((res) => res.flat());
   console.log(
     '🚀 ~ file: index.astro:40 ~ getStaticPaths ~ sitemapUrl:',

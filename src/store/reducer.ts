@@ -10,6 +10,7 @@ const initialState: StateProps = {
     contents: null,
     viewContents: null,
     categoryName: '',
+    categorySitemapUrl: '',
     pathname: '',
     lastPathname: '',
     currMaxViewCount: 6,
@@ -17,10 +18,6 @@ const initialState: StateProps = {
     currPage: 1,
     filteredActive: {
         seeMore: false,
-        advertise: false,
-        seo: false,
-        socialMedia: false,
-        cis: false,
     }
 }
 
@@ -42,7 +39,11 @@ const mainReducer = (
                 ...state,
                 contents: action.payload.contents,
                 viewContents: action.payload.contents?.slice(0, 6),
-                currTotalPage: Math.ceil(action.payload.contents!.length / 6)
+                currTotalPage: Math.ceil(action.payload.contents!.length / 6),
+                currPage: 1,
+                filteredActive: {
+                    seeMore: false,
+                },
             };
         }
         case ReducerActionEnum.SET_CATEGORY_NAME: {
@@ -51,93 +52,29 @@ const mainReducer = (
                 categoryName: action.payload.categoryName,
             };
         }
-        case ReducerActionEnum.FILTER_ADVERTISE: {
-            let filteredContents
-            if (state.filteredActive.advertise) {
-                filteredContents = state.contents!
-            } else {
+        case ReducerActionEnum.FILTER_CATEGORY: {
+            let filteredContents, filteredActive
+            if (state.filteredActive[action.payload.keyName!] === null || !state.filteredActive[action.payload.keyName!]) {
+                filteredActive = true
                 filteredContents = state.contents!.filter((content) =>
-                    content.categories.name === "廣告投放代理"
+                    content.categories.name === action.payload.categoryName
                 )
+            } else {
+                filteredContents = state.contents!
             }
+            filteredActive = !state.filteredActive[action.payload.keyName!]
+            Object.keys(state.filteredActive)?.forEach((key) =>
+                state.filteredActive[key] = false
+            );
             return {
                 ...state,
+                categoryName: filteredActive ? action.payload.categoryName : null,
                 viewContents: filteredContents.slice(0, 6),
                 currTotalPage: Math.ceil(filteredContents.length / 6),
+                categorySitemapUrl: filteredActive ? action.payload.sitemapUrl : null,
                 filteredActive: {
-                    seeMore: false,
-                    advertise: action.payload.active,
-                    seo: false,
-                    socialMedia: false,
-                    cis: false,
-                },
-            };
-        }
-        case ReducerActionEnum.FILTER_SEO: {
-            let filteredContents
-            if (state.filteredActive.seo) {
-                filteredContents = state.contents!
-            } else {
-                filteredContents = state.contents!.filter((content) =>
-                    content.categories.name === "SEO網站優化"
-                )
-            }
-            return {
-                ...state,
-                viewContents: filteredContents.slice(0, 6),
-                currTotalPage: Math.ceil(filteredContents.length / 6),
-                filteredActive: {
-                    seeMore: false,
-                    advertise: false,
-                    seo: action.payload.active,
-                    socialMedia: false,
-                    cis: false,
-                },
-            };
-        }
-        case ReducerActionEnum.FILTER_SOCIAL_MEDIA: {
-            let filteredContents
-            if (state.filteredActive.socialMedia) {
-                filteredContents = state.contents!
-            } else {
-                filteredContents = state.contents!.filter((content) =>
-                    content.categories.name === "社群口碑行銷"
-                )
-            }
-
-            return {
-                ...state,
-                viewContents: filteredContents.slice(0, 6),
-                currTotalPage: Math.ceil(filteredContents.length / 6),
-                filteredActive: {
-                    seeMore: false,
-                    advertise: false,
-                    seo: false,
-                    socialMedia: action.payload.active,
-                    cis: false,
-                },
-            };
-        }
-        case ReducerActionEnum.FILTER_CIS: {
-            let filteredContents
-            if (state.filteredActive.cis) {
-                filteredContents = state.contents!
-            } else {
-                filteredContents = state.contents!.filter((content) =>
-                    content.categories.name === "數位形象設計"
-                )
-            }
-
-            return {
-                ...state,
-                viewContents: filteredContents.slice(0, 6),
-                currTotalPage: Math.ceil(filteredContents.length / 6),
-                filteredActive: {
-                    seeMore: false,
-                    advertise: false,
-                    seo: false,
-                    socialMedia: false,
-                    cis: action.payload.active,
+                    ...state.filteredActive,
+                    [action.payload.keyName!]: filteredActive
                 },
             };
         }
@@ -149,25 +86,17 @@ const mainReducer = (
             };
         }
         case ReducerActionEnum.SEE_MORE: {
-            const length = state.viewContents!.length;
-            const pageNumber = Math.ceil(length / 6);
-            const start = pageNumber * 6
-            const end = start + 6
-            const slicedContents = state.contents!.slice(start, end)
+            Object.keys(state.filteredActive)?.forEach((key) =>
+                state.filteredActive[key] = false
+            );
             return {
                 ...state,
-                viewContents: [
-                    ...state.viewContents!,
-                    ...slicedContents
-                ],
+                viewContents: [...state.viewContents!],
+                categoryName: action.payload.categoryName,
                 filteredActive: {
-                    seeMore: action.payload.active,
-                    advertise: false,
-                    seo: false,
-                    socialMedia: false,
-                    cis: false,
+                    ...state.filteredActive,
+                    seeMore: action.payload.active
                 },
-                // currMaxViewCount: state.currMaxViewCount + pageNumber * 6,
             };
         }
         case ReducerActionEnum.SET_CURRENT_PAGE: {

@@ -1,26 +1,18 @@
-import type {
-  GetStaticProps,
-  InferGetStaticPropsType,
-} from 'next';
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 
 import { Main } from '@components/Main/Main';
 import { Meta } from '@layouts/Meta';
 import Index from '@components/marketing/index';
-import {
-  getCategoryList,
-  getCategorySitemapUrls,
-  getTitleContentsByCategory,
-} from '@services/categoryContents';
-import {
-  getCategoryInfo,
-  getEditorSitemapUrls,
-  getTitleContents,
-} from '@services/titleContents';
-
+import { getCategoryList } from '@services/categoryContents';
+import { getPopularContents, getTitleContents } from '@services/titleContents';
 
 type MarketingProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Marketing = ({ mainTitle, commonPageItems,categoryList }: MarketingProps) => {
+const Marketing = ({
+  commonPageItems,
+  categoryList,
+  popularContents,
+}: MarketingProps) => {
   // console.log(
   //   '🚀 ~ file: index.tsx:20 ~ Marketing ~ commonPageItems:',
   //   commonPageItems
@@ -38,9 +30,9 @@ const Marketing = ({ mainTitle, commonPageItems,categoryList }: MarketingProps) 
       }
     >
       <Index
-        mainTitle={mainTitle}
         commonPageItems={commonPageItems}
         categoryList={categoryList}
+        popularContents={popularContents}
       />
     </Main>
   );
@@ -51,7 +43,7 @@ export default Marketing;
 export const getStaticProps: GetStaticProps = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-  let categoryList, titleContents, editorTitleList;
+  let categoryList, titleContents, editorTitleList, popularContents;
   let payload = {
     apiUrl: apiUrl,
     categoryName: '',
@@ -59,14 +51,15 @@ export const getStaticProps: GetStaticProps = async () => {
   };
   titleContents = await getTitleContents(payload);
   categoryList = await getCategoryList(payload);
+  popularContents = await getPopularContents(payload);
   // console.log("🚀 ~ file: index.tsx:63 ~ constgetStaticProps:GetStaticProps= ~ categoryList:", categoryList)
 
   editorTitleList = [...titleContents];
   return {
     props: {
-      mainTitle: '',
       commonPageItems: editorTitleList,
-      categoryList: categoryList
+      categoryList: categoryList,
+      popularContents: popularContents,
     },
     revalidate: 10,
   };

@@ -35,7 +35,7 @@ export default function Card({
           src={homeImagePath}
           width={300}
           height={300}
-          alt={altText}
+          alt={altText || ''}
           style={{
             objectFit: 'cover',
             objectPosition: 'center'

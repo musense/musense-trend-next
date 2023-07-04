@@ -2,7 +2,7 @@ import React from "react";
 import MainImage from '@components/content/mainImage';
 import MainContent from '@components/content/mainContent';
 import HotTrendWrapper from '@components/content/hotTrendWrapper';
-import PopularContent from '@components/content/popularContent';
+import ExtendReading from '@components/content/extendReading';
 import { getTitleContentsByID } from "@services/titleContents";
 
 export default function Page({
@@ -11,7 +11,7 @@ export default function Page({
     // img, 
     // content, 
     // tags, 
-    // popularContents
+    relatedArticles
 }) {
     console.log("🚀 ~ file: index.jsx:16 ~ titleContents:", titleContents)
     console.log("🚀 ~ file: index.jsx:16 ~ mainContent:", mainContent)
@@ -75,8 +75,8 @@ export default function Page({
                 prevInfo={prevInfo}
                 nextInfo={nextInfo}
             />
-            <PopularContent
-                // popularContents={popularContents}
+            <ExtendReading
+                contents={relatedArticles}
             />
             <HotTrendWrapper
                 type={'mobile'}

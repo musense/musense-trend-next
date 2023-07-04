@@ -20,12 +20,17 @@ export default function MainContent({
                 <div className="content-misc">
                     <div className="content-tags">{
                         content.tags.map((tag, index) => {
-                            return <Tag key={index} tagName={`# ${tag.name}`} index={index} />
+                            return <Tag
+                                key={index}
+                                href={tag.sitemapUrl}
+                                tagName={`# ${tag.name}`}
+                            />
                         })}
                     </div>
-                    <div className="content-create-date">
-                        {/* {`${new Date(content.createDate).toLocaleDateString()} ${new Date(content.createDate).toLocaleTimeString()}`} */}
-                        {`${new Date(content.createdAt).toLocaleDateString('en-ZA')}`}
+                    <div>
+                            <span  className="content-create-date">
+                                {`${new Date(content.createdAt).toLocaleDateString('en-ZA')}`}
+                            </span>
                     </div>
                 </div>
                 <div

@@ -7,7 +7,8 @@ import { useAppContext } from "@store/context";
 
 
 export default function MarketingButtonList({
-  categoryList
+  categoryList,
+  paramName
 }) {
   const router = useRouter();
   const { state, dispatch } = useAppContext();
@@ -16,41 +17,28 @@ export default function MarketingButtonList({
     if (!categoryList) return
     return categoryList.filter(category => category.keyName !== 'Uncategorized')
   }, [categoryList])
-  
-  React.useEffect(() => {
-    let category
-    if (!showCategoryList) return
-    if (!state.categoryName) {
-      category = showCategoryList.find(category => category.name = '廣告投放代理')
-      dispatch({
-        type: 'SET_CATEGORY_NAME',
-        payload: {
-          categoryName: '廣告投放代理'
-        }
-      })
-      router.push(`/${category.sitemapUrl}`, undefined, { shallow: true })
-    }
-  }, [showCategoryList, state]);
+  console.log("🚀 ~ file: marketingButtonList.jsx:20 ~ showCategoryList ~ showCategoryList:", showCategoryList)
 
   const handleDispatch = (category) => React.useCallback(() => {
     dispatch({
-      type: 'SET_CATEGORY_NAME',
+      type: 'FILTER_CATEGORY',
       payload: {
-        categoryName: category.name
+        categoryName: category.name,
+        keyName: category.keyName,
+        sitemapUrl: category.sitemapUrl
       }
     })
-    router.push(`/${category.sitemapUrl}`)
-  }, [router, dispatch])
+  }, [dispatch])
 
   const btnActive = React.useCallback((name) => {
-    if (!state) return
+    if (!state) return false
     return name === state.categoryName
   }, [state])
 
   return (
     <>
       <BtnMarketingWrapper position='upper'>
-        {showCategoryList && showCategoryList.map((category, index) => {
+        {paramName == null && showCategoryList ? showCategoryList.map((category, index) => {
           return (
             <BtnMarketing
               key={index}
@@ -61,7 +49,14 @@ export default function MarketingButtonList({
               callback={handleDispatch(category)}
             />
           )
-        })}
+        })
+          : <BtnMarketing
+            type="title"
+            title={paramName}
+            name={paramName}
+            cancelHoverState={true}
+          />
+        }
       </BtnMarketingWrapper>
     </>
   );

@@ -11,19 +11,21 @@ export default function MiscButtonList() {
       <BtnMarketingWrapper position='lower'>
         <BtnMarketing
           title="回首頁"
-          to={process.env.NEXT_PUBLIC_FRONT_SITE }
+          to={process.env.NEXT_PUBLIC_FRONT_SITE}
           name='回首頁'
         />
-        {state.contents && <BtnMarketing title="看更多文章" name='see-more'
-          disabled={state.contents.length === state.viewContents.length}
-          type="button"
-          callback={() => dispatch({
-            type: "SEE_MORE",
-            payload: {
-              active: true
-            }
-          })}
-        />}
+        {state.categorySitemapUrl && (
+          <BtnMarketing title="看更多文章" name='看更多文章'
+            target={"_blank"}
+            to={state.categorySitemapUrl}
+            callback={() => dispatch({
+              type: "SEE_MORE",
+              payload: {
+                active: true,
+                categoryName: state.categoryName,
+              }
+            })}
+          />)}
       </BtnMarketingWrapper>
     </>
   );;

@@ -4,17 +4,14 @@ export interface StateProps {
     contents: any[] | null;
     viewContents: any[] | null;
     categoryName: string;
+    categorySitemapUrl: string;
     pathname: string;
     lastPathname: string;
     currMaxViewCount: number;
     currTotalPage: number;
     currPage: number;
     filteredActive: {
-        seeMore: false,
-        advertise: false,
-        seo: false,
-        socialMedia: false,
-        cis: false,
+        [key: string]: false,
     }
 }
 
@@ -29,6 +26,7 @@ export enum ReducerActionEnum {
     FILTER_SEO = 'FILTER_SEO',
     FILTER_SOCIAL_MEDIA = 'FILTER_SOCIAL_MEDIA',
     FILTER_CIS = 'FILTER_CIS',
+    FILTER_CATEGORY = 'FILTER_CATEGORY',
     SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
 }
 
@@ -41,6 +39,8 @@ export type payloadProps = {
     height?: number,
     contents?: any[],
     categoryName?: string,
+    sitemapUrl?: string,
+    keyName?: string,
     pathname?: string,
     lastPathname?: string,
     active?: boolean,
