@@ -1,24 +1,16 @@
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
-// import "./css/contentBanner.css"
+import React from "react";
 import { triangleRangeOrange } from "@components/index/images";;
+import useLoadImage from "@services/useLoadImage";
 
 
-export default function MainImage({ imgSrc: mainImage, imgAltText }) {
+export default function MainImage({
+    imgSrc: mainImage,
+    imgAltText
+}) {
 
-    // const [mainImage, setMainImage] = useState(null);
-    const [troImage, setTroImage] = useState(null);
+    const troImage = useLoadImage(triangleRangeOrange);
 
-    useEffect(() => {
-        const clientWidth = window.innerWidth;
-        let troImport
-        if (clientWidth > 768) {
-            troImport = triangleRangeOrange.get('pc')
-        } else {
-            troImport = triangleRangeOrange.get('mobile')
-        }
-        troImport.then(res => setTroImage({ default: res.default }))
-    }, []);
     return (
         <div className="top-banner-wrapper">
             {mainImage && <Image className="top-banner"
@@ -38,8 +30,11 @@ export default function MainImage({ imgSrc: mainImage, imgAltText }) {
                 width={troImage.default.width}
                 height={troImage.default.height}
                 alt={''}
+                style={{
+                    objectFit: "cover",
+                    objectPosition: "50% 50%"
+                }}
             />}
-            {/* <div className="triangle-range_orange" /> */}
         </div>
     )
 }

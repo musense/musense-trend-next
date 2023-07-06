@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef } from 'react';
 import styles from './css/headerScrollLink.module.css'
 import Link from 'next/link';
+import { useAppContext } from "@store/context";
+import useInitial from '@services/useInitial';
+
 const navMap = new Map([
   ['about', {
     name: {
@@ -40,17 +43,17 @@ export default function HeaderScrollLink({
   offset = null,
   to,
   disableScroll = false,
-  callbackHandler = null
+  callbackHandler = null,
+  target
 }) {
-
+  const { state, dispatch } = useAppContext();
+  useInitial({
+    state,
+    dispatch
+  });
   const linkRef = useRef(null)
   const scrollHandler = useCallback(() => {
-    // window.scrollTo({
-    //   top: linkRef.current.destTop + offset,
-    //   behavior: 'smooth',
-    // })
     callbackHandler && callbackHandler()
-
   }, [callbackHandler]);
 
   useEffect(() => {
@@ -72,11 +75,13 @@ export default function HeaderScrollLink({
   }, [linkRef, disableScroll]);
   const color = name === 'marketing' ? 'blue' : 'orange'
   const mainClassName = className ? className : styles['nav-button']
+  const href = state.clientWidth <= 768 ? to.slice(0, to.indexOf('#') + 1) : to
   return <Link
     ref={linkRef}
     title={navMap.get(name).name.ch}
-    href={to}
-    className={mainClassName} >
+    href={href}
+    className={mainClassName}
+  >
     <div className={`${styles['bubble']} ${styles[color]}`} />
     <div className={styles['nav-text-wrapper']}>
       <div>{navMap.get(name).name.en}</div>

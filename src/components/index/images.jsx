@@ -66,7 +66,7 @@ const imageDown = new Map([
 
 const triangleRangeOrange = new Map([
     ['pc', import('@assets/content/triangleRangeOrange.webp')],
-    ['mobile', import('@assets/content/triangleRangeOrange.webp')],
+    ['mobile', import('@assets/mobile/content/flower.webp')],
 ])
 
 export {

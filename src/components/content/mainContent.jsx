@@ -1,18 +1,15 @@
 import React from "react";
-// import './css/mainContent.css'
 import MiscButtonContentList from "./miscButtonContentList";
 import Tag from "./tag";
 import HotTrendWrapper from "./hotTrendWrapper";
-
+import { useAppContext } from "@store/context";
 
 export default function MainContent({
-    // id,
     content,
     prevInfo,
     nextInfo,
 }) {
-    console.log("🚀 ~ file: mainContent.jsx:9 ~ MainContent ~ content:", content)
-
+    const { state } = useAppContext();
     return (
         <div className="main-content-wrapper">
             <div className="content-left-side">
@@ -28,9 +25,9 @@ export default function MainContent({
                         })}
                     </div>
                     <div>
-                            <span  className="content-create-date">
-                                {`${new Date(content.createdAt).toLocaleDateString('en-ZA')}`}
-                            </span>
+                        <span className="content-create-date">
+                            {`${new Date(content.createdAt).toLocaleDateString('en-ZA')}`}
+                        </span>
                     </div>
                 </div>
                 <div
@@ -42,10 +39,7 @@ export default function MainContent({
                     nextInfo={nextInfo}
                 />
             </div>
-            <HotTrendWrapper
-                type={'desktop'}
-                tags={content.tags}
-            />
+            {state.clientWidth > 768 && <HotTrendWrapper tags={content.tags} />}
         </div>
     );
 

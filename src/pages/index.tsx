@@ -13,11 +13,6 @@ const Marketing = ({
   categoryList,
   popularContents,
 }: MarketingProps) => {
-  // console.log(
-  //   '🚀 ~ file: index.tsx:20 ~ Marketing ~ commonPageItems:',
-  //   commonPageItems
-  // );
-  // console.log('🚀 ~ file: index.tsx:20 ~ Marketing ~ mainTitle:', mainTitle);
   return (
     <Main
       meta={
@@ -52,7 +47,6 @@ export const getStaticProps: GetStaticProps = async () => {
   titleContents = await getTitleContents(payload);
   categoryList = await getCategoryList(payload);
   popularContents = await getPopularContents(payload);
-  // console.log("🚀 ~ file: index.tsx:63 ~ constgetStaticProps:GetStaticProps= ~ categoryList:", categoryList)
 
   editorTitleList = [...titleContents];
   return {

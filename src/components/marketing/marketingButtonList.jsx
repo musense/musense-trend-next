@@ -55,6 +55,7 @@ function BtnMarketingWrapperByClientWidth({
 }) {
 
   const [leftCategoryList, rightCategoryList] = React.useMemo(() => {
+    if (!showCategoryList) return [null, null]
     if (clientWidth > 786) return [null, null]
     return [
       showCategoryList.slice(0, 2),
@@ -65,14 +66,14 @@ function BtnMarketingWrapperByClientWidth({
   console.log("🚀 ~ file: marketingButtonList.jsx:65 ~ const[leftCategoryList,rightCategoryList]=React.useMemo ~ rightCategoryList:", rightCategoryList)
 
   return clientWidth > 768
-    ? paramName == null
+    ? paramName == ''
       ? <DeskTopBtnMarketingWrapper
         btnActive={btnActive}
         handleDispatch={handleDispatch}
         showCategoryList={showCategoryList}
       />
       : <CommonTitle paramName={paramName} />
-    : paramName == null
+    : paramName == ''
       ? <MobileBtnMarketingWrapper
         btnActive={btnActive}
         handleDispatch={handleDispatch}

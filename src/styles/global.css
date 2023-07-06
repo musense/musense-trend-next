@@ -1515,9 +1515,10 @@ a {
 
     .triangle-range_orange {
         height: 2rem;
+        width: auto;
         margin: 1rem auto;
-        width: 100%;
-        background-image: url(./../assets/mobile/content/flower.webp);
+        /* width: 100%; */
+        /* background-image: url(./../assets/mobile/content/flower.webp); */
     }
 
     .main-content-wrapper {
@@ -1559,31 +1560,86 @@ a {
     .content-misc {
         margin-top: 5rem;
         font-size: 1rem;
+        height: fit-content;
+        align-items: flex-end;
     }
 
     .content-tags {
-        gap: 2rem;
+        gap: 1rem;
+        width: 60%;
+        word-break: break-word;
+        flex-wrap: wrap;
+        height: fit-content;
+    }
+
+    .content-create-date {
+        font-size: inherit;
     }
 
     .content-main-content {
-        margin-top: 0.5rem;
+        width: 100%;
+        letter-spacing: 2px;
+        line-height: 1.5;
+        font-size: 2rem;
+        margin-top: 1rem;
+    }
+
+    .content-main-content img {
+        height: auto;
+        max-height: 25rem;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
     }
 
     .content-main-content p {
-        font-size: 1rem;
+        text-align: inherit;
+        line-height: inherit;
+        font-size: inherit;
     }
+
+    /* .content-main-content a {
+        color: blueviolet;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .content-main-content a:hover {
+        color: violet;
+    } */
+
+
+    .content-main-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .content-main-content h2 {
+        font-size: 3rem;
+    }
+
+    .content-main-content h3 {
+        font-size: 2.5rem;
+    }
+
+    .content-main-content b,
+    .content-main-content strong {
+        -webkit-text-stroke-width: 0.1rem;
+    }
+
+    .content-main-content button {
+        border-radius: 1rem;
+        padding: 1rem 2rem;
+        box-sizing: border-box;
+        height: 100%;
+        font-weight: bolder;
+        -webkit-text-stroke-width: 0.1rem;
+        filter: drop-shadow(0 4px 1px rgb(229, 164, 60));
+    }
+
 
     .content-right-side {
         width: 100%;
-        margin: 2rem auto 0;
-    }
-
-    .content-right-side.desktop {
-        display: none;
-    }
-
-    .content-right-side.mobile {
-        display: flex;
+        margin: 3rem auto;
     }
 
     .hot-trend {
@@ -1593,10 +1649,10 @@ a {
 
     .hot-tag-wrapper {
         width: 80%;
-        gap: unset;
-        margin: 0 auto;
+        column-gap: 2rem;
+        row-gap: 1rem;
+        margin: 2rem auto 0;
         padding: unset;
-        row-gap: 0.5rem;
         justify-content: space-evenly;
     }
 
@@ -1678,5 +1734,10 @@ a {
     .popular-content-title {
         font-size: 1rem;
         color: grey;
+    }
+
+    .top-banner {
+        height: 20rem;
+        width: auto;
     }
 }

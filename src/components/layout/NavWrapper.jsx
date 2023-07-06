@@ -46,28 +46,32 @@ export default function NavWrapper({
           to={`${process.env.NEXT_PUBLIC_FRONT_SITE}#about`}
           name='about'
           disableScroll
-          callbackHandler={callbackHandler} />
+          callbackHandler={callbackHandler}
+          />
       </li>
       <li>
         <HeaderScrollLink
           to={`${process.env.NEXT_PUBLIC_FRONT_SITE}#service`}
           name='service'
           disableScroll
-          callbackHandler={callbackHandler} />
+          callbackHandler={callbackHandler}
+          />
       </li>
       <li>
         <HeaderScrollLink
           to={`${process.env.NEXT_PUBLIC_FRONT_SITE}#contact`}
           name='contact'
           disableScroll
-          callbackHandler={callbackHandler} />
+          callbackHandler={callbackHandler}
+          />
       </li>
       <li>
         <HeaderScrollLink
           to='/'
           name='marketing'
           disableScroll
-          callbackHandler={callbackHandler} />
+          callbackHandler={callbackHandler}
+          />
       </li>
     </ul>
   </nav>;

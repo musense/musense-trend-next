@@ -4,7 +4,7 @@ import React from "react";
 
 
 export default function ExtendReading({ contents }) {
-    console.log("🚀 ~ file: extendReading.jsx:7 ~ ExtendReading ~ contents:", contents)
+    // console.log("🚀 ~ file: extendReading.jsx:7 ~ ExtendReading ~ contents:", contents)
 
     return <div data-title="延伸閱讀" className="popular-content-wrapper">
         {

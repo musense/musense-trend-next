@@ -25,9 +25,9 @@ import {
   getTagList,
   getTagSitemapUrls,
 } from '@services/tagContents';
-import Index from '@components/index/index';
 import ContentPage from '@components/content/index';
-import CommonPage from '@components/marketing/CommonPage';
+import Marketing from '@components/marketing/index';
+import Index from '@components/marketing/index';
 
 type CommonProps = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -42,11 +42,9 @@ const Page = ({
   commonPageItems,
   categoryList,
 }: CommonProps) => {
-  console.log("🚀 ~ file: index.tsx:45 ~ mainTitle:", mainTitle)
+  console.log('🚀 ~ file: index.tsx:45 ~ mainTitle:', mainTitle);
   console.log('🚀 ~ file: index.tsx:44 ~ popularContents:', popularContents);
-  // console.log('🚀 ~ file: index.tsx:46 ~ commonPageItems:', commonPageItems);
-  // console.log('🚀 ~ file: index.tsx:41 ~ sitemapUrl:', sitemapUrl);
-  // console.log('🚀 ~ file: index.tsx:41 ~ meta:', meta);
+  console.log('🚀 ~ file: index.tsx:41 ~ meta:', meta);
 
   const page = sitemapUrl ? (
     sitemapUrl.indexOf('p_') !== -1 ? (
@@ -56,14 +54,14 @@ const Page = ({
         relatedArticles={relatedArticles}
       />
     ) : sitemapUrl.indexOf('tag_') !== -1 ? (
-      <CommonPage
-        paramName={mainTitle}
+      <Marketing
+        paramName={`# ${mainTitle}`}
         commonPageItems={commonPageItems}
         popularContents={popularContents}
         sitemapUrl={sitemapUrl}
       />
     ) : (
-      <CommonPage
+      <Marketing
         paramName={mainTitle}
         commonPageItems={commonPageItems}
         categoryList={categoryList}
@@ -72,7 +70,11 @@ const Page = ({
       />
     )
   ) : (
-    <h1>Not Found</h1>
+    <Index
+      commonPageItems={commonPageItems}
+      categoryList={categoryList}
+      popularContents={popularContents}
+    />
   );
 
   return (
@@ -284,10 +286,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     categoryPromise,
     tagPromise,
   ]).then((res) => res.flat());
-  console.log(
-    '🚀 ~ file: index.astro:40 ~ getStaticPaths ~ sitemapUrl:',
-    sitemapUrl
-  );
+  // console.log(
+  //   '🚀 ~ file: index.astro:40 ~ getStaticPaths ~ sitemapUrl:',
+  //   sitemapUrl
+  // );
   const paths = sitemapUrl.map((url) => ({
     params: { sitemapUrl: url },
   }));

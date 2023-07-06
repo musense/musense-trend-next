@@ -3,34 +3,16 @@ import MainImage from '@components/content/mainImage';
 import MainContent from '@components/content/mainContent';
 import HotTrendWrapper from '@components/content/hotTrendWrapper';
 import ExtendReading from '@components/content/extendReading';
-import { getTitleContentsByID } from "@services/titleContents";
+import { useAppContext } from "@store/context";
 
 export default function Page({
     mainContent,
     titleContents,
-    // img, 
-    // content, 
-    // tags, 
     relatedArticles
 }) {
+    const { state } = useAppContext();
     console.log("🚀 ~ file: index.jsx:16 ~ titleContents:", titleContents)
     console.log("🚀 ~ file: index.jsx:16 ~ mainContent:", mainContent)
-    // console.log("🚀 ~ file: index.jsx:8 ~ Page ~ id:", id)
-    // const [mainContent, setMainContent] = React.useState(null);
-    // const [titleContents, setTitleContents] = React.useState(null);
-    const [prevInfo, setPrevInfo] = React.useState(null);
-    const [nextInfo, setNextInfo] = React.useState(null);
-    // React.useEffect(() => {
-    //     const payload = {
-    //         _id: id,
-    //         apiUrl: process.env.NEXT_PUBLIC_SERVER_URL
-    //     }
-    //     getTitleContentsByID(payload)
-    //         .then(res => setMainContent(res))
-    //     getTitleContents(payload)
-    //         .then(res => setTitleContents(res))
-
-    // }, [id]);
 
     const filteredTitleContents = React.useMemo(() => {
         return titleContents.filter(content => content.hidden === false
@@ -38,10 +20,11 @@ export default function Page({
         )
     }, [titleContents])
 
-    const findOneByIdAndReturnPrevNextID = (arr = [], serialNumber = null) => {
+    const [prevInfo, nextInfo] = React.useMemo(() => {
+        if (!filteredTitleContents) return [null, null]
+        if (filteredTitleContents.length === 0) return [null, null]
+        if (mainContent.serialNumber === null || typeof mainContent.serialNumber !== 'number') return [null, null];
 
-        if (arr.length === 0) return null
-        if (serialNumber === null || typeof serialNumber !== 'number') return null;
         const mapContentInto = (content) => content && ({
             _id: content._id,
             category: content.categories.name,
@@ -49,22 +32,17 @@ export default function Page({
             title: content.title,
         })
 
-        const theIndex = arr.findIndex(a => a.serialNumber === serialNumber)
-        const prevContent = theIndex === arr.length - 1 ? null : arr[theIndex + 1]
-        const nextContent = theIndex === 0 ? null : arr[theIndex - 1]
+        const theIndex = filteredTitleContents.findIndex(a => a.serialNumber === mainContent.serialNumber)
+        const prevContent = theIndex === filteredTitleContents.length - 1 ? null : filteredTitleContents[theIndex + 1]
+        const nextContent = theIndex === 0 ? null : filteredTitleContents[theIndex - 1]
 
         const prevInfo = prevContent ? mapContentInto(prevContent) : null
         const nextInfo = nextContent ? mapContentInto(nextContent) : null
-        setPrevInfo(prevInfo)
-        setNextInfo(nextInfo)
-    };
 
-    React.useEffect(() => {
-        findOneByIdAndReturnPrevNextID(filteredTitleContents, mainContent.serialNumber)
-    }, [filteredTitleContents, mainContent]);
+        return [prevInfo, nextInfo]
+    }, [filteredTitleContents, mainContent.serialNumber]);
 
     return mainContent && (
-
         <>
             <MainImage
                 imgSrc={mainContent.contentImagePath}
@@ -78,10 +56,7 @@ export default function Page({
             <ExtendReading
                 contents={relatedArticles}
             />
-            <HotTrendWrapper
-                type={'mobile'}
-                tags={mainContent.tags}
-            />
+            {state.clientWidth <= 768 && <HotTrendWrapper tags={mainContent.tags} />}
         </>
     )
 

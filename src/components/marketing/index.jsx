@@ -7,11 +7,11 @@ import { useAppContext } from "@store/context";
 import PageTemplate from "@components/page/pageTemplate";
 
 export default function Page({
-    paramName = null,
+    paramName = '',
     commonPageItems,
     categoryList = null,
     popularContents,
-    sitemapUrl = null,
+    sitemapUrl = '',
 }) {
     console.log("🚀 ~ file: index.jsx:15 ~ sitemapUrl:", sitemapUrl)
     console.log("🚀 ~ file: index.jsx:15 ~ paramName:", paramName)
@@ -36,7 +36,7 @@ export default function Page({
     return (<>
         <MarketingButtonList categoryList={categoryList} paramName={paramName} />
         <CardWrapper contents={commonPageItems} />
-        {sitemapUrl === null
+        {sitemapUrl === ''
             ? <MiscButtonList />
             : <Page />}
         <PopularContent contents={popularContents} />

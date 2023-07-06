@@ -105,7 +105,7 @@ export async function getAllTitleContentsAndGetOnlyID(payload) {
  */
 export async function getEditorSitemapUrls(payload) {
   const { apiUrl } = payload
-  console.log("🚀 ~ file: titleContents.js:83 ~ getEditorSitemapUrls ~ apiUrl:", apiUrl)
+  // console.log("🚀 ~ file: titleContents.js:83 ~ getEditorSitemapUrls ~ apiUrl:", apiUrl)
   const response = await instance(apiUrl).get(encodeURI(`/editor?limit=9999&pageNumber=1`))
     .then(res => res.data.data)
   // .then(res => res.filter(item => item.draft === false))

@@ -8,20 +8,10 @@ export default function CommonPage({
     popularContents,
     sitemapUrl = null
 }) {
-    return paramName && paramName.indexOf("#") !== -1 ? (
-        <Marketing
-            paramName={paramName}
-            commonPageItems={commonPageItems}
-            popularContents={popularContents}
-            sitemapUrl={sitemapUrl}
-        />
-    ) : (
-        <Marketing
-            paramName={paramName}
-            commonPageItems={commonPageItems}
-            categoryList={categoryList}
-            popularContents={popularContents}
-            sitemapUrl={sitemapUrl}
-        />
-    );
+    return <Marketing
+        paramName={paramName}
+        commonPageItems={commonPageItems}
+        popularContents={popularContents}
+        sitemapUrl={sitemapUrl}
+    />
 }
