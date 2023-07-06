@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import HeaderScrollLink from './HeaderScrollLink';
+import { useAppContext } from "@store/context";
+import useInitial from '@services/useInitial';
 
 export default function NavWrapper({
   active,
@@ -7,7 +9,11 @@ export default function NavWrapper({
   unCheck,
   headerForceHide = null
 }) {
-
+  const { state, dispatch } = useAppContext();
+  useInitial({
+    state,
+    dispatch
+  });
   const navRef = useRef(null);
 
   const navHandler = useCallback((e) => {
@@ -32,7 +38,7 @@ export default function NavWrapper({
         li.addEventListener("touchstart", liHandler)
       })
     }
-  }, [navRef.current, pathname]);
+  }, [navRef, pathname, navHandler]);
 
   const callbackHandler = useCallback((e) => {
     unCheck()
@@ -47,7 +53,7 @@ export default function NavWrapper({
           name='about'
           disableScroll
           callbackHandler={callbackHandler}
-          />
+        />
       </li>
       <li>
         <HeaderScrollLink
@@ -55,7 +61,7 @@ export default function NavWrapper({
           name='service'
           disableScroll
           callbackHandler={callbackHandler}
-          />
+        />
       </li>
       <li>
         <HeaderScrollLink
@@ -63,7 +69,7 @@ export default function NavWrapper({
           name='contact'
           disableScroll
           callbackHandler={callbackHandler}
-          />
+        />
       </li>
       <li>
         <HeaderScrollLink
@@ -71,7 +77,7 @@ export default function NavWrapper({
           name='marketing'
           disableScroll
           callbackHandler={callbackHandler}
-          />
+        />
       </li>
     </ul>
   </nav>;

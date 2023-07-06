@@ -5,6 +5,7 @@ export interface StateProps {
     viewContents: any[] | null;
     categoryName: string;
     categorySitemapUrl: string;
+    keyName?: string,
     pathname: string;
     lastPathname: string;
     currMaxViewCount: number;
@@ -14,7 +15,18 @@ export interface StateProps {
         [key: string]: false,
     }
 }
-
+export type payloadProps = {
+    width?: number,
+    height?: number,
+    contents?: any[],
+    categoryName?: string,
+    categorySitemapUrl?: string,
+    keyName?: string,
+    pathname?: string,
+    lastPathname?: string,
+    active?: boolean,
+    currPage?: number | string,
+}
 export enum ReducerActionEnum {
     SET_WINDOW_SIZE = 'SET_WINDOW_SIZE',
     SET_ALL_CONTENTS = 'SET_ALL_CONTENTS',
@@ -28,21 +40,11 @@ export enum ReducerActionEnum {
     FILTER_CIS = 'FILTER_CIS',
     FILTER_CATEGORY = 'FILTER_CATEGORY',
     SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+    RESET_FILTER_STATE = 'RESET_FILTER_STATE',
 }
 
 export type ReducerAction = {
     type: ReducerActionEnum,
     payload: payloadProps,
 }
-export type payloadProps = {
-    width?: number,
-    height?: number,
-    contents?: any[],
-    categoryName?: string,
-    sitemapUrl?: string,
-    keyName?: string,
-    pathname?: string,
-    lastPathname?: string,
-    active?: boolean,
-    currPage?: number | string,
-}
+

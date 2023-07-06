@@ -10,7 +10,7 @@ export default function usePathname() {
             let pathname = window.location.pathname
             setClientPath(pathname)
         }
-    }, [mountRef.current]);
+    }, [mountRef]);
     return clientPath
 }
 

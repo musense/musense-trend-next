@@ -28,7 +28,7 @@ export default function BtnMarketing({
       : `btn-marketing ${name} ${active ? "active" : ""}`,
     onClick: callback,
   }), [disabled, title, cancelHoverState, name, active, callback])
-  console.log("🚀 ~ file: btnMarketing.jsx:31 ~ buttonProps ~ buttonProps:", buttonProps)
+  // console.log("🚀 ~ file: btnMarketing.jsx:31 ~ buttonProps ~ buttonProps:", buttonProps)
 
   const linkComponent = <Link {...linkProps}> {name}</Link>;
   const buttonComponent = <button {...buttonProps}>{title}</button>

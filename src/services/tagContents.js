@@ -6,7 +6,7 @@ export async function getTagSitemapUrls(payload) {
     const { apiUrl } = payload
     const response = await instance(apiUrl).get(`/tags?limit=9999&pageNumber=1`)
         .then(res => res.data.data)
-        .then(res => { console.log("🚀 ~ file: tagContents.js:10 ~ res:", res); return res })
+        // .then(res => { console.log("🚀 ~ file: tagContents.js:10 ~ res:", res); return res })
         .then(tagList => tagList.filter(content => content.sitemapUrl.indexOf('/tag_') !== -1))
     const idArray = response.reduce((acc, curr) => {
         return [...acc, getRenamedContent(curr.sitemapUrl)]
@@ -29,7 +29,7 @@ export async function getTagList(payload) {
                 sitemapUrl: getRenamedContent(tag.sitemapUrl)
             }
         }))
-    console.log("🚀 ~ file: tagContents.js:7 ~ getTagList ~ response:", response)
+    // console.log("🚀 ~ file: tagContents.js:7 ~ getTagList ~ response:", response)
 
     return response
 }
@@ -56,9 +56,9 @@ export async function getTagContents(payload) {
     // console.log("🚀 ~ file tagContents.js:4 ~ getTagsContent ~ payload:", payload)
     const { tagName, page, apiUrl } = payload
     const response = await instance(apiUrl).get(`/tags/tagSearch/${tagName}?limit=9999&pageNumber=${page}`)
-        .then(res => res.data.data)
-        // .then(res => { console.log(res); return res })
-        // .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
+        .then(res => res.data)
+        .then(res => { console.log("🚀 ~ file: tagContents.js:61 ~ getTagContents ~ res:", res); return res })
+        .then(res => res.data.filter(item => item.categories.name !== "未分類"))
         .then(tagContents => tagContents.map(content => {
             return {
                 ...content,

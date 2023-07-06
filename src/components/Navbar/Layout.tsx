@@ -1,6 +1,7 @@
 import HeaderLayout from '@components/layout/headerLayout';
 import ButtonLayout from '@components/layout/buttonLayout';
 import FooterLayout from '@components/layout/footerLayout';
+import { ReactNode } from 'react';
 export interface Props {
   path: string;
   children: ReactNode;

@@ -7,10 +7,9 @@ import { categoryKeyname } from "./categoryKeyname";
 export async function getCategoryList(payload) {
     const { apiUrl } = payload
     const response = await instance(apiUrl).get(`/categories`)
-        .then(res => res.data.data)
-        // .then(res => { console.log("🚀 ~ file: categoryContents.js:11 ~ getCategoryList ~ res:", res); return res })
-        // .then(res => { console.log(`🚀 ~ file: categoryContents.js:11 ~ getCategoryList ~ res:`, res); return res })
-        // .then(res => res.data.filter((item) => item.name.toLowerCase() !== "uncategorized"))
+        .then(res => res.data)
+        .then(res => { console.log(`🚀 ~ file: categoryContents.js:11 ~ getCategoryList ~ res:`, res); return res })
+        .then(res => res.data.filter((item) => item.name !== "未分類"))
         .then(categoryList => categoryList.map((category) => {
             return {
                 ...category,
@@ -30,9 +29,9 @@ export async function getCategoryList(payload) {
 export async function getCategorySitemapUrls(payload) {
     const { apiUrl } = payload
     const response = await instance(apiUrl).get(`/categories`)
-        .then(res => res.data.data)
-    // .then(res => { console.log(res); return res })
-    // .then(res => res.data.filter((item) => item.name.toLowerCase() !== "uncategorized"))
+        .then(res => res.data)
+        .then(res => { console.log("🚀 ~ file: categoryContents.js:35 ~ getCategorySitemapUrls ~ res:", res); return res })
+        .then(res => res.data.filter((item) => item.name !== "未分類"))
     // .then(res => { console.log(res); return res })
     const idArray = response.reduce((acc, curr) => {
         return [...acc, getRenamedContent(curr.sitemapUrl)]
@@ -47,9 +46,9 @@ export async function getTitleContentsByCategory(payload) {
     // console.log("🚀 ~ file: categoryContents.ts:63 ~ getTitleContentsByCategory ~ categoryName:", categoryName)
     // console.log("🚀 ~ file: categoryContents.ts:63 ~ getTitleContentsByCategory ~ categoryKeyname.get(categoryName):", categoryKeyname.get(categoryName))
     const response = await instance(apiUrl).get(`/searchCategory/${categoryKeyname.get(categoryName)}?limit=9999&pageNumber=${page}`)
-        .then(res => res.data.data)
-        // .then(res => { console.log("🚀 ~ file: categoryContents.ts:66 ~ getTitleContentsByCategory ~ res:", res); return res })
-        // .then(res => res.data.filter((item) => item.categories.name.toLowerCase() !== "uncategorized"))
+        .then(res => res.data)
+        .then(res => { console.log("🚀 ~ file: categoryContents.ts:66 ~ getTitleContentsByCategory ~ res:", res); return res })
+        .then(res => res.data.filter((item) => item.categories.name !== "未分類"))
         .then(categoryContents => categoryContents.map((content) => {
             return {
                 ...content,

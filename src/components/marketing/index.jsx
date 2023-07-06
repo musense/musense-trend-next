@@ -13,11 +13,21 @@ export default function Page({
     popularContents,
     sitemapUrl = '',
 }) {
-    console.log("🚀 ~ file: index.jsx:15 ~ sitemapUrl:", sitemapUrl)
-    console.log("🚀 ~ file: index.jsx:15 ~ paramName:", paramName)
-    console.log("🚀 ~ file: index.jsx:15 ~ categoryList:", categoryList)
     const { state, dispatch } = useAppContext();
-    console.log("🚀 ~ file: index.jsx:15 ~ state:", state)
+    useEffect(() => {
+        if (!commonPageItems) return
+        console.log("🚀 ~ file: index.jsx:19 ~ useEffect ~ commonPageItems:", commonPageItems)
+        dispatch({
+            type: "RESET_FILTER_STATE",
+                    })
+        dispatch({
+            type: "SET_ALL_CONTENTS",
+            payload: {
+                contents: commonPageItems,
+            }
+        })
+    }, [commonPageItems, dispatch]);
+
     const Page = React.useCallback(() => {
         if (state.clientWidth < 400) {
             return <PageTemplate

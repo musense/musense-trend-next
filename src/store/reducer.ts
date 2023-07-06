@@ -10,6 +10,7 @@ const initialState: StateProps = {
     contents: null,
     viewContents: null,
     categoryName: '',
+    keyName: '',
     categorySitemapUrl: '',
     pathname: '',
     lastPathname: '',
@@ -26,6 +27,7 @@ const mainReducer = (
     action: ReducerAction
 ) => {
     const { type, payload } = action
+    console.log("🚀 ~ file: reducer.ts:30 ~ type:", type)
     switch (action.type) {
         case ReducerActionEnum.SET_WINDOW_SIZE: {
             return {
@@ -35,11 +37,14 @@ const mainReducer = (
             };
         }
         case ReducerActionEnum.SET_ALL_CONTENTS: {
+            const sortedContents = action.payload.contents!.sort((item1, item2) =>
+                (new Date(item2.publishedAt) as any) - (new Date(item1.publishedAt) as any)
+            )
             return {
                 ...state,
-                contents: action.payload.contents,
-                viewContents: action.payload.contents?.slice(0, 6),
-                currTotalPage: Math.ceil(action.payload.contents!.length / 6),
+                contents: sortedContents,
+                viewContents: sortedContents.slice(0, 6),
+                currTotalPage: Math.ceil(sortedContents.length / 6),
                 currPage: 1,
                 filteredActive: {
                     seeMore: false,
@@ -56,7 +61,7 @@ const mainReducer = (
             let filteredContents, filteredActive
             if (state.filteredActive[action.payload.keyName!] === null || !state.filteredActive[action.payload.keyName!]) {
                 filteredActive = true
-                filteredContents = state.contents!.filter((content) =>
+                filteredContents = state.contents?.filter((content) =>
                     content.categories.name === action.payload.categoryName
                 )
             } else {
@@ -69,9 +74,10 @@ const mainReducer = (
             return {
                 ...state,
                 categoryName: filteredActive ? action.payload.categoryName : null,
-                viewContents: filteredContents.slice(0, 6),
-                currTotalPage: Math.ceil(filteredContents.length / 6),
-                categorySitemapUrl: filteredActive ? action.payload.sitemapUrl : null,
+                keyName: filteredActive ? action.payload.keyName : null,
+                categorySitemapUrl: filteredActive ? action.payload.categorySitemapUrl : null,
+                viewContents: filteredContents?.slice(0, 6),
+                currTotalPage: filteredContents && Math.ceil(filteredContents?.length / 6),
                 filteredActive: {
                     ...state.filteredActive,
                     [action.payload.keyName!]: filteredActive
@@ -119,9 +125,22 @@ const mainReducer = (
                 currPage: currPage
             };
         }
+        case ReducerActionEnum.RESET_FILTER_STATE: {
+            console.log("🚀 ~ file: reducer.ts:140 ~ RESET_FILTER_STATE!!!")
+            return {
+                ...state,
+                categoryName: null,
+                keyName: null,
+                categorySitemapUrl: null,
+                filteredActive: {
+                    seeMore: false,
+                }
+            }
+        }
         default:
             throw Error('Unknown action: ' + action.type);
     }
+
 }
 
 export { mainReducer, initialState }

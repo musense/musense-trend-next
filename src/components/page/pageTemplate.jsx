@@ -16,7 +16,7 @@ const PageTemplate = ({
                 currPage: 'prev'
             }
         })
-    }, [])
+    }, [dispatch])
     const nextPage = useCallback(() => {
         dispatch({
             type: 'SET_CURRENT_PAGE',
@@ -24,7 +24,7 @@ const PageTemplate = ({
                 currPage: 'next'
             }
         })
-    }, [])
+    }, [dispatch])
     const setPage = useCallback((page) => {
         dispatch({
             type: 'SET_CURRENT_PAGE',
@@ -32,7 +32,7 @@ const PageTemplate = ({
                 currPage: page
             }
         })
-    }, [])
+    }, [dispatch])
 
     const middleRightPoint = Math.ceil(__MAX_SHOW_NUMBERS__ / 2)
     const middleLeftPoint = Math.floor(__MAX_SHOW_NUMBERS__ / 2)
@@ -45,7 +45,7 @@ const PageTemplate = ({
         return array.filter((item) => {
             return item > 0 && item <= totalPage
         })
-    }, [__MAX_SHOW_NUMBERS__, currPage, totalPage])
+    }, [__MAX_SHOW_NUMBERS__, currPage, totalPage, middleLeftPoint])
 
     return (
         <div className={styles['page-wrapper']}>

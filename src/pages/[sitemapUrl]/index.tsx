@@ -42,9 +42,9 @@ const Page = ({
   commonPageItems,
   categoryList,
 }: CommonProps) => {
-  console.log('🚀 ~ file: index.tsx:45 ~ mainTitle:', mainTitle);
-  console.log('🚀 ~ file: index.tsx:44 ~ popularContents:', popularContents);
-  console.log('🚀 ~ file: index.tsx:41 ~ meta:', meta);
+  // console.log('🚀 ~ file: index.tsx:45 ~ mainTitle:', mainTitle);
+  // console.log('🚀 ~ file: index.tsx:44 ~ popularContents:', popularContents);
+  // console.log('🚀 ~ file: index.tsx:41 ~ meta:', meta);
 
   const page = sitemapUrl ? (
     sitemapUrl.indexOf('p_') !== -1 ? (
@@ -128,10 +128,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (sitemapUrl.indexOf('p_') !== -1) {
     titleContents = await getTitleContents(payload);
-    console.log(
-      '🚀 ~ file: index.tsx:115 ~ const getStaticProps:GetStaticProps= ~ titleContents:',
-      titleContents
-    );
+    // console.log(
+    //   '🚀 ~ file: index.tsx:115 ~ const getStaticProps:GetStaticProps= ~ titleContents:',
+    //   titleContents
+    // );
     content = titleContents.find(
       (content: any) => content.sitemapUrl === sitemapUrl
     );
@@ -158,10 +158,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       ...mainContent,
       name: mainContent.categories.name,
     };
-    console.log(
-      '🚀 ~ file: index.tsx:115 ~ const getStaticProps:GetStaticProps= ~ mainContent:',
-      mainContent
-    );
+    // console.log(
+    //   '🚀 ~ file: index.tsx:115 ~ const getStaticProps:GetStaticProps= ~ mainContent:',
+    //   mainContent
+    // );
 
     relatedArticles = await getRelatedArticles(payload);
     return {
@@ -184,10 +184,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     mainContent = categoryList.find(
       (category: any) => category.sitemapUrl === sitemapUrl
     );
-    console.log(
-      '🚀 ~ file: index.tsx:173 ~ const getStaticProps:GetStaticProps= ~ mainContent:',
-      mainContent
-    );
+    // console.log(
+    //   '🚀 ~ file: index.tsx:173 ~ const getStaticProps:GetStaticProps= ~ mainContent:',
+    //   mainContent
+    // );
     payload = {
       ...payload,
       apiUrl: apiUrl,
@@ -197,10 +197,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     categoryItems = await getTitleContentsByCategory(payload);
     categoryInfo = await getCategoryInfo(payload);
     popularContents = await getPopularContents(payload);
-    console.log(
-      '🚀 ~ file: index.tsx:63 ~ const getStaticProps:GetStaticProps= ~ categoryItems:',
-      categoryItems
-    );
+    // console.log(
+    //   '🚀 ~ file: index.tsx:63 ~ const getStaticProps:GetStaticProps= ~ categoryItems:',
+    //   categoryItems
+    // );
     editorTitleList = [...categoryItems];
     return {
       props: {
@@ -223,15 +223,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page: 1,
     };
     tagList = await getTagList(payload);
-    console.log(
-      '🚀 ~ file: index.tsx:161 ~ const getStaticProps:GetStaticProps= ~ tagList:',
-      tagList
-    );
+    // console.log(
+    //   '🚀 ~ file: index.tsx:161 ~ const getStaticProps:GetStaticProps= ~ tagList:',
+    //   tagList
+    // );
     mainContent = tagList.find((tag: any) => tag.sitemapUrl === sitemapUrl);
-    console.log(
-      '🚀 ~ file: index.tsx:164 ~ const getStaticProps:GetStaticProps= ~ mainContent:',
-      mainContent
-    );
+    // console.log(
+    //   '🚀 ~ file: index.tsx:164 ~ const getStaticProps:GetStaticProps= ~ mainContent:',
+    //   mainContent
+    // );
 
     payload = {
       ...payload,
@@ -286,10 +286,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     categoryPromise,
     tagPromise,
   ]).then((res) => res.flat());
-  // console.log(
-  //   '🚀 ~ file: index.astro:40 ~ getStaticPaths ~ sitemapUrl:',
-  //   sitemapUrl
-  // );
+  console.log(
+    '🚀 ~ file: index.astro:40 ~ getStaticPaths ~ sitemapUrl:',
+    sitemapUrl
+  );
   const paths = sitemapUrl.map((url) => ({
     params: { sitemapUrl: url },
   }));

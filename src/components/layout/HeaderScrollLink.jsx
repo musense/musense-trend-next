@@ -40,11 +40,9 @@ const navMap = new Map([
 export default function HeaderScrollLink({
   className,
   name,
-  offset = null,
   to,
   disableScroll = false,
   callbackHandler = null,
-  target
 }) {
   const { state, dispatch } = useAppContext();
   useInitial({
@@ -58,21 +56,17 @@ export default function HeaderScrollLink({
 
   useEffect(() => {
     if (!disableScroll) {
-      // scroll button
       if (!linkRef.current) {
         return
       } else {
-        console.log("🚀 ~ file: HeaderScrollLink.jsx:64 ~ useEffect ~ to:", to)
-
         linkRef.current.addEventListener('click', scrollHandler)
-
       }
       const myBtnRef = linkRef.current
       return () => {
         myBtnRef && myBtnRef.removeEventListener('click', scrollHandler)
       }
     }
-  }, [linkRef, disableScroll]);
+  }, [linkRef, disableScroll, scrollHandler, to]);
   const color = name === 'marketing' ? 'blue' : 'orange'
   const mainClassName = className ? className : styles['nav-button']
   const href = state.clientWidth <= 768 ? to.slice(0, to.indexOf('#') + 1) : to

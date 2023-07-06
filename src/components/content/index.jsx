@@ -16,9 +16,10 @@ export default function Page({
 
     const filteredTitleContents = React.useMemo(() => {
         return titleContents.filter(content => content.hidden === false
-            && content.categories.name.toLowerCase() !== 'uncategorized'
+            && content.categories.name.toLowerCase() !== '未分類'
         )
     }, [titleContents])
+    console.log("🚀 ~ file: index.jsx:22 ~ filteredTitleContents ~ filteredTitleContents:", filteredTitleContents)
 
     const [prevInfo, nextInfo] = React.useMemo(() => {
         if (!filteredTitleContents) return [null, null]
@@ -33,8 +34,8 @@ export default function Page({
         })
 
         const theIndex = filteredTitleContents.findIndex(a => a.serialNumber === mainContent.serialNumber)
-        const prevContent = theIndex === filteredTitleContents.length - 1 ? null : filteredTitleContents[theIndex + 1]
-        const nextContent = theIndex === 0 ? null : filteredTitleContents[theIndex - 1]
+        const prevContent = theIndex === 0 ? null : filteredTitleContents[theIndex - 1]
+        const nextContent = theIndex === filteredTitleContents.length - 1 ? null : filteredTitleContents[theIndex + 1]
 
         const prevInfo = prevContent ? mapContentInto(prevContent) : null
         const nextInfo = nextContent ? mapContentInto(nextContent) : null

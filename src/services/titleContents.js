@@ -48,9 +48,9 @@ export async function getTitleContents(payload) {
   console.log("🚀 ~ file: titleContents.js:46 ~ getTitleContents ~ apiUrl:", apiUrl)
   const response = await instance(apiUrl).get(encodeURI(`/editor?limit=9999&pageNumber=1`))
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-    .then(res => res.data.data)
+    .then(res => res.data)
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-    .then(res => res.filter(item => item.draft === false))
+    .then(res => res.data.filter(item => item.draft === false && item.categories.name !== "未分類"))
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.map(content => {
       return {
@@ -89,7 +89,7 @@ export async function getAllTitleContentsAndGetOnlyID(payload) {
     .then(res => res.data.data)
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.filter(item => item.draft === false))
-    // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
+  // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
 
   const idArray = response.reduce((acc, curr) => {
     return [...acc, curr._id]
@@ -107,10 +107,13 @@ export async function getEditorSitemapUrls(payload) {
   const { apiUrl } = payload
   // console.log("🚀 ~ file: titleContents.js:83 ~ getEditorSitemapUrls ~ apiUrl:", apiUrl)
   const response = await instance(apiUrl).get(encodeURI(`/editor?limit=9999&pageNumber=1`))
-    .then(res => res.data.data)
-  // .then(res => res.filter(item => item.draft === false))
-  //唯二不產URL的只有uncategorized && 未發布
-  // .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
+    .then(res => res.data)
+    // .then(res => res.filter(item => item.draft === false))
+    .then(res => { console.log("🚀 ~ file: titleContents.js:113 ~ getEditorSitemapUrls ~ res:", res); return res; })
+    //唯二不產URL的只有uncategorized && 未發布
+    .then(res => res.data.filter(item => item.categories.name !== "未分類"))
+
+  // .then(res => { console.log("🚀 ~ file: titleContents.js:116 ~ getEditorSitemapUrls ~ res:", res); return res; })
 
 
   const idArray = response.reduce((acc, curr) => {
@@ -170,9 +173,9 @@ export async function getTitleContentsByCategoryAndGetOnlyID(payload) {
 export async function getRelatedArticles(payload) {
   const { _id, apiUrl } = payload
   const response = await instance(apiUrl).get(`/editor/relatedArticles/${_id}`)
-    .then(res => res.data.data)
-    // .then(res => { console.log(res); return res })
-    // .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
+    .then(res => res.data)
+    .then(res => { console.log("🚀 ~ file: titleContents.js:176 ~ getRelatedArticles ~ res:", res); return res })
+    .then(res => res.data.filter(item => item.categories.name !== "未分類"))
     .then(relatedArticles => relatedArticles.map(article => {
       return {
         ...article,
@@ -194,15 +197,32 @@ export async function getPopularContents(payload) {
   const { apiUrl } = payload
   const response = await instance(apiUrl).get(`/editor/popular?pageNumber=1&limit=6&popular=1`)
     .then(res => res.data.data)
-    // .then(res => { console.log(res); return res })
-    // .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
+    .then(res => { console.log("🚀 ~ file: titleContents.js:198 ~ getPopularContents ~ res:", res); return res })
+    // .then(res => res.data.filter(item => item.categories.name !== "未分類"))
     .then(popularContents => popularContents.map(content => {
       return {
         ...content,
         sitemapUrl: getRenamedContent(content.sitemapUrl)
       }
     }))
-  // .then(res => { console.log(res); return res })
+    .then(res => { console.log("🚀 ~ file: titleContents.js:209 ~ getPopularContents ~ res:", res); return res })
+
+  return response
+}
+
+/**
+ * A Patch API that increment the pageViews of the selected titleContent
+ *
+ * @param {string} apiUrl
+ * @param {string} _id
+ * @returns response
+*/
+export async function pageViewByContent(payload) {
+  const { apiUrl, _id } = payload
+  const response = await instance(apiUrl).patch(`/editor/incrementPageview/${_id}`)
+    .then(res => res.data.data)
+    .then(res => { console.log("🚀 ~ file: titleContents.js:225 ~ res:", res); return res })
+
   return response
 }
 

@@ -719,7 +719,7 @@ a {
     position: inherit;
     width: 154px;
     height: fit-content;
-
+    display: flex;
     flex-direction: column;
     gap: 16px;
 }
@@ -769,8 +769,8 @@ a {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding: 0 690px 10px;
-    justify-content: flex-end;
+    padding: 210px 690px 10px;
+    justify-content: flex-start;
     gap: 10px;
 }
 

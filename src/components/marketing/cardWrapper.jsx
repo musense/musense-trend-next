@@ -1,27 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React from 'react'
 import Card from './card';
 import { useAppContext } from "@store/context";
-import useInitial from "@services/useInitial";
 
 
-export default function CardWrapper({ contents }) {
+export default function CardWrapper() {
 
-    const { state, dispatch } = useAppContext();
-    useInitial({
-        state,
-        dispatch
-    });
-
-    useEffect(() => {
-        if (!contents) return
-        console.log("🚀 ~ file: cardWrapper.jsx:30 ~ useEffect ~ contents:", contents)
-        dispatch({
-            type: "SET_ALL_CONTENTS",
-            payload: {
-                contents: contents,
-            }
-        })
-    }, [contents]);
+    const { state } = useAppContext();
 
     return <div className='card-wrapper'>
         {state.viewContents && state.viewContents.map((content, index) => {
