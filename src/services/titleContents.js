@@ -50,7 +50,10 @@ export async function getTitleContents(payload) {
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data)
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-    .then(res => res.data && res.data.length > 0 ? res.data.filter(item => item.draft === false && item.categories.name !== "未分類") : [])
+    .then(res => res.data && res.data.length > 0
+      ? res.data.filter(item => item.draft === false && item.categories.name !== "未分類")
+      : []
+    )
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.map(content => {
       if (content.length === 0) {
@@ -198,19 +201,24 @@ export async function getRelatedArticles(payload) {
  */
 export async function getPopularContents(payload) {
   const { apiUrl } = payload
-  const response = await instance(apiUrl).get(`/editor/popular?pageNumber=1&limit=6&popular=1`)
-    .then(res => res.data.data)
-    .then(res => { console.log("🚀 ~ file: titleContents.js:198 ~ getPopularContents ~ res:", res); return res })
-    // .then(res => res.data.filter(item => item.categories.name !== "未分類"))
-    .then(popularContents => popularContents.map(content => {
-      return {
-        ...content,
-        sitemapUrl: getRenamedContent(content.sitemapUrl)
-      }
-    }))
-    .then(res => { console.log("🚀 ~ file: titleContents.js:209 ~ getPopularContents ~ res:", res); return res })
+  try {
+    const response = await instance(apiUrl).get(`/editor/popular?pageNumber=1&limit=6&popular=1`)
+      .then(res => res.data.data)
+      .then(res => { console.log("🚀 ~ file: titleContents.js:198 ~ getPopularContents ~ res:", res); return res })
+      // .then(res => res.data.filter(item => item.categories.name !== "未分類"))
+      .then(popularContents => popularContents.map(content => {
+        return {
+          ...content,
+          sitemapUrl: getRenamedContent(content.sitemapUrl)
+        }
+      }))
+      .then(res => { console.log("🚀 ~ file: titleContents.js:209 ~ getPopularContents ~ res:", res); return res })
+    return response
+  } catch (error) {
+    console.log("🚀 ~ file: titleContents.js:210 ~ getPopularContents ~ error:", error)
+    return null
+  }
 
-  return response
 }
 
 /**
