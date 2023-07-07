@@ -50,9 +50,12 @@ export async function getTitleContents(payload) {
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data)
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-    .then(res => res.data.filter(item => item.draft === false && item.categories.name !== "未分類"))
+    .then(res => res.data && res.data.length > 0 ? res.data.filter(item => item.draft === false && item.categories.name !== "未分類") : [])
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.map(content => {
+      if (content.length === 0) {
+        return []
+      }
       return {
         ...content,
         headTitle: content.headTitle && content.headTitle.length > 0
@@ -62,7 +65,7 @@ export async function getTitleContents(payload) {
             ...tag,
             sitemapUrl: getRenamedContent(tag.sitemapUrl)
           }
-        }):null,
+        }) : null,
         categories: {
           _id: content.categories._id,
           name: content.categories.name,

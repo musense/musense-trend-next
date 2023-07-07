@@ -48,8 +48,11 @@ export async function getTitleContentsByCategory(payload) {
     const response = await instance(apiUrl).get(`/searchCategory/${categoryKeyname.get(categoryName)}?limit=9999&pageNumber=${page}`)
         .then(res => res.data)
         .then(res => { console.log("🚀 ~ file: categoryContents.ts:66 ~ getTitleContentsByCategory ~ res:", res); return res })
-        .then(res => res.data.filter((item) => item.categories.name !== "未分類"))
+        .then(res => res.data && res.data.length > 0 ? res.data.filter(item => item.draft === false && item.categories.name !== "未分類") : [])
         .then(categoryContents => categoryContents.map((content) => {
+            if (content.length === 0) {
+                return []
+            }
             return {
                 ...content,
                 sitemapUrl: getRenamedContent(content.sitemapUrl)

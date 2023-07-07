@@ -58,8 +58,11 @@ export async function getTagContents(payload) {
     const response = await instance(apiUrl).get(`/tags/tagSearch/${tagName}?limit=9999&pageNumber=${page}`)
         .then(res => res.data)
         .then(res => { console.log("🚀 ~ file: tagContents.js:61 ~ getTagContents ~ res:", res); return res })
-        .then(res => res.data.filter(item => item.categories.name !== "未分類"))
+        .then(res => res.data && res.data.length > 0 ? res.data.filter(item => item.draft === false && item.categories.name !== "未分類") : [])
         .then(tagContents => tagContents.map(content => {
+            if (content.length === 0) {
+                return []
+              }
             return {
                 ...content,
                 sitemapUrl: getRenamedContent(content.sitemapUrl)

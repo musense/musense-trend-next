@@ -15,7 +15,7 @@ export default function Page({
 }) {
     const { state, dispatch } = useAppContext();
     useEffect(() => {
-        if (!commonPageItems) return
+        if (!commonPageItems || commonPageItems.length === 0) return
         console.log("🚀 ~ file: index.jsx:19 ~ useEffect ~ commonPageItems:", commonPageItems)
         dispatch({
             type: "RESET_FILTER_STATE",
@@ -45,7 +45,7 @@ export default function Page({
     }, [state.clientWidth, state.currPage, state.currTotalPage])
     return (<>
         <MarketingButtonList categoryList={categoryList} paramName={paramName} />
-        <CardWrapper contents={commonPageItems} />
+        <CardWrapper />
         {sitemapUrl === ''
             ? <MiscButtonList />
             : <Page />}
