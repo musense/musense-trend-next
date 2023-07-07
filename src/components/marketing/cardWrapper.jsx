@@ -7,14 +7,23 @@ export default function CardWrapper() {
 
     const { state } = useAppContext();
 
-    return <div className='card-wrapper'>
-        {state.viewContents && state.viewContents.map((content, index) => {
-            return (
-                <Card
-                    key={index}
-                    content={content}
-                />
-            );
-        })}
+    const showCardWrapper = React.useMemo(() => {
+        if (!state.viewContents) return false
+        if (state.viewContents.length === 0) return false
+        return true
+    }, [state.viewContents]);
+
+    return <div className={`card-wrapper ${showCardWrapper ? '' : 'no-card'}`}>
+        {showCardWrapper
+            ? state.viewContents.map((content, index) => {
+                return (
+                    <Card
+                        key={index}
+                        content={content}
+                    />
+                );
+            })
+            : <h3 >{`目前還沒有文章！`}</h3>
+        }
     </div>
 }

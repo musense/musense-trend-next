@@ -345,6 +345,20 @@ a {
     opacity: 1;
 }
 
+.card-wrapper.no-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--card-height) * 2 + var(--card-wrapper-row-gap));
+}
+
+.card-wrapper.no-card>h3 {
+    color: grey;
+    width: 100%;
+    text-align: center;
+    font-size: 48px;
+}
 
 .card {
     position: relative;
@@ -450,8 +464,9 @@ a {
     width: 450px;
     height: 360px;
     display: flex;
+    gap: 30px;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     box-sizing: border-box;
     padding: 0 25px 0 69px;
 }
