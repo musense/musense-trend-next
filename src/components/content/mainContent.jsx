@@ -24,7 +24,7 @@ export default function MainContent({
             <div className="content-left-side">
                 <h1 className="content-title">{content.title}</h1>
                 <div className="content-misc">
-                    <div className="content-tags">{
+                    {content.tags && <div className="content-tags">{
                         content.tags.map((tag, index) => {
                             return <Tag
                                 key={index}
@@ -32,7 +32,7 @@ export default function MainContent({
                                 tagName={`# ${tag.name}`}
                             />
                         })}
-                    </div>
+                    </div>}
                     <div>
                         <span className="content-create-date">
                             {`${new Date(content.publishedAt).toLocaleDateString('en-ZA')}`}

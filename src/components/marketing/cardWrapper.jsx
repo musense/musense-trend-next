@@ -12,7 +12,6 @@ export default function CardWrapper() {
             return (
                 <Card
                     key={index}
-                    id={content._id}
                     content={content}
                 />
             );

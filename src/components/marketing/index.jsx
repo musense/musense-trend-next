@@ -19,7 +19,7 @@ export default function Page({
         console.log("🚀 ~ file: index.jsx:19 ~ useEffect ~ commonPageItems:", commonPageItems)
         dispatch({
             type: "RESET_FILTER_STATE",
-                    })
+        })
         dispatch({
             type: "SET_ALL_CONTENTS",
             payload: {

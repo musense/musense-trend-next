@@ -15,6 +15,7 @@ export default function Page({
     console.log("🚀 ~ file: index.jsx:16 ~ mainContent:", mainContent)
 
     const filteredTitleContents = React.useMemo(() => {
+        if (!titleContents || titleContents.length === 0) return null
         return titleContents.filter(content => content.hidden === false
             && content.categories.name.toLowerCase() !== '未分類'
         )
@@ -22,6 +23,7 @@ export default function Page({
     console.log("🚀 ~ file: index.jsx:22 ~ filteredTitleContents ~ filteredTitleContents:", filteredTitleContents)
 
     const [prevInfo, nextInfo] = React.useMemo(() => {
+        if (!mainContent) return [null, null]
         if (!filteredTitleContents) return [null, null]
         if (filteredTitleContents.length === 0) return [null, null]
         if (mainContent.serialNumber === null || typeof mainContent.serialNumber !== 'number') return [null, null];
@@ -41,7 +43,7 @@ export default function Page({
         const nextInfo = nextContent ? mapContentInto(nextContent) : null
 
         return [prevInfo, nextInfo]
-    }, [filteredTitleContents, mainContent.serialNumber]);
+    }, [filteredTitleContents, mainContent]);
 
     return mainContent && (
         <>

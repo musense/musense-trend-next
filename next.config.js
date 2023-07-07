@@ -28,13 +28,13 @@ const nextConfig = {
             },
             {
                 protocol: 'http',
-                hostname: 'uat-apidb.zoonobet.com',
+                hostname: 'uat-apidb.musense.tw',
                 port: '',
                 pathname: '/home/**',
             },
             {
                 protocol: 'https',
-                hostname: 'bd.zoonobet.com',
+                hostname: 'bd.musense.tw',
                 port: '',
                 pathname: '/home/**',
             },

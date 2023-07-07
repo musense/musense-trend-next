@@ -16,7 +16,7 @@ export default function MarketingButtonList({
     dispatch
   });
   const showCategoryList = React.useMemo(() => {
-    if (!categoryList) return
+    if (!categoryList) return null
     return categoryList.filter(category => category.keyName !== 'Uncategorized')
   }, [categoryList])
 
@@ -84,7 +84,7 @@ function DeskTopBtnMarketingWrapper({
     categorySitemapUrl: category.sitemapUrl
   })
   return <BtnMarketingWrapper position='upper'>
-    {showCategoryList.map((category, index) => {
+    {showCategoryList && showCategoryList.map((category, index) => {
       return (
         <BtnMarketing
           key={index}

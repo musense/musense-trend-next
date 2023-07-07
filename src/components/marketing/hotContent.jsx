@@ -4,8 +4,8 @@ import React from 'react';
 export default function PopularContent({ contents }) {
   console.log("🚀 ~ file: hotContent.jsx:5 ~ PopularContent ~ contents:", contents)
   const [leftContents, rightContents] = React.useMemo(() => {
-    if (!contents || contents.length === 0) return [[], []]
-    if (contents.length <= 3) return [[...contents], []]
+    if (!contents || contents.length === 0) return [null, null]
+    if (contents.length <= 3) return [[...contents], null]
     return [
       contents.slice(0, 3),
       contents.slice(3, 6)
@@ -15,7 +15,7 @@ export default function PopularContent({ contents }) {
     <div data-title="熱門文章" className='hot-content-wrapper'>
       <div className='hot-content-div'>
         <div className='hot-left-side'>
-          {leftContents.length > 0 && leftContents.map((content, index) => {
+          {leftContents && leftContents.map((content, index) => {
             return <Content
               key={index}
               title={content.title}
@@ -24,7 +24,7 @@ export default function PopularContent({ contents }) {
           })}
         </div>
         <div className='hot-right-side'>
-          {rightContents.length > 0 && rightContents.map((content, index) => {
+          {rightContents && rightContents.map((content, index) => {
             return <Content
               key={index}
               title={content.title}

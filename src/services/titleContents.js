@@ -57,12 +57,12 @@ export async function getTitleContents(payload) {
         ...content,
         headTitle: content.headTitle && content.headTitle.length > 0
           ? content.headTitle : content.title,
-        tags: content.tags && content.tags.length > 0 && content.tags.map(tag => {
+        tags: content.tags && content.tags.length > 0 ? content.tags.map(tag => {
           return {
             ...tag,
             sitemapUrl: getRenamedContent(tag.sitemapUrl)
           }
-        }),
+        }):null,
         categories: {
           _id: content.categories._id,
           name: content.categories.name,
