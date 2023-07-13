@@ -4,6 +4,7 @@ import MainContent from '@components/content/mainContent';
 import HotTrendWrapper from '@components/content/hotTrendWrapper';
 import ExtendReading from '@components/content/extendReading';
 import { useAppContext } from "@store/context";
+import MiscButtonContentList from "./miscButtonContentList";
 
 export default function Page({
     mainContent,
@@ -53,6 +54,8 @@ export default function Page({
             />
             <MainContent
                 content={mainContent}
+            />
+            <MiscButtonContentList
                 prevInfo={prevInfo}
                 nextInfo={nextInfo}
             />

@@ -10,8 +10,8 @@ export default function MiscButtonContentList({
 
   return (
     <BtnMarketingWrapper position="content" >
-      {prevInfo && <BtnMarketing to={`/${prevInfo.sitemapUrl}`} name='上一頁' title={prevInfo.title} />}
-      {nextInfo && <BtnMarketing to={`/${nextInfo.sitemapUrl}`} name='下一頁' title={nextInfo.title} />}
+      {prevInfo && <BtnMarketing to={`/${prevInfo.sitemapUrl}`} name='上一篇' title={prevInfo.title} />}
+      {nextInfo && <BtnMarketing to={`/${nextInfo.sitemapUrl}`} name='下一篇' title={nextInfo.title} />}
     </BtnMarketingWrapper>
   );
 }

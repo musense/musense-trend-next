@@ -5,11 +5,7 @@ import HotTrendWrapper from "./hotTrendWrapper";
 import { useAppContext } from "@store/context";
 import { pageViewByContent } from "@services/titleContents";
 
-export default function MainContent({
-    content,
-    prevInfo,
-    nextInfo,
-}) {
+export default function MainContent({ content }) {
     console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
     const { state } = useAppContext();
     React.useEffect(() => {
@@ -42,10 +38,6 @@ export default function MainContent({
                 <div
                     className="content-main-content"
                     dangerouslySetInnerHTML={{ __html: content.htmlContent }}
-                />
-                <MiscButtonContentList
-                    prevInfo={prevInfo}
-                    nextInfo={nextInfo}
                 />
             </div>
             {state.clientWidth > 768 && <HotTrendWrapper tags={content.tags} />}
