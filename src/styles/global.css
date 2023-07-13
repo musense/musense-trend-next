@@ -273,7 +273,7 @@ a {
     top: unset;
     left: unset;
     transform: unset;
-    margin: 30px auto 0;
+    margin: 20px auto 0;
 } 
 
 .marketing-banner + 
@@ -284,7 +284,7 @@ a {
     top: unset;
     left: unset;
     transform: unset;
-    margin: 30px auto 0;
+    margin: 40px auto 0;
 } 
 
 .marketing-banner + 
@@ -292,7 +292,7 @@ a {
 .card-wrapper + 
 .btn-marketing-wrapper.lower + 
 .hot-content-wrapper {
-    margin-top: 30px;
+    margin-top: 100px;
 } 
 
 .btn-marketing-wrapper {

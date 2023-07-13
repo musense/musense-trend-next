@@ -5,6 +5,7 @@ export interface StateProps {
     viewContents: any[] | null;
     categoryName: string;
     categorySitemapUrl: string;
+    mainSiteHref: string;
     keyName?: string,
     pathname: string;
     lastPathname: string;
@@ -21,6 +22,7 @@ export type payloadProps = {
     contents?: any[],
     categoryName?: string,
     categorySitemapUrl?: string,
+    mainSiteHref?: string,
     keyName?: string,
     pathname?: string,
     lastPathname?: string,

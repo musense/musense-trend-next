@@ -10,7 +10,8 @@ export default function BtnMarketing({
   disabled = null,
   active = false,
   target = "_self",
-  cancelHoverState = false
+  cancelHoverState = false,
+  close = false
 }) {
 
   const linkProps = React.useMemo(() => ({
@@ -18,8 +19,13 @@ export default function BtnMarketing({
     title: title,
     className: `btn-marketing ${name}`,
     href: to,
-    onClick: callback,
-  }), [target, title, name, to, callback])
+    onClick: close
+      ? () => { window.top.close(); }
+      : callback
+        ? callback
+        : null,
+
+  }), [target, title, name, to, callback, close])
   const buttonProps = React.useMemo(() => ({
     disabled: disabled || false,
     title: title,
