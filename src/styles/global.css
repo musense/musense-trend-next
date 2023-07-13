@@ -261,39 +261,29 @@ a {
     margin-top: 140px;
 }
 
-.marketing-banner + 
-.btn-marketing-wrapper.upper {
+.marketing-banner+.btn-marketing-wrapper.upper {
     margin-top: 30px;
 }
 
-.marketing-banner + 
-.btn-marketing-wrapper.upper + 
-.card-wrapper {
+.marketing-banner+.btn-marketing-wrapper.upper+.card-wrapper {
     position: relative;
     top: unset;
     left: unset;
     transform: unset;
     margin: 20px auto 0;
-} 
+}
 
-.marketing-banner + 
-.btn-marketing-wrapper.upper + 
-.card-wrapper + 
-.btn-marketing-wrapper.lower  {
+.marketing-banner+.btn-marketing-wrapper.upper+.card-wrapper+.btn-marketing-wrapper.lower {
     position: relative;
     top: unset;
     left: unset;
     transform: unset;
     margin: 40px auto 0;
-} 
+}
 
-.marketing-banner + 
-.btn-marketing-wrapper.upper + 
-.card-wrapper + 
-.btn-marketing-wrapper.lower + 
-.hot-content-wrapper {
+.marketing-banner+.btn-marketing-wrapper.upper+.card-wrapper+.btn-marketing-wrapper.lower+.hot-content-wrapper {
     margin-top: 100px;
-} 
+}
 
 .btn-marketing-wrapper {
     position: relative;
@@ -689,9 +679,11 @@ a {
     margin-top: 78px;
     font-family: Openhuninn;
 }
-.content-date-wrapper{
+
+.content-date-wrapper {
     margin-left: auto;
 }
+
 .content-tags {
     position: inherit;
     display: flex;
@@ -1193,6 +1185,12 @@ a {
     .banner {
         width: 100%;
         height: 15.3rem;
+    }
+
+    .marketing-banner {
+        margin-top: 8rem;
+        z-index: 10;
+        position: relative;
     }
 
     .btn-marketing-wrapper.upper,
