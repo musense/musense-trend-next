@@ -689,7 +689,9 @@ a {
     margin-top: 78px;
     font-family: Openhuninn;
 }
-
+.content-date-wrapper{
+    margin-left: auto;
+}
 .content-tags {
     position: inherit;
     display: flex;

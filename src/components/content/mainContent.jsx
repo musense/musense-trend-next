@@ -29,7 +29,7 @@ export default function MainContent({ content }) {
                             />
                         })}
                     </div>}
-                    <div>
+                    <div  className="content-date-wrapper">
                         <span className="content-create-date">
                             {`${new Date(content.publishedAt).toLocaleDateString('en-ZA')}`}
                         </span>
