@@ -51,7 +51,9 @@ export async function getTitleContents(payload) {
     .then(res => res.data)
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data && res.data.length > 0
-      ? res.data.filter(item => item.draft === false && item.categories.name !== "未分類")
+      ? res.data.filter(item => 
+        // item.draft === false && 
+        item.categories.name !== "未分類")
       : []
     )
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
@@ -94,7 +96,7 @@ export async function getAllTitleContentsAndGetOnlyID(payload) {
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data.data)
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-    .then(res => res.filter(item => item.draft === false))
+    // .then(res => res.filter(item => item.draft === false))
   // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
 
   const idArray = response.reduce((acc, curr) => {
@@ -115,7 +117,7 @@ export async function getEditorSitemapUrls(payload) {
   const response = await instance(apiUrl).get(encodeURI(`/editor?limit=9999&pageNumber=1`))
     .then(res => res.data)
     // .then(res => res.filter(item => item.draft === false))
-    .then(res => { console.log("🚀 ~ file: titleContents.js:113 ~ getEditorSitemapUrls ~ res:", res); return res; })
+    // .then(res => { console.log("🚀 ~ file: titleContents.js:113 ~ getEditorSitemapUrls ~ res:", res); return res; })
     //唯二不產URL的只有uncategorized && 未發布
     .then(res => res.data.filter(item => item.categories.name !== "未分類"))
 

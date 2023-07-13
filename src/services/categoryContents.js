@@ -30,7 +30,7 @@ export async function getCategorySitemapUrls(payload) {
     const { apiUrl } = payload
     const response = await instance(apiUrl).get(`/categories`)
         .then(res => res.data)
-        .then(res => { console.log("🚀 ~ file: categoryContents.js:35 ~ getCategorySitemapUrls ~ res:", res); return res })
+        // .then(res => { console.log("🚀 ~ file: categoryContents.js:35 ~ getCategorySitemapUrls ~ res:", res); return res })
         .then(res => res.data.filter((item) => item.name !== "未分類"))
     // .then(res => { console.log(res); return res })
     const idArray = response.reduce((acc, curr) => {
@@ -44,11 +44,13 @@ export async function getCategorySitemapUrls(payload) {
 export async function getTitleContentsByCategory(payload) {
     const { categoryName, page, apiUrl } = payload
     // console.log("🚀 ~ file: categoryContents.ts:63 ~ getTitleContentsByCategory ~ categoryName:", categoryName)
-    // console.log("🚀 ~ file: categoryContents.ts:63 ~ getTitleContentsByCategory ~ categoryKeyname.get(categoryName):", categoryKeyname.get(categoryName))
+    console.log("🚀 ~ file: categoryContents.ts:63 ~ getTitleContentsByCategory ~ categoryKeyname.get(categoryName):", categoryKeyname.get(categoryName))
     const response = await instance(apiUrl).get(`/searchCategory/${categoryKeyname.get(categoryName)}?limit=9999&pageNumber=${page}`)
         .then(res => res.data)
         .then(res => { console.log("🚀 ~ file: categoryContents.ts:66 ~ getTitleContentsByCategory ~ res:", res); return res })
-        .then(res => res.data && res.data.length > 0 ? res.data.filter(item => item.draft === false && item.categories.name !== "未分類") : [])
+        .then(res => res.data && res.data.length > 0 ? res.data.filter(item => 
+            // item.draft === false && 
+            item.categories.name !== "未分類") : [])
         .then(categoryContents => categoryContents.map((content) => {
             if (content.length === 0) {
                 return []
