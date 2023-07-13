@@ -5,6 +5,8 @@ import MiscButtonList from '@components/marketing/miscButtonList';
 import PopularContent from '@components/marketing/hotContent';
 import { useAppContext } from "@store/context";
 import PageTemplate from "@components/page/pageTemplate";
+import MarketingBanner from "./marketingBanner";
+
 
 export default function Page({
     paramName = '',
@@ -15,7 +17,6 @@ export default function Page({
 }) {
     const { state, dispatch } = useAppContext();
     useEffect(() => {
-        if (!commonPageItems || commonPageItems.length === 0) return
         console.log("🚀 ~ file: index.jsx:19 ~ useEffect ~ commonPageItems:", commonPageItems)
         dispatch({
             type: "RESET_FILTER_STATE",
@@ -44,11 +45,14 @@ export default function Page({
         }
     }, [state.clientWidth, state.currPage, state.currTotalPage])
     return (<>
+        {sitemapUrl === '' && <MarketingBanner />}
         <MarketingButtonList categoryList={categoryList} paramName={paramName} />
         <CardWrapper />
         {sitemapUrl === ''
             ? <MiscButtonList />
-            : <Page />}
+            : commonPageItems.length === 0
+                ? <MiscButtonList />
+                : <Page />}
         <PopularContent contents={popularContents} />
     </>);
 }
