@@ -1249,10 +1249,14 @@ a {
         letter-spacing: 0.2rem;
         margin: unset;
     }
-
+/* 
     .btn-marketing:first-child:nth-last-child(1) {
         justify-content: center;
         margin: 0 auto;
+    } */
+
+    .marketing-banner+.btn-marketing-wrapper.upper+.card-wrapper+.btn-marketing-wrapper.lower+.hot-content-wrapper {
+        margin-top: 5rem;
     }
 
     .card-wrapper {
@@ -1553,11 +1557,22 @@ a {
 
     .btn-marketing-wrapper.content .btn-marketing {
         filter: unset;
-        margin: unset;
+        /* margin: unset; */
         width: 10rem;
         height: 3rem;
     }
 
+    .btn-marketing.prev {
+        margin-right: auto;
+    }
+
+    .btn-marketing.next {
+        margin-left: auto;
+    }
+    .btn-marketing {
+        margin-left: auto;
+        margin-right: auto;
+    }
     .top-banner-wrapper {
         --banner-top-offset: 10rem;
         width: 96vw;

@@ -5,6 +5,7 @@ export default function BtnMarketing({
   name,
   to,
   title,
+  className,
   type = "link",
   callback = null,
   disabled = null,
@@ -30,10 +31,10 @@ export default function BtnMarketing({
     disabled: disabled || false,
     title: title,
     className: cancelHoverState
-      ? `btn-marketing ${name} `
-      : `btn-marketing ${name} ${active ? "active" : ""}`,
+      ? `btn-marketing ${className} `
+      : `btn-marketing ${className} ${active ? "active" : ""}`,
     onClick: callback,
-  }), [disabled, title, cancelHoverState, name, active, callback])
+  }), [disabled, title, cancelHoverState, name, active, callback,className])
   // console.log("🚀 ~ file: btnMarketing.jsx:31 ~ buttonProps ~ buttonProps:", buttonProps)
 
   const linkComponent = <Link {...linkProps}> {name}</Link>;
