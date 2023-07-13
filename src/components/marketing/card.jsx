@@ -7,7 +7,7 @@ export default function Card({
   content
 }) {
   const {
-    homeImagePath, tags, title, altText
+    homeImagePath, tags, title, altText, publishedAt
   } = content;
 
 
@@ -43,6 +43,11 @@ export default function Card({
         </div>
         <div className='card-footer'>
           {tags && <div className='card-tag'>{tagNameArray.join(' / ')}</div>}
+          <div className="content-date-wrapper">
+            <span className="content-create-date">
+              {`${new Date(content.publishedAt).toLocaleDateString('en-ZA')}`}
+            </span>
+          </div>
         </div>
       </div>
     </Link>
