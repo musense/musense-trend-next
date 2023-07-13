@@ -12,6 +12,7 @@ const initialState: StateProps = {
     categoryName: '',
     keyName: '',
     categorySitemapUrl: '',
+    mainSiteHref: process.env.NEXT_PUBLIC_FRONT_SITE || '/',
     pathname: '',
     lastPathname: '',
     currMaxViewCount: 6,
@@ -37,18 +38,20 @@ const mainReducer = (
             };
         }
         case ReducerActionEnum.SET_ALL_CONTENTS: {
-            const sortedContents = action.payload.contents!.sort((item1, item2) =>
+            const sortedContents = action.payload.contents?.sort((item1, item2) =>
                 (new Date(item2.publishedAt) as any) - (new Date(item1.publishedAt) as any)
             )
             return {
                 ...state,
                 contents: sortedContents,
-                viewContents: sortedContents.slice(0, 6),
-                currTotalPage: Math.ceil(sortedContents.length / 6),
+                viewContents: sortedContents ? sortedContents.slice(0, 6) : null,
+                currTotalPage: sortedContents ? Math.ceil(sortedContents.length / 6) : 0,
                 currPage: 1,
                 filteredActive: {
                     seeMore: false,
                 },
+                mainSiteHref: !action.payload.contents || action.payload.contents.length === 0
+                    ? '/' : process.env.NEXT_PUBLIC_FRONT_SITE
             };
         }
         case ReducerActionEnum.SET_CATEGORY_NAME: {

@@ -25,9 +25,9 @@ import {
   getTagList,
   getTagSitemapUrls,
 } from '@services/tagContents';
-import ContentPage from '@components/content/index';
-import Marketing from '@components/marketing/index';
-import Index from '@components/marketing/index';
+import ContentPage from '@components/content/ContentPage';
+import Marketing from '@components/marketing/Marketing';
+import Index from '@components/marketing/Marketing';
 
 type CommonProps = InferGetStaticPropsType<typeof getStaticProps>;
 

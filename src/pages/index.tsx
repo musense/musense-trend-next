@@ -2,7 +2,7 @@ import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 
 import { Main } from '@components/Main/Main';
 import { Meta } from '@layouts/Meta';
-import Index from '@components/marketing/index';
+import Index from '@components/marketing/Marketing';
 import { getCategoryList } from '@services/categoryContents';
 import { getPopularContents, getTitleContents } from '@services/titleContents';
 
