@@ -253,6 +253,48 @@ a {
     background-size: cover;
 }
 
+.marketing-banner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 140px;
+}
+
+.marketing-banner + 
+.btn-marketing-wrapper.upper {
+    margin-top: 30px;
+}
+
+.marketing-banner + 
+.btn-marketing-wrapper.upper + 
+.card-wrapper {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: unset;
+    margin: 30px auto 0;
+} 
+
+.marketing-banner + 
+.btn-marketing-wrapper.upper + 
+.card-wrapper + 
+.btn-marketing-wrapper.lower  {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: unset;
+    margin: 30px auto 0;
+} 
+
+.marketing-banner + 
+.btn-marketing-wrapper.upper + 
+.card-wrapper + 
+.btn-marketing-wrapper.lower + 
+.hot-content-wrapper {
+    margin-top: 30px;
+} 
+
 .btn-marketing-wrapper {
     position: relative;
     margin: 0 auto;
@@ -971,6 +1013,7 @@ a {
     transform: translateX(0);
     opacity: 1;
 }
+
 
 @media (max-width: 1500px) {
     .bubble-box {

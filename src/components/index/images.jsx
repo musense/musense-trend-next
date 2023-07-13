@@ -69,6 +69,11 @@ const triangleRangeOrange = new Map([
     ['mobile', import('@assets/mobile/content/flower.webp')],
 ])
 
+const marketingBanner = new Map([
+    ['pc', import('@assets/marketing/banner.webp')],
+    ['mobile', import('@assets/marketing/banner.webp')],
+])
+
 export {
     bg,
     welcome,
@@ -81,5 +86,6 @@ export {
     ourService,
     contactUs,
     imageDown,
-    triangleRangeOrange
+    triangleRangeOrange,
+    marketingBanner
 } 
