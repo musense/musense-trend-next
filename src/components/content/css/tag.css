@@ -1,6 +1,6 @@
 .tag {
   position: relative;
-  font-size: 13.5px;
+  /* font-size: 13.5px; */
   color: #f88d2a;
   letter-spacing: 1px;
   /* margin-left: 32px; */
@@ -21,7 +21,7 @@
 
 @media (max-width: 768px) {
   .tag {
-    font-size: 1rem;
+    font-size: inherit;
     flex-basis: 7rem;
     justify-content: center;
   }

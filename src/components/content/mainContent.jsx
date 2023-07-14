@@ -1,26 +1,29 @@
-import React from "react";
-import MiscButtonContentList from "./miscButtonContentList";
+import React, { useRef } from "react";
 import Tag from "./tag";
 import HotTrendWrapper from "./hotTrendWrapper";
 import { useAppContext } from "@store/context";
-import { pageViewByContent } from "@services/titleContents";
+import useReSizeContentTags from "@services/useReSizeContentTags";
+import useAddPageView from "@services/useAddPageView";
+
 
 export default function MainContent({ content }) {
     console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
+
     const { state } = useAppContext();
-    React.useEffect(() => {
-        const payload = {
-            apiUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-            _id: content._id
-        }
-        pageViewByContent(payload)
-    }, [content._id]);
+
+    const contentTagsRef = useRef(null);
+    console.log("🚀 ~ file: mainContent.jsx:15 ~ MainContent ~ contentTagsRef:", contentTagsRef)
+
+
+    useReSizeContentTags(contentTagsRef);
+    useAddPageView(content._id);
+
     return (
         <div className="main-content-wrapper">
             <div className="content-left-side">
                 <h1 className="content-title">{content.title}</h1>
                 <div className="content-misc">
-                    {content.tags && <div className="content-tags">{
+                    {content.tags && <div ref={contentTagsRef} className="content-tags">{
                         content.tags.map((tag, index) => {
                             return <Tag
                                 key={index}

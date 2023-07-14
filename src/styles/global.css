@@ -685,10 +685,17 @@ a {
 }
 
 .content-tags {
+    --tag-size: 15px;
+    --tag-column-gap: 28px;
+    --tag-row-gap: 15px;
+    width: 500px;
     position: inherit;
     display: flex;
     flex-direction: row;
-    gap: 28px;
+    flex-wrap: wrap;
+    column-gap: var(--tag-column-gap);
+    row-gap: var(--tag-row-gap);
+    font-size: var(--tag-size);
 }
 
 .content-create-date {
@@ -887,7 +894,7 @@ a {
 
 .tag {
     position: relative;
-    font-size: 13.5px;
+    /* font-size: 13.5px; */
     color: #f88d2a;
     letter-spacing: 1px;
     display: flex;
@@ -1543,7 +1550,9 @@ a {
     }
 
     .tag {
-        font-size: 1rem;
+        display: unset;
+        letter-spacing: unset;
+        font-size: inherit;
         flex-basis: 7rem;
         justify-content: center;
     }
@@ -1632,17 +1641,23 @@ a {
 
     .content-misc {
         margin-top: 5rem;
-        font-size: 1rem;
+        font-size: 1.5rem;
         height: fit-content;
         align-items: flex-end;
     }
 
     .content-tags {
-        gap: 1rem;
-        width: 60%;
+        --tag-size: 1.5rem;
+        --tag-column-gap: 2.8rem;
+        --tag-row-gap: 1.5rem;
+        width: -moz-fit-content;
+        width: fit-content;
         word-break: break-word;
         flex-wrap: wrap;
         height: fit-content;
+        font-size: var(--tag-size);
+        column-gap: var(--tag-column-gap);
+        row-gap: var(--tag-row-gap);
     }
 
     .content-create-date {

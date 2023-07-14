@@ -3,9 +3,9 @@ import React from "react";
 // import "./css/tag.css";
 
 
-export default function Tag({ href='', tagName }) {
+export default function Tag({ href = '', tagName }) {
     return (
-        <Link href={href}>
+        <Link style={{ lineHeight: '1' }} href={href}>
             <span className="tag" >{tagName}</span>
         </Link>
     );
