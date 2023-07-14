@@ -1274,7 +1274,19 @@ a {
         letter-spacing: 0.2rem;
         margin: unset;
     }
-/* 
+
+    
+    .btn-marketing:not(div):hover {
+        background-color: unset;
+        color: unset;
+    }
+    .btn-marketing:not(div).active {
+        background-color: var(--theme-color-hex);
+        color: white;
+    }
+
+
+    /* 
     .btn-marketing:first-child:nth-last-child(1) {
         justify-content: center;
         margin: 0 auto;
