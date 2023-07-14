@@ -46,12 +46,18 @@ function BtnMarketingWrapperByClientWidth({
 
   const [leftCategoryList, rightCategoryList] = React.useMemo(() => {
     if (!showCategoryList) return [null, null]
-    if (clientWidth === 0  || clientWidth > 786) return [null, null]
+    if (clientWidth === 0 || clientWidth > 786) return [null, null]
     return [
       showCategoryList.slice(0, 2),
       showCategoryList.slice(2, 4)
     ]
   }, [showCategoryList, clientWidth])
+
+  const dispatchProps = (category) => ({
+    categoryName: category.name,
+    keyName: category.keyName,
+    categorySitemapUrl: category.sitemapUrl
+  })
 
   return clientWidth > 768
     ? paramName === ''
@@ -59,6 +65,7 @@ function BtnMarketingWrapperByClientWidth({
         btnActive={btnActive}
         handleDispatch={handleDispatch}
         showCategoryList={showCategoryList}
+        dispatchProps={dispatchProps}
       />
       : <CommonTitle paramName={paramName} />
     : paramName === ''
@@ -67,6 +74,7 @@ function BtnMarketingWrapperByClientWidth({
         handleDispatch={handleDispatch}
         leftCategoryList={leftCategoryList}
         rightCategoryList={rightCategoryList}
+        dispatchProps={dispatchProps}
       />
       : <CommonTitle paramName={paramName} />
     ;
@@ -75,14 +83,9 @@ function BtnMarketingWrapperByClientWidth({
 function DeskTopBtnMarketingWrapper({
   showCategoryList,
   btnActive,
-  handleDispatch
+  handleDispatch,
+  dispatchProps
 }) {
-
-  const dispatchProps = (category) => ({
-    categoryName: category.name,
-    keyName: category.keyName,
-    categorySitemapUrl: category.sitemapUrl
-  })
   return <BtnMarketingWrapper position='upper'>
     {showCategoryList && showCategoryList.map((category, index) => {
       return (
@@ -103,13 +106,9 @@ function MobileBtnMarketingWrapper({
   leftCategoryList,
   rightCategoryList,
   btnActive,
-  handleDispatch
+  handleDispatch,
+  dispatchProps
 }) {
-  const dispatchProps = (category) => ({
-    categoryName: category.name,
-    keyName: category.keyName,
-    sitemapUrl: category.sitemapUrl
-  })
   return (<BtnMarketingWrapper position='upper'>
     <div>
       {leftCategoryList && leftCategoryList.map((category, index) => {
