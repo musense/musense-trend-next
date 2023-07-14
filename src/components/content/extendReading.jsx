@@ -30,7 +30,7 @@ export default function ExtendReading({ contents }) {
                 height={300}
                 className="popular-content-image"
                 style={{
-                    objectFit: "cover",
+                    objectFit: "none",
                     objectPosition: "center"
                 }} />
             <div className="popular-content-title">

@@ -31,13 +31,16 @@ export default function BtnMarketing({
     disabled: disabled || false,
     title: title,
     className: cancelHoverState
-      ? `btn-marketing ${className} `
-      : `btn-marketing ${className} ${active ? "active" : ""}`,
+      ? className
+        ? `btn-marketing ${className} ` : `btn-marketing`
+      : className
+        ? `btn-marketing ${className} ${active ? "active" : ""}`
+        : `btn-marketing ${active ? "active" : ""}`,
     onClick: callback,
-  }), [disabled, title, cancelHoverState, name, active, callback,className])
+  }), [disabled, title, cancelHoverState, name, active, callback, className])
   // console.log("🚀 ~ file: btnMarketing.jsx:31 ~ buttonProps ~ buttonProps:", buttonProps)
 
-  const linkComponent = <Link {...linkProps}> {name}</Link>;
+  const linkComponent = <Link {...linkProps}>{name}</Link>;
   const buttonComponent = <button {...buttonProps}>{title}</button>
   const titleComponent = <div {...buttonProps} style={{ cursor: 'default' }}>{title}</div>;
 
