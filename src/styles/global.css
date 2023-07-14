@@ -356,7 +356,7 @@ a {
 }
 
 .card-wrapper {
-    --card-height: 300px;
+    --card-height: 290px;
     --card-wrapper-row-gap: 60px;
     position: absolute;
     top: 200px;
@@ -421,23 +421,27 @@ a {
 
 .card-content {
     position: inherit;
-    width: 100%;
     height: 58px;
     box-sizing: border-box;
     padding: 0 5px;
     font-size: 16px;
-    letter-spacing: 3.4px;
+    letter-spacing: 3px;
     color: #53575a;
     text-align: left;
-    font-family: Openhuninn;
+    overflow: hidden;
     line-height: 1.2;
+    font-family: Openhuninn;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .card-footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 12px;
+    height: fit-content;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
