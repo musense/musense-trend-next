@@ -6,14 +6,18 @@ import ExtendReading from '@components/content/extendReading';
 import { useAppContext } from "@store/context";
 import MiscButtonContentList from "./miscButtonContentList";
 
+const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
+
 export default function Page({
     mainContent,
     titleContents,
-    relatedArticles
+    relatedArticles,
+    popularTagList
 }) {
     const { state } = useAppContext();
-    console.log("🚀 ~ file: index.jsx:16 ~ titleContents:", titleContents)
-    console.log("🚀 ~ file: index.jsx:16 ~ mainContent:", mainContent)
+    console.log("🚀 ~ file: ContentPage.jsx:16 ~ titleContents:", titleContents)
+    console.log("🚀 ~ file: ContentPage.jsx:16 ~ mainContent:", mainContent)
+    console.log("🚀 ~ file: ContentPage.jsx:16 ~ popularTagList:", popularTagList)
 
     const filteredTitleContents = React.useMemo(() => {
         if (!titleContents || titleContents.length === 0) return null
@@ -54,6 +58,7 @@ export default function Page({
             />
             <MainContent
                 content={mainContent}
+                popularTagList={popularTagList}
             />
             <MiscButtonContentList
                 prevInfo={prevInfo}
@@ -62,7 +67,7 @@ export default function Page({
             {relatedArticles.length > 0 && <ExtendReading
                 contents={relatedArticles}
             />}
-            {state.clientWidth <= 768 && <HotTrendWrapper tags={mainContent.tags} />}
+            {state.clientWidth <= 768 && <MemoizedHotTrendWrapper popularTagList={popularTagList} />}
         </>
     )
 

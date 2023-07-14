@@ -5,9 +5,11 @@ import { useAppContext } from "@store/context";
 import useReSizeContentTags from "@services/useReSizeContentTags";
 import useAddPageView from "@services/useAddPageView";
 
+const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
-export default function MainContent({ content }) {
+export default function MainContent({ content, popularTagList }) {
     console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
+    console.log("🚀 ~ file: mainContent.jsx:13 ~ MainContent ~ popularTagList:", popularTagList)
 
     const { state } = useAppContext();
 
@@ -32,7 +34,7 @@ export default function MainContent({ content }) {
                             />
                         })}
                     </div>}
-                    <div  className="content-date-wrapper">
+                    <div className="content-date-wrapper">
                         <span className="content-create-date">
                             {`${new Date(content.publishedAt).toLocaleDateString('en-ZA')}`}
                         </span>
@@ -43,7 +45,7 @@ export default function MainContent({ content }) {
                     dangerouslySetInnerHTML={{ __html: content.htmlContent }}
                 />
             </div>
-            {state.clientWidth > 768 && <HotTrendWrapper tags={content.tags} />}
+            {state.clientWidth > 768 && <MemoizedHotTrendWrapper popularTagList={popularTagList} />}
         </div>
     );
 

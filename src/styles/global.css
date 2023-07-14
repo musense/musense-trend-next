@@ -814,6 +814,7 @@ a {
     column-gap: 31px;
     row-gap: 17px;
     justify-content: center;
+    font-size: 15px;
 }
 
 .popular-content-wrapper {

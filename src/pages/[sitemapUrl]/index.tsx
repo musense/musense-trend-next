@@ -23,6 +23,7 @@ import {
   getTagContents,
   getTagInfo,
   getTagList,
+  getPopularTagList,
   getTagSitemapUrls,
 } from '@services/tagContents';
 import ContentPage from '@components/content/ContentPage';
@@ -35,6 +36,7 @@ const Page = ({
   titleContents,
   popularContents,
   relatedArticles,
+  popularTagList,
   sitemapUrl,
   meta,
   mainContent,
@@ -42,12 +44,14 @@ const Page = ({
   commonPageItems,
   categoryList,
 }: CommonProps) => {
+  console.log('🚀 ~ file: index.tsx:75 ~ sitemapUrl:', sitemapUrl);
   const page = sitemapUrl ? (
     sitemapUrl.indexOf('p_') !== -1 ? (
       <ContentPage
         mainContent={mainContent}
         titleContents={titleContents}
         relatedArticles={relatedArticles}
+        popularTagList={popularTagList}
       />
     ) : sitemapUrl.indexOf('tag_') !== -1 ? (
       <Marketing
@@ -105,6 +109,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     content,
     mainContent,
     relatedArticles,
+    popularTagList,
     categoryList,
     categoryItems,
     categoryInfo,
@@ -126,6 +131,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           commonPageItems: '',
           mainContent: '',
           relatedArticles: '',
+          popularTagList: '',
           titleContents: '',
           sitemapUrl: null,
           meta: '',
@@ -143,6 +149,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       name: mainContent.categories.name,
     };
     relatedArticles = await getRelatedArticles(payload);
+    popularTagList = await getPopularTagList(payload);
     return {
       props: {
         mainTitle: mainContent.name,
@@ -150,6 +157,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         categoryList: '',
         mainContent: mainContent,
         relatedArticles: relatedArticles,
+        popularTagList: popularTagList,
         titleContents: titleContents,
         sitemapUrl: sitemapUrl,
         meta: mainContent,
@@ -180,6 +188,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         categoryList: categoryList,
         mainContent: '',
         relatedArticles: '',
+        popularTagList: '',
         titleContents: '',
         sitemapUrl: sitemapUrl,
         meta: categoryInfo,
@@ -211,6 +220,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         categoryList: '',
         mainContent: '',
         relatedArticles: '',
+        popularTagList: '',
         titleContents: '',
         sitemapUrl: sitemapUrl,
         meta: tagInfo,
@@ -226,6 +236,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       commonPageItems: '',
       mainContent: '',
       relatedArticles: '',
+      popularTagList: '',
       titleContents: '',
       sitemapUrl: null,
       meta: '',
@@ -247,7 +258,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     categoryPromise,
     tagPromise,
   ]).then((res) => res.flat());
-  console.log("🚀 ~ file: index.tsx:254 ~ const getStaticPaths:GetStaticPaths= ~ sitemapUrl:", sitemapUrl)
+  console.log(
+    '🚀 ~ file: index.tsx:254 ~ const getStaticPaths:GetStaticPaths= ~ sitemapUrl:',
+    sitemapUrl
+  );
   const paths = sitemapUrl.map((url) => ({
     params: { sitemapUrl: url },
   }));

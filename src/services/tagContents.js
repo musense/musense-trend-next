@@ -34,6 +34,24 @@ export async function getTagList(payload) {
     return response
 }
 
+//* LIST
+export async function getPopularTagList(payload) {
+    const { apiUrl } = payload
+    const response = await instance(apiUrl).get(`/tags/getPopularTags`)
+        .then(res => res.data.data)
+        // .then(res => { console.log(`🚀 ~ file: tagContents.js:19 ~ getTagInfo ~ res:`, res); return res })
+        .then(res => res.map(tag => {
+            return {
+                ...tag,
+                headTitle: tag.name,
+                sitemapUrl: getRenamedContent(tag.sitemapUrl)
+            }
+        }))
+    console.log("🚀 ~ file: tagContents.js:42 ~ getPopularTagList ~ response:", response)
+
+    return response
+}
+
 export async function getTagInfo(payload) {
     const { tagName, apiUrl } = payload
     const response = await instance(apiUrl).get(`/tags/${tagName}`)
