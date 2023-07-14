@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useMemo } from 'react';
 import styles from './css/headerScrollLink.module.css'
 import Link from 'next/link';
 import { useAppContext } from "@store/context";
@@ -69,7 +69,19 @@ export default function HeaderScrollLink({
   }, [linkRef, disableScroll, scrollHandler, to]);
   const color = name === 'marketing' ? 'blue' : 'orange'
   const mainClassName = className ? className : styles['nav-button']
-  const href = state.clientWidth <= 768 ? to.slice(0, to.indexOf('#') + 1) : to
+  const href = useMemo(() => {
+    if (state.clientWidth === 0) return to
+    /* mobile auto scroll needs more concerns */
+    if (state.clientWidth <= 768) {
+      if (to.includes('#')) {
+        return to.slice(0, to.indexOf('#') + 1)
+      } else {
+        return to
+      }
+    } else {
+      return to
+    }
+  }, [state.clientWidth, to])
   return <Link
     ref={linkRef}
     title={navMap.get(name).name.ch}
