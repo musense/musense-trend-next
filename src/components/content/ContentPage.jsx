@@ -59,9 +59,9 @@ export default function Page({
                 prevInfo={prevInfo}
                 nextInfo={nextInfo}
             />
-            <ExtendReading
+            {relatedArticles.length > 0 && <ExtendReading
                 contents={relatedArticles}
-            />
+            />}
             {state.clientWidth <= 768 && <HotTrendWrapper tags={mainContent.tags} />}
         </>
     )
