@@ -38,9 +38,11 @@ const mainReducer = (
             };
         }
         case ReducerActionEnum.SET_ALL_CONTENTS: {
-            const sortedContents = action.payload.contents?.sort((item1, item2) =>
-                (new Date(item2.publishedAt) as any) - (new Date(item1.publishedAt) as any)
-            )
+            const sortedContents = action.payload.contents
+                ? action.payload.contents.sort((item1, item2) =>
+                    (new Date(item2.publishedAt) as any) - (new Date(item1.publishedAt) as any)
+                )
+                : null
             return {
                 ...state,
                 contents: sortedContents,
