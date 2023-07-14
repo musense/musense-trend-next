@@ -14,10 +14,10 @@ export default function MiscButtonList() {
           title="回首頁"
           to={state.mainSiteHref}
           name={state.mainSiteHref === '/' ? '返回' : '回首頁'}
-          close={state.mainSiteHref === '/' ? true : false}
+          // close={state.mainSiteHref === '/' ? true : false}
         />
         {state.categorySitemapUrl && <BtnMarketing title="看更多文章" name='看更多文章'
-          target={"_blank"}
+          // target={"_blank"}
           to={state.categorySitemapUrl}
           callback={() => dispatch({
             type: "SEE_MORE",
