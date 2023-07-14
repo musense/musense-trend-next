@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import BtnMarketing from '@components/btnMarketing';
 import BtnMarketingWrapper from '@components/btnMarketingWrapper';
 import { useAppContext } from "@store/context";
@@ -23,9 +23,9 @@ export default function MarketingButtonList({
   const handleDispatch = useDispatch('FILTER_CATEGORY')
 
   const btnActive = React.useCallback((name) => {
-    if (!state) return false
+    if (!state.categoryName) return false
     return name === state.categoryName
-  }, [state])
+  }, [state.categoryName])
 
   return <BtnMarketingWrapperByClientWidth
     clientWidth={state.clientWidth}
@@ -44,6 +44,24 @@ function BtnMarketingWrapperByClientWidth({
   handleDispatch,
 }) {
 
+
+  const dispatchProps = (category) => ({
+    categoryName: category.name,
+    keyName: category.keyName,
+    categorySitemapUrl: category.sitemapUrl
+  })
+
+  const btnProps = useCallback((index, category) => {
+    return {
+      key: index,
+      type: "button",
+      title: category.name,
+      name: category.name,
+      active: btnActive(category.name),
+      callback: handleDispatch(dispatchProps(category))
+    }
+  }, [btnActive, handleDispatch, dispatchProps])
+
   const [leftCategoryList, rightCategoryList] = React.useMemo(() => {
     if (!showCategoryList) return [null, null]
     if (clientWidth === 0 || clientWidth > 786) return [null, null]
@@ -53,28 +71,19 @@ function BtnMarketingWrapperByClientWidth({
     ]
   }, [showCategoryList, clientWidth])
 
-  const dispatchProps = (category) => ({
-    categoryName: category.name,
-    keyName: category.keyName,
-    categorySitemapUrl: category.sitemapUrl
-  })
 
   return clientWidth > 768
     ? paramName === ''
       ? <DeskTopBtnMarketingWrapper
-        btnActive={btnActive}
-        handleDispatch={handleDispatch}
         showCategoryList={showCategoryList}
-        dispatchProps={dispatchProps}
+        btnProps={btnProps}
       />
       : <CommonTitle paramName={paramName} />
     : paramName === ''
       ? <MobileBtnMarketingWrapper
-        btnActive={btnActive}
-        handleDispatch={handleDispatch}
         leftCategoryList={leftCategoryList}
         rightCategoryList={rightCategoryList}
-        dispatchProps={dispatchProps}
+        btnProps={btnProps}
       />
       : <CommonTitle paramName={paramName} />
     ;
@@ -82,57 +91,30 @@ function BtnMarketingWrapperByClientWidth({
 
 function DeskTopBtnMarketingWrapper({
   showCategoryList,
-  btnActive,
-  handleDispatch,
-  dispatchProps
+  btnProps
 }) {
   return <BtnMarketingWrapper position='upper'>
-    {showCategoryList && showCategoryList.map((category, index) => {
-      return (
-        <BtnMarketing
-          key={index}
-          type="button"
-          title={category.name}
-          name={category.name}
-          active={btnActive(category.name)}
-          callback={handleDispatch(dispatchProps(category))}
-        />
-      );
-    })}
+    {showCategoryList && showCategoryList.map((category, index) =>
+      <BtnMarketing {...btnProps(index, category)} />
+    )}
   </BtnMarketingWrapper>;
 }
 
 function MobileBtnMarketingWrapper({
   leftCategoryList,
   rightCategoryList,
-  btnActive,
-  handleDispatch,
-  dispatchProps
+  btnProps,
 }) {
   return (<BtnMarketingWrapper position='upper'>
     <div>
-      {leftCategoryList && leftCategoryList.map((category, index) => {
-        return <BtnMarketing
-          key={index}
-          type="button"
-          title={category.name}
-          name={category.name}
-          active={btnActive(category.name)}
-          callback={handleDispatch(dispatchProps(category))}
-        />;
-      })}
+      {leftCategoryList && leftCategoryList.map((category, index) =>
+        <BtnMarketing {...btnProps(index, category)} />
+      )}
     </div>
     <div>
-      {rightCategoryList && rightCategoryList.map((category, index) => {
-        return <BtnMarketing
-          key={index}
-          type="button"
-          title={category.name}
-          name={category.name}
-          active={btnActive(category.name)}
-          callback={handleDispatch(dispatchProps(category))}
-        />;
-      })}
+      {rightCategoryList && rightCategoryList.map((category, index) =>
+        <BtnMarketing {...btnProps(index, category)} />
+      )}
     </div>
   </BtnMarketingWrapper>);
 }

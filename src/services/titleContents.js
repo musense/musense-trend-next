@@ -51,7 +51,7 @@ export async function getTitleContents(payload) {
     .then(res => res.data)
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data && res.data.length > 0
-      ? res.data.filter(item => 
+      ? res.data.filter(item =>
         // item.draft === false && 
         item.categories.name !== "未分類")
       : []
@@ -95,8 +95,8 @@ export async function getAllTitleContentsAndGetOnlyID(payload) {
   const response = await instance(apiUrl).get(encodeURI(`/editor?limit=9999&pageNumber=1`))
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data.data)
-    // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-    // .then(res => res.filter(item => item.draft === false))
+  // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
+  // .then(res => res.filter(item => item.draft === false))
   // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
 
   const idArray = response.reduce((acc, curr) => {
@@ -232,9 +232,14 @@ export async function getPopularContents(payload) {
 */
 export async function pageViewByContent(payload) {
   const { apiUrl, _id } = payload
-  const response = await instance(apiUrl).patch(`/editor/incrementPageview/${_id}`)
-    .then(res => res.data.data)
-    .then(res => { console.log("🚀 ~ file: titleContents.js:225 ~ res:", res); return res })
+  let response
+  try {
+    response = await instance(apiUrl).patch(`/editor/incrementPageview/${_id}`)
+      .then(res => res.data.data)
+      .then(res => { console.log("🚀 ~ file: titleContents.js:225 ~ res:", res); return res })
+  } catch (error) {
+    console.log("🚀 ~ file: titleContents.js:225 ~ error:", error)
+  }
 
   return response
 }

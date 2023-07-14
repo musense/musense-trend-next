@@ -52,8 +52,6 @@ const mainReducer = (
                 filteredActive: {
                     seeMore: false,
                 },
-                mainSiteHref: !action.payload.contents || action.payload.contents.length === 0
-                    ? '/' : process.env.NEXT_PUBLIC_FRONT_SITE
             };
         }
         case ReducerActionEnum.SET_CATEGORY_NAME: {
@@ -93,7 +91,10 @@ const mainReducer = (
             return {
                 ...state,
                 lastPathname: action.payload.lastPathname,
-                pathname: action.payload.pathname
+                pathname: action.payload.pathname,
+                mainSiteHref: action.payload.pathname?.indexOf('/c_') === -1
+                    ? process.env.NEXT_PUBLIC_FRONT_SITE
+                    : '/',
             };
         }
         case ReducerActionEnum.SEE_MORE: {

@@ -8,12 +8,11 @@ export default function useInitial({
 }) {
 
     useEffect(() => {
-        if (!path) return;
         dispatch({
             type: 'SET_PATHNAME',
             payload: {
                 lastPathname: localStorage.getItem("prevPath"),
-                pathname: localStorage.getItem("currentPath"),
+                pathname: window.location.pathname,
             },
         });
     }, [path, dispatch, state.pathname]);

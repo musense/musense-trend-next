@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo } from 'react'
-import styles from './pageTemplate.module.css'
 import { useAppContext } from "@store/context";
 
 const PageTemplate = ({
@@ -7,6 +6,7 @@ const PageTemplate = ({
     totalPage,
     __MAX_SHOW_NUMBERS__ = 5
 }) => {
+    console.log("🚀 ~ file: pageTemplate.jsx:9 ~ totalPage:", totalPage)
     const { dispatch } = useAppContext();
 
     const prevPage = useCallback(() => {
@@ -47,12 +47,12 @@ const PageTemplate = ({
         })
     }, [__MAX_SHOW_NUMBERS__, currPage, totalPage, middleLeftPoint])
 
-    return (
-        <div className={styles['page-wrapper']}>
+    return totalPage > 0 && (
+        <div className={'page-wrapper'}>
             <div>
                 <AnchorButton
                     cb={() => prevPage()}
-                    styles={currPage === 1 ? styles.displayNone : ""}
+                    styles={currPage === 1 ? 'displayNone' : ""}
                     label={'<'}
                 />
                 <LeftDots
@@ -74,7 +74,7 @@ const PageTemplate = ({
                 />
                 <AnchorButton
                     cb={() => nextPage()}
-                    styles={currPage === totalPage || totalPage === 0 ? styles.displayNone : ""}
+                    styles={currPage === totalPage || totalPage === 0 ? 'displayNone' : ""}
                     label={'>'}
                 />
             </div>
@@ -111,7 +111,7 @@ function PageNumber({ showArray, setPage, currentPage }) {
         return <AnchorButton
             key={index}
             cb={() => setPage(item)}
-            styles={currentPage === item ? styles.active : ""}
+            styles={currentPage === item ? 'active' : ""}
             label={(item)} />;
     });
 }
