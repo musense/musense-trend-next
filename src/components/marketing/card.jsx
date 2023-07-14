@@ -42,7 +42,11 @@ export default function Card({
           </span>
         </div>
         <div className='card-footer'>
-          {tags && <div className='card-tag'>{tagNameArray.join(' / ')}</div>}
+          {tagNameArray && <div className='card-tag'>
+            {tagNameArray.map(tag => {
+              return <span key={tag}>{`#${tag} `}</span>
+            })}
+          </div>}
           <div className="content-date-wrapper">
             <span className="content-create-date">
               {`${new Date(content.publishedAt).toLocaleDateString('en-ZA')}`}

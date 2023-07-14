@@ -448,7 +448,36 @@ a {
 }
 
 .card-tag {
+    display: block;
+    overflow: hidden;
     color: #f88d2a;
+    background-color: #fff;
+    padding-right: 30px;
+    width: 230px;
+    height: 11px;
+}
+
+.card-tag>span {
+    display: inline-block;
+    /* These have to be inline block to wrap correctly */
+    position: relative;
+    /* Give the ellipsis an anchor point so it's positioned after the element */
+    background-color: #fff;
+    /* Cover the ellipsis of the previous element with the same background color */
+    white-space: pre;
+    /* Make sure the only point where wrapping is allowed is before a comma */
+}
+
+.card-tag>span:after {
+    position: absolute;
+    /* Take the ellipsis out of the flow, so the next item will cover it */
+    content: "…";
+    /* Each span has an ellipsis */
+}
+
+.card-tag>span:last-child:after {
+    content: "";
+    /* Except for the last one */
 }
 
 .card-create-date {
