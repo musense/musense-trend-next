@@ -615,11 +615,94 @@ a {
     flex-direction: row;
     gap: 81px;
 }
-.btn-marketing-wrapper.content{
+
+.btn-marketing-wrapper.content {
     margin: 68px auto;
 }
+
 .btn-marketing-wrapper.content .btn-marketing {
     filter: drop-shadow(0px 4px 4px rgb(0 0 0/0.2));
+}
+
+.page-wrapper {
+    position: absolute;
+    margin: unset;
+    top: 900px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.page-wrapper>div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 47px;
+    max-width: 700px;
+    width: fit-content;
+    user-select: none;
+    font-family: NotoSans-Regular;
+}
+
+.page-wrapper a,
+.page-wrapper button {
+    background-color: transparent;
+    color: var(--theme-red);
+    font-size: 41px;
+    display: block;
+    padding: unset;
+    border: unset;
+    width: 46px;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.page-wrapper p {
+    font-family: 'Times New Roman', Times, serif;
+    color: var(--theme-red);
+    font-size: 41px;
+    margin: unset;
+    width: 46px;
+}
+
+.page-wrapper a:first-child,
+.page-wrapper button:first-child {
+    margin-right: auto;
+}
+
+.page-wrapper a:last-child,
+.page-wrapper button:last-child {
+    margin-left: auto;
+}
+
+.page-wrapper a:hover {
+    text-decoration: none;
+    color: currentColor;
+}
+
+.page-wrapper button:focus {
+    border: unset;
+    outline: unset;
+}
+
+.page-wrapper+.btn-marketing-wrapper {
+    top: 970px;
+}
+
+.page-wrapper *a.active,
+.page-wrapper *button.active {
+    font-family: NotoSans-Medium;
+    font-weight: bold;
+    font-size: 45px;
+    /* color: var(--theme-text); */
+}
+
+.page-wrapper *a.displayNone,
+.page-wrapper *button.displayNone {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .top-banner-wrapper {
@@ -1221,7 +1304,7 @@ a {
     .btn-marketing-wrapper.upper,
     .btn-marketing-wrapper.lower {
         --btn-marketing-height: 4rem;
-        --btn-marketing-width: 15rem;
+        --btn-marketing-width: 13rem;
         position: relative;
         margin-top: 13rem;
         width: calc(var(--btn-marketing-width) * 2 + 5.4rem);
@@ -1265,6 +1348,48 @@ a {
 
     .btn-marketing-wrapper.upper>div:first-child:nth-last-child(1)::before {
         display: none;
+    }
+
+    .page-wrapper {
+        position: relative;
+        margin: 2rem auto 0;
+        top: unset;
+        left: unset;
+        transform: unset;
+    }
+
+    .page-wrapper>div {
+        width: 60vw;
+        align-items: baseline;
+        gap: 0rem;
+    }
+
+    .page-wrapper a,
+    .page-wrapper button {
+        font-size: 2rem;
+        background-color: transparent;
+        line-height: 1;
+    }
+
+    .page-wrapper p {
+        width: 2rem;
+        font-size: 2rem;
+        font-family: 'Lobster-Regular';
+    }
+
+    .page-wrapper+.btn-marketing-wrapper {
+        margin-top: 3rem;
+    }
+
+    .page-wrapper *a.active,
+    .page-wrapper * button.active {
+        font-size: 3rem;
+    }
+
+    .page-wrapper *a.displayNone,
+    .page-wrapper *button.displayNone {
+        opacity: 0;
+        pointer-events: none;
     }
 
     .btn-marketing {
@@ -1612,10 +1737,12 @@ a {
     .btn-marketing.next {
         margin-left: auto;
     }
+
     .btn-marketing {
         margin-left: auto;
         margin-right: auto;
     }
+
     .top-banner-wrapper {
         --banner-top-offset: 10rem;
         width: 96vw;
@@ -1719,17 +1846,6 @@ a {
         line-height: inherit;
         font-size: inherit;
     }
-
-    /* .content-main-content a {
-        color: blueviolet;
-        text-decoration: underline;
-        cursor: pointer;
-    }
-
-    .content-main-content a:hover {
-        color: violet;
-    } */
-
 
     .content-main-content h1 {
         font-size: 3.5rem;
