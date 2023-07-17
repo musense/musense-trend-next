@@ -8,6 +8,7 @@ export default function useLoadImage(imageNameMap) {
 
     const loadImage = (imageNameMap, setImage, clientWidth) => {
         let imageImport
+        if (clientWidth === 0) return null
         if (clientWidth > 768) {
             imageImport = imageNameMap.get('pc')
         } else {

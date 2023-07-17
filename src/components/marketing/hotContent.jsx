@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 export default function PopularContent({ contents }) {
-  console.log("🚀 ~ file: hotContent.jsx:5 ~ PopularContent ~ contents:", contents)
+  // console.log("🚀 ~ file: hotContent.jsx:5 ~ PopularContent ~ contents:", contents)
   const [leftContents, rightContents] = React.useMemo(() => {
     if (!contents || contents.length === 0) return [null, null]
     if (contents.length <= 3) return [[...contents], null]

@@ -1,7 +1,6 @@
 import { Context } from '@store/context';
 import '@styles/global.css';
 import Script from 'next/script';
-
 export default function MyApp({ Component, pageProps }) {
 
   return (

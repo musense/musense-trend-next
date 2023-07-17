@@ -1,10 +1,14 @@
 import React from 'react'
 import Tag from './tag';
 
-export default function HotTrendWrapper({ popularTagList }) {
+export default function HotTrendWrapper({ 
+    position,
+    popularTagList,
+
+ }) {
 
     console.log("🚀 ~ file: hotTrendWrapper.jsx:5 ~ HotTrendWrapper ~ popularTags:", popularTagList)
-    return <div className={`content-right-side`}>
+    return <div className={`content-right-side ${position}`}>
         <div className="hot-trend"></div>
         <div className="hot-tag-wrapper">
             {popularTagList && popularTagList.map((tag, index) => {

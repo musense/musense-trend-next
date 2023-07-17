@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MainImage from '@components/content/mainImage';
 import MainContent from '@components/content/mainContent';
 import HotTrendWrapper from '@components/content/hotTrendWrapper';
 import ExtendReading from '@components/content/extendReading';
-import { useAppContext } from "@store/context";
 import MiscButtonContentList from "./miscButtonContentList";
-
+import { useAppContext } from "@store/context";
+import useInitial from "@services/useInitial";
+import useScrollToTop from "@services/useScrollToTop";
 const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
 export default function Page({
@@ -14,7 +15,11 @@ export default function Page({
     relatedArticles,
     popularTagList
 }) {
-    const { state } = useAppContext();
+   
+    useScrollToTop();
+    const { state, dispatch } = useAppContext();
+    useInitial({ state, dispatch })
+
     console.log("🚀 ~ file: ContentPage.jsx:16 ~ titleContents:", titleContents)
     console.log("🚀 ~ file: ContentPage.jsx:16 ~ mainContent:", mainContent)
     console.log("🚀 ~ file: ContentPage.jsx:16 ~ popularTagList:", popularTagList)
@@ -67,7 +72,7 @@ export default function Page({
             {relatedArticles.length > 0 && <ExtendReading
                 contents={relatedArticles}
             />}
-            {state.clientWidth <= 768 && <MemoizedHotTrendWrapper popularTagList={popularTagList} />}
+            <MemoizedHotTrendWrapper position='bottom' popularTagList={popularTagList} />
         </>
     )
 

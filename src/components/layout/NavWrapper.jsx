@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import HeaderScrollLink from './HeaderScrollLink';
-import { useAppContext } from "@store/context";
-import useInitial from '@services/useInitial';
 
 export default function NavWrapper({
   active,
@@ -9,11 +7,6 @@ export default function NavWrapper({
   unCheck,
   headerForceHide = null
 }) {
-  const { state, dispatch } = useAppContext();
-  useInitial({
-    state,
-    dispatch
-  });
   const navRef = useRef(null);
 
   const navHandler = useCallback((e) => {

@@ -6,7 +6,7 @@ import { useAppContext } from "@store/context";
 
 export default function MiscButtonList() {
   const { state, dispatch } = useAppContext();
-  console.log("🚀 ~ file: miscButtonList.jsx:15 ~ MiscButtonList ~ state.mainSiteHref:", state.mainSiteHref)
+  // console.log("🚀 ~ file: miscButtonList.jsx:15 ~ MiscButtonList ~ state.mainSiteHref:", state.mainSiteHref)
   return (
     <>
       <BtnMarketingWrapper position='lower'>

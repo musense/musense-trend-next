@@ -5,7 +5,11 @@ import { getRenamedContent } from '@services/sitemap';
 export async function getTagSitemapUrls(payload) {
     const { apiUrl } = payload
     const response = await instance(apiUrl).get(`/tags?limit=9999&pageNumber=1`)
-        .then(res => res.data.data)
+        .then(res => res.data)
+        .then(res => res.data.filter((item) =>
+            item.status !== "已排程" && item.status !== "草稿" &&
+            item.name !== "未分類"
+        ))
         // .then(res => { console.log("🚀 ~ file: tagContents.js:10 ~ res:", res); return res })
         .then(tagList => tagList.filter(content => content.sitemapUrl.indexOf('/tag_') !== -1))
     const idArray = response.reduce((acc, curr) => {
@@ -78,6 +82,7 @@ export async function getTagContents(payload) {
         .then(res => { console.log("🚀 ~ file: tagContents.js:61 ~ getTagContents ~ res:", res); return res })
         .then(res => res.data && res.data.length > 0 ? res.data.filter(item =>
             // item.draft === false &&
+            item.status !== "已排程" && item.status !== "草稿" && 
             item.categories.name !== "未分類") : [])
         .then(tagContents => tagContents.map(content => {
             if (content.length === 0) {

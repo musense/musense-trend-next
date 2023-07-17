@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useMemo } from 'react';
-import styles from './css/headerScrollLink.module.css'
 import Link from 'next/link';
 import { useAppContext } from "@store/context";
-import useInitial from '@services/useInitial';
 
 const navMap = new Map([
   ['about', {
@@ -44,11 +42,8 @@ export default function HeaderScrollLink({
   disableScroll = false,
   callbackHandler = null,
 }) {
-  const { state, dispatch } = useAppContext();
-  useInitial({
-    state,
-    dispatch
-  });
+  const { state } = useAppContext();
+
   const linkRef = useRef(null)
   const scrollHandler = useCallback(() => {
     callbackHandler && callbackHandler()
@@ -68,7 +63,7 @@ export default function HeaderScrollLink({
     }
   }, [linkRef, disableScroll, scrollHandler, to]);
   const color = name === 'marketing' ? 'blue' : 'orange'
-  const mainClassName = className ? className : styles['nav-button']
+  const mainClassName = className ? className : 'nav-button'
   const href = useMemo(() => {
     if (state.clientWidth === 0) return to
     /* mobile auto scroll needs more concerns */
@@ -88,8 +83,8 @@ export default function HeaderScrollLink({
     href={href}
     className={mainClassName}
   >
-    <div className={`${styles['bubble']} ${styles[color]}`} />
-    <div className={styles['nav-text-wrapper']}>
+    <div className={`bubble ${color}`} />
+    <div className={'nav-text-wrapper'}>
       <div>{navMap.get(name).name.en}</div>
       <div>{navMap.get(name).name.ch}</div>
     </div>

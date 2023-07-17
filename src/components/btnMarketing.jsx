@@ -18,7 +18,7 @@ export default function BtnMarketing({
   const linkProps = React.useMemo(() => ({
     target: target,
     title: title,
-    className: `btn-marketing ${name}`,
+    className: `btn-marketing ${className}`,
     href: to,
     onClick: close
       ? () => { window.top.close(); }
@@ -26,7 +26,7 @@ export default function BtnMarketing({
         ? callback
         : null,
 
-  }), [target, title, name, to, callback, close])
+  }), [target, title, name, to, callback, close, className])
   const buttonProps = React.useMemo(() => ({
     disabled: disabled || false,
     title: title,

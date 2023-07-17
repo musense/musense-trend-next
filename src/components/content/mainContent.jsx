@@ -1,17 +1,17 @@
 import React, { useRef } from "react";
 import Tag from "./tag";
 import HotTrendWrapper from "./hotTrendWrapper";
-import { useAppContext } from "@store/context";
 import useReSizeContentTags from "@services/useReSizeContentTags";
 import useAddPageView from "@services/useAddPageView";
 
 const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
-export default function MainContent({ content, popularTagList }) {
+export default function MainContent({
+    content,
+    popularTagList
+}) {
     console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
     console.log("🚀 ~ file: mainContent.jsx:13 ~ MainContent ~ popularTagList:", popularTagList)
-
-    const { state } = useAppContext();
 
     const contentTagsRef = useRef(null);
     console.log("🚀 ~ file: mainContent.jsx:15 ~ MainContent ~ contentTagsRef:", contentTagsRef)
@@ -45,7 +45,7 @@ export default function MainContent({ content, popularTagList }) {
                     dangerouslySetInnerHTML={{ __html: content.htmlContent }}
                 />
             </div>
-            {state.clientWidth > 768 && <MemoizedHotTrendWrapper popularTagList={popularTagList} />}
+            <MemoizedHotTrendWrapper position="content" popularTagList={popularTagList} />
         </div>
     );
 

@@ -38,7 +38,7 @@ export default Marketing;
 export const getStaticProps: GetStaticProps = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-  let categoryList, titleContents, editorTitleList, popularContents;
+  let categoryList, titleContents, commonPageItems, popularContents;
   let payload = {
     apiUrl: apiUrl,
     categoryName: '',
@@ -48,10 +48,10 @@ export const getStaticProps: GetStaticProps = async () => {
   categoryList = await getCategoryList(payload);
   popularContents = await getPopularContents(payload);
 
-  editorTitleList = [...titleContents];
+  commonPageItems = [...titleContents];
   return {
     props: {
-      commonPageItems: editorTitleList,
+      commonPageItems: commonPageItems,
       categoryList: categoryList,
       popularContents: popularContents,
     },

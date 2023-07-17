@@ -29,7 +29,6 @@ import {
 import ContentPage from '@components/content/ContentPage';
 import Marketing from '@components/marketing/Marketing';
 import Index from '@components/marketing/Marketing';
-
 type CommonProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Page = ({
@@ -116,7 +115,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     tagList,
     tagItems,
     tagInfo,
-    editorTitleList,
+    commonPageItems,
     popularContents;
 
   if (sitemapUrl.indexOf('p_') !== -1) {
@@ -180,11 +179,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     categoryItems = await getTitleContentsByCategory(payload);
     categoryInfo = await getCategoryInfo(payload);
     popularContents = await getPopularContents(payload);
-    editorTitleList = [...categoryItems];
+    commonPageItems = [...categoryItems];
     return {
       props: {
         mainTitle: mainContent.name,
-        commonPageItems: editorTitleList,
+        commonPageItems: commonPageItems,
         categoryList: categoryList,
         mainContent: '',
         relatedArticles: '',
@@ -211,12 +210,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     tagItems = await getTagContents(payload);
     tagInfo = await getTagInfo(payload);
     popularContents = await getPopularContents(payload);
-    editorTitleList = [...tagItems];
+    commonPageItems = [...tagItems];
 
     return {
       props: {
         mainTitle: mainContent.name,
-        commonPageItems: editorTitleList,
+        commonPageItems: commonPageItems,
         categoryList: '',
         mainContent: '',
         relatedArticles: '',

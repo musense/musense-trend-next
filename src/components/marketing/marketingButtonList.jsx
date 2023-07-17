@@ -1,8 +1,7 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import BtnMarketing from '@components/btnMarketing';
 import BtnMarketingWrapper from '@components/btnMarketingWrapper';
 import { useAppContext } from "@store/context";
-import useInitial from "@services/useInitial";
 import useDispatch from "@services/useDispatch";
 
 export default function MarketingButtonList({
@@ -10,11 +9,8 @@ export default function MarketingButtonList({
   paramName
 }) {
 
-  const { state, dispatch } = useAppContext();
-  useInitial({
-    state,
-    dispatch
-  });
+  const { state } = useAppContext();
+
   const showCategoryList = React.useMemo(() => {
     if (!categoryList) return null
     return categoryList.filter(category => category.keyName !== 'Uncategorized')

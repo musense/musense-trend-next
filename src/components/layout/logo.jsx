@@ -1,25 +1,19 @@
-import styles from './css/logo.module.css';
 import logo_white from '@assets/logo/logo_white.webp';
 import logo_gray from '@assets/logo/logo_gray.webp';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import useWaitState from '@services/useWaitState'
 
 export default function Logo({ active, color = 'gray', position = "header" }) {
 
   const logo = color === 'gray' ? logo_gray : logo_white
 
-  const [prevState, setPrevState] = useState();
-  useEffect(() => {
-    if (active) {
-      setTimeout(() => {
-        setPrevState(active)
-      }, 500)
-    }
-  }, [active]);
+  const prevState = useWaitState(active)
+
   return prevState ?
     (
-      <div className={`${styles['logo']} ${styles[position]}`}>
+      <div className={`logo ${position}`}>
         <Image
           title="Musense Marketing"
           src={logo.src}
@@ -27,7 +21,8 @@ export default function Logo({ active, color = 'gray', position = "header" }) {
           width={logo.width}
           height={logo.height}
           style={{
-            width: 'auto',
+            width: '100%',
+            maxWidth: '27rem',
             height: '100%',
             objectFit: 'contain'
           }}
@@ -35,7 +30,7 @@ export default function Logo({ active, color = 'gray', position = "header" }) {
       </div>
     ) :
     (
-      <Link className={`${styles['logo']} ${styles[position]}`}
+      <Link className={`logo ${position}`}
         href={process.env.NEXT_PUBLIC_FRONT_SITE}>
         <div>
           <Image
@@ -45,7 +40,8 @@ export default function Logo({ active, color = 'gray', position = "header" }) {
             width={logo.width}
             height={logo.height}
             style={{
-              width: 'auto',
+              width: '100%',
+              maxWidth: '27rem',
               height: '100%',
               objectFit: 'contain'
             }}

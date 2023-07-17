@@ -8,7 +8,7 @@ export async function getCategoryList(payload) {
     const { apiUrl } = payload
     const response = await instance(apiUrl).get(`/categories`)
         .then(res => res.data)
-        .then(res => { console.log(`🚀 ~ file: categoryContents.js:11 ~ getCategoryList ~ res:`, res); return res })
+        // .then(res => { console.log(`🚀 ~ file: categoryContents.js:11 ~ getCategoryList ~ res:`, res); return res })
         .then(res => res.data.filter((item) => item.name !== "未分類"))
         .then(categoryList => categoryList.map((category) => {
             return {
@@ -30,8 +30,11 @@ export async function getCategorySitemapUrls(payload) {
     const { apiUrl } = payload
     const response = await instance(apiUrl).get(`/categories`)
         .then(res => res.data)
-        // .then(res => { console.log("🚀 ~ file: categoryContents.js:35 ~ getCategorySitemapUrls ~ res:", res); return res })
-        .then(res => res.data.filter((item) => item.name !== "未分類"))
+        .then(res => { console.log("🚀 ~ file: categoryContents.js:35 ~ getCategorySitemapUrls ~ res:", res); return res })
+        .then(res => res.data.filter((item) =>
+            item.status !== "已排程" && item.status !== "草稿" &&
+            item.name !== "未分類"
+        ))
     // .then(res => { console.log(res); return res })
     const idArray = response.reduce((acc, curr) => {
         return [...acc, getRenamedContent(curr.sitemapUrl)]
@@ -48,8 +51,9 @@ export async function getTitleContentsByCategory(payload) {
     const response = await instance(apiUrl).get(`/searchCategory/${categoryKeyname.get(categoryName)}?limit=9999&pageNumber=${page}`)
         .then(res => res.data)
         .then(res => { console.log("🚀 ~ file: categoryContents.ts:66 ~ getTitleContentsByCategory ~ res:", res); return res })
-        .then(res => res.data && res.data.length > 0 ? res.data.filter(item => 
+        .then(res => res.data && res.data.length > 0 ? res.data.filter(item =>
             // item.draft === false && 
+            item.status !== "已排程" && item.status !== "草稿" &&
             item.categories.name !== "未分類") : [])
         .then(categoryContents => categoryContents.map((content) => {
             if (content.length === 0) {

@@ -23,6 +23,12 @@ const initialState: StateProps = {
     }
 }
 
+type DateType = {
+    publishedAt: string | number | Date;
+}
+type HiddenType = {
+    hidden: boolean;
+}
 const mainReducer = (
     state: StateProps,
     action: ReducerAction
@@ -39,9 +45,11 @@ const mainReducer = (
         }
         case ReducerActionEnum.SET_ALL_CONTENTS: {
             const sortedContents = action.payload.contents
-                ? action.payload.contents.sort((item1, item2) =>
-                    (new Date(item2.publishedAt) as any) - (new Date(item1.publishedAt) as any)
-                )
+                ? action.payload.contents
+                    .filter(item => item.hidden === false)
+                    .sort((item1, item2) =>
+                        (new Date(item2.publishedAt) as any) - (new Date(item1.publishedAt) as any)
+                    )
                 : null
             return {
                 ...state,
@@ -74,6 +82,10 @@ const mainReducer = (
             Object.keys(state.filteredActive)?.forEach((key) =>
                 state.filteredActive[key] = false
             );
+            filteredContents?.filter((item: HiddenType) => item.hidden === false)
+                .sort((item1: DateType, item2: DateType) =>
+                    (new Date(item2.publishedAt) as any) - (new Date(item1.publishedAt) as any)
+                )
             return {
                 ...state,
                 categoryName: filteredActive ? action.payload.categoryName : null,
