@@ -1,5 +1,15 @@
 import React, { useCallback, useMemo } from 'react'
 import { useAppContext } from "@store/context";
+import {
+    FirstButton,
+    PrevButton,
+    LeftDots,
+    PageNumber,
+    RightDots,
+    NextButton,
+    LastButton,
+} from "./pageElement";
+
 
 const PageTemplate = ({
     currPage,
@@ -26,6 +36,9 @@ const PageTemplate = ({
         })
     }, [dispatch])
     const setPage = useCallback((page) => {
+        if (page < 1) page = 1
+        if (page > totalPage) page = totalPage
+
         dispatch({
             type: 'SET_CURRENT_PAGE',
             payload: {
@@ -47,80 +60,17 @@ const PageTemplate = ({
         })
     }, [__MAX_SHOW_NUMBERS__, currPage, totalPage, middleLeftPoint])
 
-    return totalPage > 0 && (
-        <div className={'page-wrapper'}>
-            <div>
-                <AnchorButton
-                    cb={() => prevPage()}
-                    styles={currPage === 1 ? 'displayNone' : ""}
-                    label={'<'}
-                />
-                <LeftDots
-                    totalPage={totalPage}
-                    currentPage={currPage}
-                    middleLeftPoint={middleLeftPoint}
-                    __MAX_SHOW_NUMBERS__={__MAX_SHOW_NUMBERS__}
-                />
-                <PageNumber
-                    showArray={showArray}
-                    setPage={setPage}
-                    currentPage={currPage}
-                />
-                <RightDots
-                    currentPage={currPage}
-                    middleRightPoint={middleRightPoint}
-                    totalPage={totalPage}
-                    __MAX_SHOW_NUMBERS__={__MAX_SHOW_NUMBERS__}
-                />
-                <AnchorButton
-                    cb={() => nextPage()}
-                    styles={currPage === totalPage || totalPage === 0 ? 'displayNone' : ""}
-                    label={'>'}
-                />
-            </div>
+    return (<div className={'page-wrapper'}>
+        <div>
+            <FirstButton setPage={setPage} currPage={currPage} />
+            <PrevButton prevPage={prevPage} currPage={currPage} />
+            <LeftDots cb={() => setPage(currPage - 3)} showArray={showArray} />
+            <PageNumber showArray={showArray} setPage={setPage} currentPage={currPage} />
+            <RightDots cb={() => setPage(currPage + 3)} showArray={showArray} totalPage={totalPage} />
+            <NextButton nextPage={nextPage} currPage={currPage} totalPage={totalPage} />
+            <LastButton setPage={setPage} currPage={currPage} totalPage={totalPage} />
         </div>
-    );
+    </div>);
 }
-
 
 export default PageTemplate
-
-
-const AnchorButton = ({ cb, styles, label }) => {
-    const props = {
-        onClick: cb,
-        value: "<",
-        className: styles,
-    }
-    return (
-        <button {...props}>
-            {label}
-        </button>
-    )
-}
-const LeftDots = ({
-    totalPage,
-    currentPage,
-    middleLeftPoint,
-    __MAX_SHOW_NUMBERS__
-}) => {
-    return totalPage - currentPage < middleLeftPoint && totalPage > __MAX_SHOW_NUMBERS__ && (<p>···</p>)
-};
-function PageNumber({ showArray, setPage, currentPage }) {
-    return showArray && showArray.map((item, index) => {
-        return <AnchorButton
-            key={index}
-            cb={() => setPage(item)}
-            styles={currentPage === item ? 'active' : ""}
-            label={(item)} />;
-    });
-}
-
-const RightDots = ({
-    currentPage,
-    middleRightPoint,
-    totalPage,
-    __MAX_SHOW_NUMBERS__
-}) => {
-    return currentPage < middleRightPoint && totalPage > __MAX_SHOW_NUMBERS__ && (<p>···</p>)
-};

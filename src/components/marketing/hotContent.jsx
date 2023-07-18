@@ -13,6 +13,8 @@ export default function PopularContent({ contents }) {
   }, [contents]);
   return (
     <div data-title="熱門文章" className='hot-content-wrapper'>
+      <div className='main' />
+      <div className='main-en' />
       <div className='hot-content-div'>
         <div className='hot-left-side'>
           {leftContents && leftContents.map((content, index) => {

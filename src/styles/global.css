@@ -690,28 +690,48 @@ a {
     transform: translateX(-50%);
 }
 
+.page-wrapper .page {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 5px solid var(--theme-color-hex);
+    color: var(--theme-color-hex);
+    background-color: transparent;
+}
+
+.page-wrapper .page.prev,
+.page-wrapper .page.next,
+.page-wrapper .page.toFirst,
+.page-wrapper .page.toLast {
+    border: unset;
+    color: #fff;
+    background-color: #777;
+}
+
+.page-wrapper .page.toFirst,
+.page-wrapper .page.toLast {
+    width: 80px;
+}
+
 .page-wrapper>div {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     margin: 0 auto;
     justify-content: center;
-    gap: 47px;
-    max-width: 700px;
+    gap: 40px;
     width: fit-content;
     user-select: none;
     font-family: NotoSans-Regular;
 }
 
-.page-wrapper a,
 .page-wrapper button {
     background-color: transparent;
     color: var(--theme-red);
-    font-size: 41px;
+    font-size: 28px;
     display: block;
     padding: unset;
-    border: unset;
-    width: 46px;
     margin-top: 0;
     margin-bottom: 0;
     text-align: center;
@@ -725,22 +745,12 @@ a {
     width: 46px;
 }
 
-.page-wrapper a:first-child,
-.page-wrapper button:first-child {
+.page-wrapper .page:first-child {
     margin-right: auto;
 }
 
-.page-wrapper a:last-child,
-.page-wrapper button:last-child {
-    margin-left: auto;
-}
 
-.page-wrapper a:hover {
-    text-decoration: none;
-    color: currentColor;
-}
-
-.page-wrapper button:focus {
+.page-wrapper .page:focus {
     border: unset;
     outline: unset;
 }
@@ -749,18 +759,12 @@ a {
     top: 970px;
 }
 
-.page-wrapper *a.active,
-.page-wrapper *button.active {
-    font-family: NotoSans-Medium;
-    font-weight: bold;
-    font-size: 45px;
-    /* color: var(--theme-text); */
-}
 
-.page-wrapper *a.displayNone,
-.page-wrapper *button.displayNone {
-    opacity: 0;
-    pointer-events: none;
+.page-wrapper .page:hover,
+.page-wrapper .page.active {
+    background-color: var(--theme-color-hex);
+    color: #fff;
+    /* color: var(--theme-text); */
 }
 
 .top-banner-wrapper {
@@ -1704,7 +1708,6 @@ a {
         gap: 0rem;
     }
 
-    .page-wrapper a,
     .page-wrapper button {
         font-size: 2rem;
         background-color: transparent;
@@ -1724,12 +1727,6 @@ a {
     .page-wrapper *a.active,
     .page-wrapper * button.active {
         font-size: 3rem;
-    }
-
-    .page-wrapper *a.displayNone,
-    .page-wrapper *button.displayNone {
-        opacity: 0;
-        pointer-events: none;
     }
 
     .btn-marketing {

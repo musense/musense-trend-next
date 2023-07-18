@@ -34,20 +34,20 @@ export default function Page({
     const Page = React.useCallback(() => {
         if (state.clientWidth < 400) {
             return <>
-                <PageTemplate
+                {state.currTotalPage > 0 && < PageTemplate
                     currPage={state.currPage}
                     totalPage={state.currTotalPage}
                     __MAX_SHOW_NUMBERS__={3}
-                />
+                />}
                 <MiscButtonList />
             </>
         } else {
             return <>
-                <PageTemplate
+                {state.currTotalPage > 0 && <PageTemplate
                     currPage={state.currPage}
                     totalPage={state.currTotalPage}
                     __MAX_SHOW_NUMBERS__={5}
-                />
+                />}
                 <MiscButtonList />
             </>
         }
