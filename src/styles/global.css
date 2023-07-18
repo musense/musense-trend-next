@@ -336,7 +336,7 @@ a {
     margin: 40px auto 0;
 }
 
-.marketing-banner+.btn-marketing-wrapper.upper+.card-wrapper+.btn-marketing-wrapper.lower+.hot-content-wrapper {
+.marketing-banner+.btn-marketing-wrapper.upper+.card-wrapper+.btn-marketing-wrapper.lower+.hot-content-container {
     margin-top: 100px;
 }
 
@@ -546,24 +546,68 @@ a {
     color: #53575a;
 }
 
-.hot-content-wrapper {
-    position: relative;
-    width: 100%;
-    height: 583px;
+.hot-content-container {
     margin-top: 87rem;
-    margin-bottom: -1px;
-    background-image: url(./../assets/marketing/hot.webp);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 }
 
-.hot-content-wrapper::before,
-.hot-content-wrapper::after {
+.hot-content-container::before,
+.hot-content-container::after {
     display: none;
 }
 
-.hot-content-div {
+.main,
+.main-en {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.main {
+    --hot-content-main-line-offset: -400px;
+    --hot-content-line-width: 400px;
+    height: 80px;
+    width: 550px;
+    top: 55px;
+}
+
+.hot-content-container .main {
+    background-image: url(./../assets/marketing/title_popular_cn.svg);
+}
+
+.main::before,
+.main::after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    background-color: white;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--hot-content-line-width);
+}
+
+.main::before {
+    left: var(--hot-content-main-line-offset);
+}
+
+.main::after {
+    right: var(--hot-content-main-line-offset);
+}
+
+.main-en {
+    height: 80px;
+    width: 550px;
+    top: 115px;
+}
+
+.hot-content-container .main-en {
+    background-image: url(./../assets/marketing/title_popular_eg.svg);
+}
+
+.hot-content-wrapper {
     position: absolute;
     display: flex;
     height: -moz-fit-content;
@@ -1049,22 +1093,33 @@ a {
     font-size: 15px;
 }
 
+.hot-content-container,
 .popular-content-container {
     position: relative;
     width: 100%;
     height: 583px;
-    margin-top: 67px;
     margin-bottom: -1px;
-    background-image: url(./../assets/content/extendReading_bg.webp);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-color: var(--theme-color-hex);
+}
 
+.popular-content-container {
+    margin-top: 67px;
 }
 
 .popular-content-container::before,
 .popular-content-container::after {
     display: none;
+}
+
+.popular-content-container .main {
+    background-image: url(./../assets/content/title_extend_cn.svg);
+}
+
+.popular-content-container .main-en {
+    background-image: url(./../assets/content/title_extend_eg.svg);
+    height: 80px;
+    width: 550px;
+    top: 115px;
 }
 
 .popular-content-wrapper {
@@ -1505,7 +1560,7 @@ a {
         margin: 30px auto 0;
     }
 
-    .hot-content-wrapper {
+    .hot-content-container {
         margin-top: 30px;
     }
 }
@@ -1756,7 +1811,7 @@ a {
         margin: 0 auto;
     } */
 
-    .marketing-banner+.btn-marketing-wrapper.upper+.card-wrapper+.btn-marketing-wrapper.lower+.hot-content-wrapper {
+    .marketing-banner+.btn-marketing-wrapper.upper+.card-wrapper+.btn-marketing-wrapper.lower+.hot-content-container {
         margin-top: 5rem;
     }
 
@@ -1810,7 +1865,7 @@ a {
         height: 1.6rem;
     }
 
-    .hot-content-wrapper {
+    .hot-content-container {
         padding: 20rem 5rem 13rem;
         margin: 3rem 0 0;
         height: fit-content;
@@ -1820,8 +1875,8 @@ a {
         box-sizing: border-box;
     }
 
-    .hot-content-wrapper::before,
-    .hot-content-wrapper::after {
+    .hot-content-container::before,
+    .hot-content-container::after {
         content: '';
         position: absolute;
         display: block;
@@ -1831,7 +1886,7 @@ a {
         width: 100%;
     }
 
-    .hot-content-wrapper::before {
+    .hot-content-container::before {
         background-image: url(./../assets/mobile/about/top_bg_decorate.webp);
         content: attr(data-title);
         top: 0;
@@ -1854,7 +1909,7 @@ a {
         height: 2.5rem;
     }
 
-    .hot-content-wrapper::after {
+    .hot-content-container::after {
         background-image: url(./../assets/mobile/about/deco_blue.webp);
         bottom: -1px;
         right: -1px;
@@ -1863,7 +1918,12 @@ a {
         background-position: right;
     }
 
-    .hot-content-div {
+    .hot-content-container .main,
+    .hot-content-container .main-en {
+        display: none;
+    }
+
+    .hot-content-wrapper {
         position: relative;
         flex-direction: column;
         top: unset;
