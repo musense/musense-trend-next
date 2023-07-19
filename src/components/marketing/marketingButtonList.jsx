@@ -15,7 +15,7 @@ export default function MarketingButtonList({
   }, [categoryList])
   console.log("🚀 ~ file: marketingButtonList.jsx:16 ~ showCategoryList ~ showCategoryList:", showCategoryList)
 
-  const handleDispatch = (props) => useCallback(() => {
+  const useHandleDispatch = (props) => useCallback(() => {
     dispatch({
       type: 'FILTER_CATEGORY',
       payload: {
@@ -35,6 +35,6 @@ export default function MarketingButtonList({
     paramName={paramName}
     showCategoryList={showCategoryList}
     btnActive={btnActive}
-    handleDispatch={handleDispatch}
+    handleDispatch={useHandleDispatch}
   />
 }

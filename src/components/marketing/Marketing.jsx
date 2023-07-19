@@ -60,7 +60,9 @@ export default function Page({
         <CardWrapper />
         {sitemapUrl === ''
             ? <MiscButtonList />
-            : <PageWrapper children={<MiscButtonList />} />}
+            : (<PageWrapper>
+                <MiscButtonList />
+            </PageWrapper>)}
         <PopularContent contents={popularContents} />
     </>);
 }

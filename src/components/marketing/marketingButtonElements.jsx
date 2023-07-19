@@ -10,7 +10,7 @@ function DeskTopBtnMarketingWrapper({
     // useScrollToPosition(selectedCategoryName, 410)
     return <BtnMarketingWrapper position='upper'>
         {showCategoryList && showCategoryList.map((category, index) =>
-            <BtnMarketing {...btnProps(index, category)} />
+            <BtnMarketing key={index} {...btnProps(index, category)} />
         )}
     </BtnMarketingWrapper>;
 }
@@ -25,12 +25,12 @@ function MobileBtnMarketingWrapper({
     return (<BtnMarketingWrapper position='upper'>
         <div>
             {leftCategoryList && leftCategoryList.map((category, index) =>
-                <BtnMarketing {...btnProps(index, category)} />
+                <BtnMarketing key={index} {...btnProps(index, category)} />
             )}
         </div>
         <div>
             {rightCategoryList && rightCategoryList.map((category, index) =>
-                <BtnMarketing {...btnProps(index, category)} />
+                <BtnMarketing key={index} {...btnProps(index, category)} />
             )}
         </div>
     </BtnMarketingWrapper>);
