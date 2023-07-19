@@ -3,13 +3,16 @@ import Tag from "./tag";
 import HotTrendWrapper from "./hotTrendWrapper";
 import useResizeContentTags from "@services/useResizeContentTags";
 import useAddPageView from "@services/useAddPageView";
+import MiscButtonContentList from "./miscButtonContentList";
 // import useScrollToPosition from '@services/useScrollToPosition';
 
 const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
 export default function MainContent({
     content,
-    popularTagList
+    popularTagList,
+    prevInfo,
+    nextInfo
 }) {
     // console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
     // console.log("🚀 ~ file: mainContent.jsx:13 ~ MainContent ~ popularTagList:", popularTagList)
@@ -45,7 +48,12 @@ export default function MainContent({
                     className="content-main-content"
                     dangerouslySetInnerHTML={{ __html: content.htmlContent }}
                 />
+                <MiscButtonContentList
+                    prevInfo={prevInfo}
+                    nextInfo={nextInfo}
+                />
             </div>
+
             <MemoizedHotTrendWrapper position="content" popularTagList={popularTagList} />
         </div>
     );

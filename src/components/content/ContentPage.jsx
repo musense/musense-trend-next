@@ -3,7 +3,6 @@ import MainImage from '@components/content/mainImage';
 import MainContent from '@components/content/mainContent';
 import HotTrendWrapper from '@components/content/hotTrendWrapper';
 import ExtendReading from '@components/content/extendReading';
-import MiscButtonContentList from "./miscButtonContentList";
 import { useAppContext } from "@store/context";
 import useInitial from "@services/useInitial";
 const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
@@ -43,8 +42,8 @@ export default function Page({
         })
 
         const theIndex = filteredTitleContents.findIndex(a => a.serialNumber === mainContent.serialNumber)
-        const prevContent = theIndex === 0 ? null : filteredTitleContents[theIndex - 1]
-        const nextContent = theIndex === filteredTitleContents.length - 1 ? null : filteredTitleContents[theIndex + 1]
+        const prevContent = theIndex === filteredTitleContents.length - 1 ? null : filteredTitleContents[theIndex + 1]
+        const nextContent = theIndex === 0 ? null : filteredTitleContents[theIndex - 1]
 
         const prevInfo = prevContent ? mapContentInto(prevContent) : null
         const nextInfo = nextContent ? mapContentInto(nextContent) : null
@@ -61,11 +60,10 @@ export default function Page({
             <MainContent
                 content={mainContent}
                 popularTagList={popularTagList}
-            />
-            <MiscButtonContentList
                 prevInfo={prevInfo}
                 nextInfo={nextInfo}
             />
+
             {relatedArticles.length > 0 && <ExtendReading
                 contents={relatedArticles}
             />}

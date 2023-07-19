@@ -398,6 +398,15 @@ a {
     border-color: #aaa;
 }
 
+.btn-marketing.prev {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.btn-marketing.next {
+    margin-left: auto;
+    margin-right: 0;
+}
 /* .btn-marketing:disabled:hover {
     background-color: #aaa;
     border-color: #aaa;
@@ -759,6 +768,7 @@ a {
 
 .btn-marketing-wrapper.content {
     margin: 68px auto;
+    width: 410px;
 }
 
 .btn-marketing-wrapper.content .btn-marketing {
@@ -2191,15 +2201,6 @@ a {
         margin-right: auto;
     }
 
-    .btn-marketing.prev {
-        margin-left: 0;
-        margin-right: auto;
-    }
-
-    .btn-marketing.next {
-        margin-left: auto;
-        margin-right: 0;
-    }
 
 
     .btn-marketing.spots {
