@@ -181,7 +181,7 @@ export async function getRelatedArticles(payload) {
     .then(resRelatedArticles => { console.log("🚀 ~ file: titleContents.js:181 ~ getRelatedArticles ~ resRelatedArticles:", resRelatedArticles); return resRelatedArticles })
     .then(res => res.data.filter(item =>
       item.hidden === false &&
-      item.homeImagePath === false &&
+      item.homeImagePath !== null &&
       item.categories.name !== "未分類"
     ))
     .then(relatedArticles => relatedArticles.map(article => {
