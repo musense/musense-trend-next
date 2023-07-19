@@ -27,29 +27,7 @@ export default function Page({
         dispatch({
             type: "SET_ALL_CONTENTS",
             payload: {
-                contents: [
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                    ...commonPageItems,
-                ],
+                contents: commonPageItems,
             }
         })
     }, [commonPageItems, dispatch]);
