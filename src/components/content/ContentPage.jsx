@@ -17,9 +17,9 @@ export default function Page({
     const { state, dispatch } = useAppContext();
     useInitial({ state, dispatch })
 
-    console.log("🚀 ~ file: ContentPage.jsx:16 ~ titleContents:", titleContents)
-    console.log("🚀 ~ file: ContentPage.jsx:16 ~ mainContent:", mainContent)
-    console.log("🚀 ~ file: ContentPage.jsx:16 ~ popularTagList:", popularTagList)
+    // console.log("🚀 ~ file: ContentPage.jsx:16 ~ titleContents:", titleContents)
+    // console.log("🚀 ~ file: ContentPage.jsx:16 ~ mainContent:", mainContent)
+    // console.log("🚀 ~ file: ContentPage.jsx:16 ~ popularTagList:", popularTagList)
 
     const filteredTitleContents = React.useMemo(() => {
         if (!titleContents || titleContents.length === 0) return null
@@ -27,7 +27,7 @@ export default function Page({
             && content.categories.name.toLowerCase() !== '未分類'
         )
     }, [titleContents])
-    console.log("🚀 ~ file: index.jsx:22 ~ filteredTitleContents ~ filteredTitleContents:", filteredTitleContents)
+    // console.log("🚀 ~ file: index.jsx:22 ~ filteredTitleContents ~ filteredTitleContents:", filteredTitleContents)
 
     const [prevInfo, nextInfo] = React.useMemo(() => {
         if (!mainContent) return [null, null]

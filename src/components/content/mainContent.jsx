@@ -11,8 +11,8 @@ export default function MainContent({
     content,
     popularTagList
 }) {
-    console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
-    console.log("🚀 ~ file: mainContent.jsx:13 ~ MainContent ~ popularTagList:", popularTagList)
+    // console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
+    // console.log("🚀 ~ file: mainContent.jsx:13 ~ MainContent ~ popularTagList:", popularTagList)
 
     const contentTagsRef = useRef(null);
     console.log("🚀 ~ file: mainContent.jsx:15 ~ MainContent ~ contentTagsRef:", contentTagsRef)
