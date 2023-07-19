@@ -31,8 +31,8 @@ export default function Card({
         {homeImagePath && <Image
           className='card-img'
           src={homeImagePath}
-          width={300}
-          height={300}
+          width={314}
+          height={178}
           alt={altText || ''}
           style={{
             objectFit: 'cover',
