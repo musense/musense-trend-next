@@ -178,9 +178,10 @@ export async function getRelatedArticles(payload) {
   const { _id, apiUrl } = payload
   const response = await instance(apiUrl).get(`/editor/relatedArticles/${_id}`)
     .then(res => res.data)
-    // .then(res => { console.log("🚀 ~ file: titleContents.js:176 ~ getRelatedArticles ~ res:", res); return res })
+    .then(resRelatedArticles => { console.log("🚀 ~ file: titleContents.js:181 ~ getRelatedArticles ~ resRelatedArticles:", resRelatedArticles); return resRelatedArticles })
     .then(res => res.data.filter(item =>
-      item.hidden !== true ||
+      item.hidden === false &&
+      item.homeImagePath === false &&
       item.categories.name !== "未分類"
     ))
     .then(relatedArticles => relatedArticles.map(article => {
@@ -189,7 +190,7 @@ export async function getRelatedArticles(payload) {
         sitemapUrl: getRenamedContent(article.sitemapUrl)
       }
     }))
-  // .then(res => { console.log(res); return res })
+    .then(relatedArticles => { console.log("🚀 ~ file: titleContents.js:193 ~ getRelatedArticles ~ relatedArticles:", relatedArticles); return relatedArticles })
   return response
 }
 

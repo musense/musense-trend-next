@@ -46,7 +46,7 @@ const mainReducer = (
         case ReducerActionEnum.SET_ALL_CONTENTS: {
             const sortedContents = action.payload.contents
                 ? action.payload.contents
-                    .filter(item => item.hidden === false)
+                    .filter(item => item.hidden === false && item.homeImagePath)
                     .sort((item1, item2) =>
                         (new Date(item2.publishedAt) as any) - (new Date(item1.publishedAt) as any)
                     )
