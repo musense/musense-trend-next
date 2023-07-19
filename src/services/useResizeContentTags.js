@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo } from "react";
 import { useAppContext } from "@store/context";
 
-export default function useReSizeContentTags(contentTagsRef) {
+export default function useResizeContentTags(contentTagsRef) {
     const { state } = useAppContext();
 
     const targetHeight = 75

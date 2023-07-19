@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Tag from "./tag";
 import HotTrendWrapper from "./hotTrendWrapper";
-import useReSizeContentTags from "@services/useReSizeContentTags";
+import useResizeContentTags from "@services/useResizeContentTags";
 import useAddPageView from "@services/useAddPageView";
 // import useScrollToPosition from '@services/useScrollToPosition';
 
@@ -18,7 +18,7 @@ export default function MainContent({
     console.log("🚀 ~ file: mainContent.jsx:15 ~ MainContent ~ contentTagsRef:", contentTagsRef)
 
     // useScrollToPosition(content._id)
-    useReSizeContentTags(contentTagsRef);
+    useResizeContentTags(contentTagsRef);
     useAddPageView(content._id);
 
     return (
