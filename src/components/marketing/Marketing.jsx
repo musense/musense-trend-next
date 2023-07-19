@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import MarketingButtonList from '@components/marketing/marketingButtonList';
 import CardWrapper from '@components/marketing/cardWrapper';
 import MiscButtonList from '@components/marketing/miscButtonList';
@@ -7,7 +7,7 @@ import { useAppContext } from "@store/context";
 import PageTemplate from "@components/page/pageTemplate";
 import MarketingBanner from "./marketingBanner";
 import useInitial from "@services/useInitial";
-
+// import useScrollToPosition from "@services/useScrollToPosition";
 
 export default function Page({
     paramName = '',
@@ -18,6 +18,7 @@ export default function Page({
 }) {
     const { state, dispatch } = useAppContext();
     useInitial({ state, dispatch })
+    // useScrollToPosition(sitemapUrl,10)
     useEffect(() => {
         console.log("🚀 ~ file: index.jsx:19 ~ useEffect ~ commonPageItems:", commonPageItems)
         dispatch({
@@ -26,39 +27,62 @@ export default function Page({
         dispatch({
             type: "SET_ALL_CONTENTS",
             payload: {
-                contents: commonPageItems,
+                contents: [
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                    ...commonPageItems,
+                ],
             }
         })
     }, [commonPageItems, dispatch]);
 
-    const Page = React.useCallback(() => {
-        if (state.clientWidth < 400) {
-            return <>
-                {state.currTotalPage > 0 && < PageTemplate
-                    currPage={state.currPage}
-                    totalPage={state.currTotalPage}
-                    __MAX_SHOW_NUMBERS__={3}
-                />}
-                <MiscButtonList />
-            </>
-        } else {
-            return <>
-                {state.currTotalPage > 0 && <PageTemplate
-                    currPage={state.currPage}
-                    totalPage={state.currTotalPage}
-                    __MAX_SHOW_NUMBERS__={5}
-                />}
-                <MiscButtonList />
-            </>
-        }
-    }, [state.clientWidth, state.currPage, state.currTotalPage, commonPageItems])
     return (<>
         {sitemapUrl === '' && <MarketingBanner />}
         <MarketingButtonList categoryList={categoryList} paramName={paramName} />
         <CardWrapper />
         {sitemapUrl === ''
             ? <MiscButtonList />
-            : <Page />}
+            : <PageWrapper children={<MiscButtonList />} />}
         <PopularContent contents={popularContents} />
     </>);
+}
+
+function PageWrapper({ children = null }) {
+
+    const { state, dispatch } = useAppContext();
+    const maxNumber = useMemo(() => {
+        if (state.clientWidth === 0) return 0
+        if (state.clientWidth < 768) {
+            return 3
+        }
+        return 5
+    }, [state.clientWidth])
+
+    return <>
+        {state.currTotalPage > 0 && <PageTemplate
+            currPage={state.currPage}
+            totalPage={state.currTotalPage}
+            __MAX_SHOW_NUMBERS__={maxNumber}
+        />}
+        {children}
+    </>
+
 }

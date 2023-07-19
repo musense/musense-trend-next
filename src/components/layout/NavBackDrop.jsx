@@ -6,7 +6,7 @@ export default function NavBackDrop({ active, unCheck }) {
 
   const navBackdropHandler = useCallback((e) => {
     console.log(e.target)
-    unCheck()
+    unCheck && unCheck()
   }, [unCheck])
 
   useEffect(() => {

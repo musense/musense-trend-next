@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MainImage from '@components/content/mainImage';
 import MainContent from '@components/content/mainContent';
 import HotTrendWrapper from '@components/content/hotTrendWrapper';
@@ -6,7 +6,6 @@ import ExtendReading from '@components/content/extendReading';
 import MiscButtonContentList from "./miscButtonContentList";
 import { useAppContext } from "@store/context";
 import useInitial from "@services/useInitial";
-import useScrollToTop from "@services/useScrollToTop";
 const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
 export default function Page({
@@ -15,8 +14,6 @@ export default function Page({
     relatedArticles,
     popularTagList
 }) {
-   
-    useScrollToTop();
     const { state, dispatch } = useAppContext();
     useInitial({ state, dispatch })
 

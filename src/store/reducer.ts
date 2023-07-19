@@ -144,7 +144,7 @@ const mainReducer = (
             };
         }
         case ReducerActionEnum.RESET_FILTER_STATE: {
-            console.log("🚀 ~ file: reducer.ts:140 ~ RESET_FILTER_STATE!!!")
+            // console.log("🚀 ~ file: reducer.ts:140 ~ RESET_FILTER_STATE!!!")
             return {
                 ...state,
                 categoryName: null,

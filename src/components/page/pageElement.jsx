@@ -5,7 +5,7 @@ function LeftDots({ cb, showArray }) {
         <PageButton
             cb={cb}
             styles='dots'
-            label="..."
+            label="···"
         />
     )
 };
@@ -15,7 +15,7 @@ function RightDots({ cb, showArray, totalPage }) {
         <PageButton
             cb={cb}
             styles="dots"
-            label="..."
+            label="···"
         />
     )
 };

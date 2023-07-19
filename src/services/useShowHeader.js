@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
-import useClientWindowWidth from './useClientWindowWidth';
+import useClientWindowWidth from '@services/useClientWindowWidth';
 import debounce from '@services/debounce'
 export default function useShowHeader() {
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useEffect } from 'react'
 import { useAppContext } from "@store/context";
 import {
     FirstButton,
@@ -9,15 +9,19 @@ import {
     NextButton,
     LastButton,
 } from "./pageElement";
-
+// import useScrollToPosition from '@services/useScrollToPosition';
 
 const PageTemplate = ({
     currPage,
     totalPage,
     __MAX_SHOW_NUMBERS__ = 5
 }) => {
+
+    console.log("🚀 ~ file: pageTemplate.jsx:21 ~ currPage:", currPage)
+    // useScrollToPosition(currPage)
+
     console.log("🚀 ~ file: pageTemplate.jsx:9 ~ totalPage:", totalPage)
-    const { dispatch } = useAppContext();
+    const { state, dispatch } = useAppContext();
 
     const prevPage = useCallback(() => {
         dispatch({
@@ -26,7 +30,7 @@ const PageTemplate = ({
                 currPage: 'prev'
             }
         })
-    }, [dispatch])
+    }, [])
     const nextPage = useCallback(() => {
         dispatch({
             type: 'SET_CURRENT_PAGE',
@@ -34,7 +38,7 @@ const PageTemplate = ({
                 currPage: 'next'
             }
         })
-    }, [dispatch])
+    }, [])
     const setPage = useCallback((page) => {
         if (page < 1) page = 1
         if (page > totalPage) page = totalPage
@@ -45,7 +49,7 @@ const PageTemplate = ({
                 currPage: page
             }
         })
-    }, [dispatch])
+    }, [])
 
     const middleRightPoint = Math.ceil(__MAX_SHOW_NUMBERS__ / 2)
     const middleLeftPoint = Math.floor(__MAX_SHOW_NUMBERS__ / 2)

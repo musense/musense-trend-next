@@ -1,5 +1,5 @@
 import Logo from './logo';
-import usePathname from './hook/usePathname';
+import usePathname from '@services/usePathname';
 import Link from 'next/link';
 
 export default function FooterLayout() {

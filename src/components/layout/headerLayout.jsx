@@ -1,9 +1,8 @@
 // import styles from './css/headerLayout.module.css'
 import Logo from './logo';
 
-import usePathname from './hook/usePathname';
-// import useShowHeader from './hook/useShowHeader';
-import useRefresh from './hook/useRefresh';
+import usePathname from '@services/usePathname';
+import useRefresh from '@services/useRefresh';
 import Hamburger from './hamburger';
 import NavWrapper from './NavWrapper';
 import NavBackDrop from './NavBackDrop';
@@ -33,8 +32,6 @@ export default function HeaderLayout() {
     }
     // console.log("🚀 ~ file: headerLayout.jsx:25 ~ HeaderLayout ~ active:", active)
   }, [hamburgerRef, active]);
-
-  // const [showHeader, headerForceHide] = useShowHeader();
 
   function unCheck() {
 

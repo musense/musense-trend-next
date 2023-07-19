@@ -168,7 +168,7 @@ a {
     text-decoration: none;
 }
 
-[data-tooltip]::before {
+/* [data-tooltip]::before {
     position: absolute;
     content: attr(data-tooltip);
     width: 90px;
@@ -190,7 +190,7 @@ a {
 [data-tooltip]:hover::before {
     opacity: 1;
     transform: translate(70%, 0);
-}
+} */
 
 .navBtn {
     position: absolute;
@@ -398,17 +398,55 @@ a {
     border-color: #aaa;
 }
 
-.btn-marketing:disabled:hover {
+/* .btn-marketing:disabled:hover {
     background-color: #aaa;
     border-color: #aaa;
     color: grey;
     cursor: not-allowed;
-}
+} */
 
-.btn-marketing:not(div).active,
+/* .btn-marketing:not(div).active,
 .btn-marketing:not(div):hover {
     background-color: var(--theme-color-hex);
     color: white;
+} */
+
+.btn-marketing:not(div).active {
+    background-color: var(--theme-color-hex);
+    color: white;
+}
+
+.btn-marketing.spots {
+    --btn-marketing-spots-width: 332px;
+    --btn-marketing-spots-offset: calc(-1*var(--btn-marketing-spots-width));
+    border: unset;
+    width: 400px;
+    font-size: 36px;
+    line-height: 1.2;
+}
+
+.btn-marketing.spots::before,
+.btn-marketing.spots::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: var(--btn-marketing-spots-width);
+    height: 115px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-size: contain;
+    background-position: top center, 50%, 50%;
+    background-repeat: no-repeat;
+}
+
+.btn-marketing.spots::before {
+    background-image: url(./../assets/marketing/morePage_spot.webp);
+    left: var(--btn-marketing-spots-offset);
+}
+
+.btn-marketing.spots::after {
+    background-image: url(./../assets/marketing/morePage_spot_right.webp);
+    right: var(--btn-marketing-spots-offset);
 }
 
 .card-wrapper {
@@ -465,9 +503,10 @@ a {
     transition: transform 0.1s linear;
 }
 
-.card:hover .card-img {
+
+/* .card:hover .card-img {
     transform: scale(1.05);
-}
+} */
 
 .card-wrapper.upper>.card>.card-img {
     background-image: url('/assets/marketing/image1.webp');
@@ -742,6 +781,7 @@ a {
     border: 5px solid var(--theme-color-hex);
     color: var(--theme-color-hex);
     background-color: transparent;
+    line-height: 44px;
 }
 
 .page-wrapper .page.prev,
@@ -781,34 +821,17 @@ a {
     text-align: center;
 }
 
-.page-wrapper p {
-    font-family: 'Times New Roman', Times, serif;
-    color: var(--theme-red);
-    font-size: 41px;
-    margin: unset;
-    width: 46px;
-}
-
-.page-wrapper .page:first-child {
-    margin-right: auto;
-}
-
-
 .page-wrapper .page:focus {
-    border: unset;
     outline: unset;
 }
 
 .page-wrapper+.btn-marketing-wrapper {
-    top: 970px;
+    top: 975px;
 }
 
-
-.page-wrapper .page:hover,
 .page-wrapper .page.active {
     background-color: var(--theme-color-hex);
     color: #fff;
-    /* color: var(--theme-text); */
 }
 
 .top-banner-wrapper {
@@ -972,9 +995,6 @@ a {
     cursor: pointer;
 }
 
-.content-main-content a:hover {
-    color: rgba(var(--theme-color-rgb), 0.8);
-}
 
 
 .content-main-content h1 {
@@ -1444,6 +1464,29 @@ a {
     background-image: url(./../assets/mobile/footer/IGIcon.svg);
 }
 
+@media (hover:hover) {
+    .page-wrapper .page:hover {
+        background-color: var(--theme-color-hex);
+        color: #fff;
+    }
+
+    .btn-marketing:not(div):hover {
+        background-color: var(--theme-color-hex);
+        color: white;
+    }
+
+    .card:hover .card-img {
+        transform: scale(1.05);
+    }
+
+    .btn-marketing:disabled:hover {
+        background-color: #aaa;
+        border-color: #aaa;
+        color: grey;
+        cursor: not-allowed;
+    }
+}
+
 @media (max-width: 1500px) {
     .bubble-box {
         width: 76vw;
@@ -1720,11 +1763,15 @@ a {
         height: fit-content;
     }
 
+    .btn-marketing-wrapper.upper:has(>.btn-marketing.spots) {
+        margin-bottom: 6rem;
+    }
+
     .btn-marketing-wrapper.lower {
         margin: 4rem auto 0;
     }
 
-    .btn-marketing-wrapper.upper>div {
+    .btn-marketing-wrapper.upper>div:not(.btn-marketing) {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -1733,7 +1780,7 @@ a {
         gap: 5rem;
     }
 
-    .btn-marketing-wrapper.upper>div:before {
+    .btn-marketing-wrapper.upper>div:not(.btn-marketing):before {
         content: '';
         display: block;
         position: absolute;
@@ -1745,9 +1792,9 @@ a {
         width: 8rem;
     }
 
-    .btn-marketing-wrapper.upper>div:first-child:nth-last-child(1)::before {
+    /* .btn-marketing-wrapper.upper>div:first-child:nth-last-child(1)::before {
         display: none;
-    }
+    } */
 
     .page-wrapper {
         position: relative;
@@ -1758,21 +1805,22 @@ a {
     }
 
     .page-wrapper>div {
-        width: 60vw;
-        align-items: baseline;
-        gap: 0rem;
+        width: 90vw;
+        gap: 1rem;
     }
 
-    .page-wrapper button {
-        font-size: 2rem;
+    .page-wrapper .page {
+        border-width: 0.2rem;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.5rem;
         background-color: transparent;
         line-height: 1;
     }
 
-    .page-wrapper p {
-        width: 2rem;
-        font-size: 2rem;
-        font-family: 'Lobster-Regular';
+    .page-wrapper .page.toFirst,
+    .page-wrapper .page.toLast {
+        width: 3.5rem;
     }
 
     .page-wrapper+.btn-marketing-wrapper {
@@ -1793,11 +1841,11 @@ a {
         white-space: nowrap;
     }
 
-
-    .btn-marketing:not(div):hover {
+    /* mobile setting */
+    /* .btn-marketing:not(div):hover {
         background-color: unset;
         color: unset;
-    }
+    } */
 
     .btn-marketing:not(div).active {
         background-color: var(--theme-color-hex);
@@ -1919,7 +1967,9 @@ a {
     }
 
     .hot-content-container .main,
-    .hot-content-container .main-en {
+    .hot-content-container .main-en,
+    .popular-content-container .main,
+    .popular-content-container .main-en {
         display: none;
     }
 
@@ -2149,6 +2199,22 @@ a {
     .btn-marketing.next {
         margin-left: auto;
         margin-right: 0;
+    }
+
+
+    .btn-marketing.spots {
+        --btn-marketing-spots-width: 18rem;
+        --btn-marketing-spots-offset: -2rem;
+        width: 100%;
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .btn-marketing.spots::before,
+    .btn-marketing.spots::after {
+        height: 10rem;
+        top: 2rem;
+        transform: unset;
     }
 
     .top-banner-wrapper {

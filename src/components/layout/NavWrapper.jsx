@@ -34,7 +34,7 @@ export default function NavWrapper({
   }, [navRef, pathname, navHandler]);
 
   const callbackHandler = useCallback((e) => {
-    unCheck()
+    unCheck && unCheck()
     headerForceHide && headerForceHide()
   }, [unCheck, headerForceHide])
 

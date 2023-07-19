@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Tag from "./tag";
 import HotTrendWrapper from "./hotTrendWrapper";
 import useReSizeContentTags from "@services/useReSizeContentTags";
 import useAddPageView from "@services/useAddPageView";
+// import useScrollToPosition from '@services/useScrollToPosition';
 
 const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
@@ -16,7 +17,7 @@ export default function MainContent({
     const contentTagsRef = useRef(null);
     console.log("🚀 ~ file: mainContent.jsx:15 ~ MainContent ~ contentTagsRef:", contentTagsRef)
 
-
+    // useScrollToPosition(content._id)
     useReSizeContentTags(contentTagsRef);
     useAddPageView(content._id);
 
