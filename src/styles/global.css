@@ -991,7 +991,7 @@ a {
     vertical-align: -0.4em;
 }
 
-.content-main-content code {
+.content-main-content p.code {
     font-size: var(--normal-font-size);
     background-color: rgba(var(--theme-color-rgb), 0.3);
     border-radius: 2px;
