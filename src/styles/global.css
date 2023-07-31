@@ -407,6 +407,7 @@ a {
     margin-left: auto;
     margin-right: 0;
 }
+
 /* .btn-marketing:disabled:hover {
     background-color: #aaa;
     border-color: #aaa;
@@ -499,12 +500,14 @@ a {
     cursor: pointer;
     overflow: hidden;
 }
-.card > div {
+
+.card>div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
 }
+
 .card-img {
     position: inherit;
     width: 100%;
@@ -849,6 +852,7 @@ a {
     width: 100%;
     height: fit-content;
     top: var(--banner-top-offset);
+    overflow: hidden;
 }
 
 .top-banner-wrapper>img,
@@ -862,8 +866,12 @@ a {
 
 .top-banner {
     margin: 0 auto;
-    width: 990px;
-    height: 558px;
+    width: 1000px;
+    height: 580px;
+    overflow: hidden;
+}
+.top-banner * img {
+    object-fit: cover;
 }
 
 .triangle-range_orange {
