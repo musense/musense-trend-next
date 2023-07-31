@@ -7,11 +7,12 @@ import { useAppContext } from "@store/context";
 import useInitial from "@services/useInitial";
 const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
-export default function Page({
+export default function ContentPage({
     mainContent,
     titleContents,
     relatedArticles,
-    popularTagList
+    popularTagList,
+    isPreview = null
 }) {
     const { state, dispatch } = useAppContext();
     useInitial({ state, dispatch })
@@ -62,6 +63,7 @@ export default function Page({
                 popularTagList={popularTagList}
                 prevInfo={prevInfo}
                 nextInfo={nextInfo}
+                isPreview={isPreview}
             />
 
             {relatedArticles.length > 0 && <ExtendReading

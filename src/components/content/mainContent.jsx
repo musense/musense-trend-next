@@ -12,7 +12,8 @@ export default function MainContent({
     content,
     popularTagList,
     prevInfo,
-    nextInfo
+    nextInfo,
+    isPreview
 }) {
     // console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
     // console.log("🚀 ~ file: mainContent.jsx:13 ~ MainContent ~ popularTagList:", popularTagList)
@@ -22,7 +23,7 @@ export default function MainContent({
 
     // useScrollToPosition(content._id)
     useResizeContentTags(contentTagsRef);
-    useAddPageView(content._id);
+    useAddPageView(content._id, isPreview);
 
     return (
         <div className="main-content-wrapper">
@@ -40,7 +41,10 @@ export default function MainContent({
                     </div>}
                     <div className="content-date-wrapper">
                         <span className="content-create-date">
-                            {`${new Date(content.publishedAt).toLocaleDateString('en-ZA')}`}
+                            {isPreview
+                                ? new Date(content.updatedAt).toLocaleDateString('en-ZA') 
+                                : new Date(content.publishedAt).toLocaleDateString('en-ZA') 
+                            }
                         </span>
                     </div>
                 </div>

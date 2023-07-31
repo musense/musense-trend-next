@@ -33,6 +33,6 @@
       "@api/*"    : ["src/pages/api/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/_app.jsx", "src/services/emailService.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/_app.jsx", "src/services/emailService.js", "src/pages/preview/[_id]/index.jsx"],
   "exclude": ["node_modules"]
 }

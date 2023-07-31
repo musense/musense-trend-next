@@ -247,4 +247,37 @@ export async function pageViewByContent(payload) {
   return response
 }
 
+/**
+ * An API that get ID from backend and show the preview content
+ *
+ * @param {string} apiUrl
+ * @param {string} _id
+ * @returns response
+*/
+export async function getPreviewContentByID(payload) {
+  const { _id, apiUrl } = payload
+  const response = await instance(apiUrl).get(`/tempEditor/${_id}`)
+    .then(res => res.data)
+    .then(previewContent => {
+      return {
+        ...previewContent,
+        headTitle: previewContent.headTitle && previewContent.headTitle.length > 0
+          ? previewContent.headTitle : previewContent.title,
+        tags: previewContent.tags && previewContent.tags.length > 0 && previewContent.tags.map(tag => {
+          return {
+            ...tag,
+            sitemapUrl: '#'
+          }
+        }),
+        categories: {
+          _id: previewContent.categories._id,
+          name: previewContent.categories.name,
+          sitemapUrl: '#'
+        }
+      }
+    })
+  console.log("🚀 ~ file: previewContent.js:9 ~ getPreviewContentByID ~ response:", response)
+  return response
+}
+
 
