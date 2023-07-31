@@ -1216,6 +1216,7 @@ a {
     position: inherit;
     width: 138px;
     height: 92px;
+    flex-shrink: 0;
 }
 
 .popular-content-title {

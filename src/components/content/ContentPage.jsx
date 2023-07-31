@@ -30,19 +30,30 @@ export default function ContentPage({
     // console.log("🚀 ~ file: index.jsx:22 ~ filteredTitleContents ~ filteredTitleContents:", filteredTitleContents)
 
     const [prevInfo, nextInfo] = React.useMemo(() => {
-        if (!mainContent) return [null, null]
-        if (!filteredTitleContents) return [null, null]
-        if (filteredTitleContents.length === 0) return [null, null]
-        if (mainContent.serialNumber === null || typeof mainContent.serialNumber !== 'number') return [null, null];
+        let theIndex
+        let mapContentInto
+        if (!isPreview) {
+            if (!mainContent) return [null, null]
+            if (!filteredTitleContents) return [null, null]
+            if (filteredTitleContents.length === 0) return [null, null]
+            if (mainContent.serialNumber === null || typeof mainContent.serialNumber !== 'number') return [null, null];
+            theIndex = filteredTitleContents.findIndex(a => a.serialNumber === mainContent.serialNumber)
+            mapContentInto = (content) => content && ({
+                _id: content._id,
+                category: content.categories.name,
+                sitemapUrl: content.sitemapUrl,
+                title: content.title,
+            })
+        } else {
+            theIndex = Math.floor(filteredTitleContents.length / 2)
+            mapContentInto = (content) => content && ({
+                _id: content._id,
+                category: content.categories.name,
+                sitemapUrl: '#',
+                title: content.title,
+            })
+        }
 
-        const mapContentInto = (content) => content && ({
-            _id: content._id,
-            category: content.categories.name,
-            sitemapUrl: content.sitemapUrl,
-            title: content.title,
-        })
-
-        const theIndex = filteredTitleContents.findIndex(a => a.serialNumber === mainContent.serialNumber)
         const prevContent = theIndex === filteredTitleContents.length - 1 ? null : filteredTitleContents[theIndex + 1]
         const nextContent = theIndex === 0 ? null : filteredTitleContents[theIndex - 1]
 
@@ -50,7 +61,24 @@ export default function ContentPage({
         const nextInfo = nextContent ? mapContentInto(nextContent) : null
 
         return [prevInfo, nextInfo]
-    }, [filteredTitleContents, mainContent]);
+    }, [filteredTitleContents, mainContent, isPreview]);
+
+    const extendReading = React.useMemo(() => {
+        if (!isPreview) return relatedArticles
+
+        const mockRelatedArticlesIndex = [0, 1, 2]
+        const mockedRelatedArticles = mockRelatedArticlesIndex.map(i => {
+            const content = filteredTitleContents[i]
+            return {
+                sitemapUrl: '#',
+                homeImagePath: content.homeImagePath,
+                altText: content.altText || '',
+                title: content.title,
+            }
+        })
+        console.log("🚀 ~ file: ContentPage.jsx:73 ~ extendReading ~ mockedRelatedArticles:", mockedRelatedArticles)
+        return mockedRelatedArticles
+    }, [relatedArticles, filteredTitleContents, isPreview])
 
     return mainContent && (
         <>
@@ -66,12 +94,14 @@ export default function ContentPage({
                 isPreview={isPreview}
             />
 
-            {relatedArticles.length > 0 && <ExtendReading
-                contents={relatedArticles}
+            {extendReading.length > 0 && <ExtendReading
+                contents={extendReading}
             />}
             <MemoizedHotTrendWrapper position='bottom' popularTagList={popularTagList} />
         </>
     )
+
+
 
 
 }
