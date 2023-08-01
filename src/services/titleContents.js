@@ -25,14 +25,14 @@ export async function getTitleContentsByID(payload) {
             sitemapUrl: getRenamedContent(tag.sitemapUrl)
           }
         }),
-        categories: {
+        categories: mainContent.categories ? {
           _id: mainContent.categories._id,
           name: mainContent.categories.name,
           sitemapUrl: getRenamedContent(mainContent.categories.sitemapUrl)
-        }
+        } : null
       }
     })
-  console.log("🚀 ~ file: titleContents.js:9 ~ getTitleContentsByID ~ response:", response)
+  // console.log("🚀 ~ file: titleContents.js:9 ~ getTitleContentsByID ~ response:", response)
   return response
 }
 
@@ -47,14 +47,14 @@ export async function getTitleContents(payload) {
   const response = await instance(apiUrl).get(encodeURI(`/editor?limit=9999&pageNumber=1`))
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data)
-    .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
+    // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data && res.data.length > 0
       ? res.data.filter(item =>
         item.status !== "已排程" && item.status !== "草稿" &&
         item.categories.name !== "未分類")
       : []
     )
-    .then(res => { console.log("🚀 ~ file: titleContents.js:59 ~ getTitleContents ~ res:", res); return res })
+    // .then(res => { console.log("🚀 ~ file: titleContents.js:59 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.map(content => {
       if (content.length === 0) {
         return []
@@ -77,7 +77,7 @@ export async function getTitleContents(payload) {
         sitemapUrl: getRenamedContent(content.sitemapUrl),
       }
     }))
-  // .then(res => { console.log(res); return res })
+    // .then(res => { console.log("🚀 ~ file: titleContents.js:81 ~ getTitleContents ~ res:", res); return res })
   return response
 }
 
@@ -178,7 +178,7 @@ export async function getRelatedArticles(payload) {
   const { _id, apiUrl } = payload
   const response = await instance(apiUrl).get(`/editor/relatedArticles/${_id}`)
     .then(res => res.data)
-    .then(resRelatedArticles => { console.log("🚀 ~ file: titleContents.js:181 ~ getRelatedArticles ~ resRelatedArticles:", resRelatedArticles); return resRelatedArticles })
+    // .then(resRelatedArticles => { console.log("🚀 ~ file: titleContents.js:181 ~ getRelatedArticles ~ resRelatedArticles:", resRelatedArticles); return resRelatedArticles })
     .then(res => res.data.filter(item =>
       item.hidden === false &&
       item.homeImagePath !== null &&
@@ -190,7 +190,7 @@ export async function getRelatedArticles(payload) {
         sitemapUrl: getRenamedContent(article.sitemapUrl)
       }
     }))
-    .then(relatedArticles => { console.log("🚀 ~ file: titleContents.js:193 ~ getRelatedArticles ~ relatedArticles:", relatedArticles); return relatedArticles })
+    // .then(relatedArticles => { console.log("🚀 ~ file: titleContents.js:193 ~ getRelatedArticles ~ relatedArticles:", relatedArticles); return relatedArticles })
   return response
 }
 
@@ -259,21 +259,33 @@ export async function getPreviewContentByID(payload) {
   const response = await instance(apiUrl).get(`/tempEditor/${_id}`)
     .then(res => res.data)
     .then(previewContent => {
+      console.log("🚀 ~ file: titleContents.js:262 ~ getPreviewContentByID ~ previewContent:", previewContent)
       return {
-        ...previewContent,
+        _id: previewContent._id,
+        title: previewContent.title,
         headTitle: previewContent.headTitle && previewContent.headTitle.length > 0
           ? previewContent.headTitle : previewContent.title,
-        tags: previewContent.tags && previewContent.tags.length > 0 && previewContent.tags.map(tag => {
+        headDescription: previewContent.headDescription,
+        headKeyword: previewContent.headKeyword,
+        htmlContent: previewContent.htmlContent,
+        altText: previewContent.altText,
+        contentImagePath: previewContent.contentImagePath,
+        homeImagePath: previewContent.homeImagePath,
+        updatedAt: previewContent.updatedAt,
+        // tags: previewContent.tags,
+        // categories: previewContent.categories,
+        tags: previewContent.tags.length > 0 && previewContent.tags.map(tag => {
           return {
             ...tag,
             sitemapUrl: '#'
           }
         }),
-        categories: {
-          _id: previewContent.categories._id,
-          name: previewContent.categories.name,
-          sitemapUrl: '#'
-        }
+        categories: previewContent.categories.length > 0 && previewContent.categories.map(cat => {
+          return {
+            ...cat,
+            sitemapUrl: '#'
+          }
+        })[0],
       }
     })
   console.log("🚀 ~ file: previewContent.js:9 ~ getPreviewContentByID ~ response:", response)

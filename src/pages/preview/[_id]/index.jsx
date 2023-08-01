@@ -22,6 +22,7 @@ const PreviewPage = ({
   popularTagList,
   meta,
 }) => {
+  console.log("🚀 ~ file: index.jsx:39 ~ titleContents:", titleContents)
   return (
     <Main
       meta={
@@ -57,21 +58,19 @@ export const getServerSideProps = async ({ params }) => {
 
   try {
     titleContents = await getTitleContents(payload);
+    console.log("🚀 ~ file: index.jsx:61 ~ getServerSideProps ~ titleContents:", titleContents)
     // get preview content
     mainContent = await getPreviewContentByID(payload);
-    mainContent = {
-      ...mainContent,
-      name: mainContent.categories.name,
-    };
+    console.log("🚀 ~ file: index.jsx:64 ~ getServerSideProps ~ mainContent:", mainContent)
     // relatedArticles = await getRelatedArticles(payload);
     relatedArticles = await new Promise((resolve, reject) => { resolve([]) });
     popularTagList = await getPopularTagList(payload);
     return {
       props: {
-        mainContent: mainContent,
-        titleContents: titleContents,
-        relatedArticles: relatedArticles,
-        popularTagList: popularTagList,
+        mainContent,
+        titleContents,
+        relatedArticles,
+        popularTagList,
         meta: mainContent,
       },
     };

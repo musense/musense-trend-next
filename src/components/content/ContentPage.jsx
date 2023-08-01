@@ -17,7 +17,7 @@ export default function ContentPage({
     const { state, dispatch } = useAppContext();
     useInitial({ state, dispatch })
 
-    // console.log("🚀 ~ file: ContentPage.jsx:16 ~ titleContents:", titleContents)
+    console.log("🚀 ~ file: ContentPage.jsx:16 ~ titleContents:", titleContents)
     // console.log("🚀 ~ file: ContentPage.jsx:16 ~ mainContent:", mainContent)
     // console.log("🚀 ~ file: ContentPage.jsx:16 ~ popularTagList:", popularTagList)
 
@@ -47,7 +47,7 @@ export default function ContentPage({
         } else {
             theIndex = Math.floor(filteredTitleContents.length / 2)
             mapContentInto = (content) => content && ({
-                _id: content._id,
+                // _id: content._id,
                 category: content.categories.name,
                 sitemapUrl: '#',
                 title: content.title,
