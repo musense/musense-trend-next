@@ -8,7 +8,7 @@ export default function MainImage({
     imgSrc: mainImage,
     imgAltText
 }) {
-    const isVideo = mainImage.indexOf('<iframe') !== -1;
+    const isVideo = mainImage && mainImage.indexOf('<iframe') !== -1;
     const iframeUrl = useMemo(() => {
         if (!isVideo) return null
         const indexOf = mainImage.indexOf(`src="`) + `src="`.length;

@@ -45,7 +45,7 @@ export default function ContentPage({
                 title: content.title,
             })
         } else {
-            theIndex = Math.floor(filteredTitleContents.length / 2)
+            theIndex = filteredTitleContents && filteredTitleContents.length > 0 && Math.floor(filteredTitleContents.length / 2)
             mapContentInto = (content) => content && ({
                 // _id: content._id,
                 category: content.categories.name,

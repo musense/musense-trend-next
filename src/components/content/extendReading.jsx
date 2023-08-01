@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 
 export default function ExtendReading({ contents }) {
-    // console.log("🚀 ~ file: extendReading.jsx:7 ~ ExtendReading ~ contents:", contents)
+    console.log("🚀 ~ file: extendReading.jsx:7 ~ ExtendReading ~ contents:", contents)
     return <div data-title="延伸閱讀" className="popular-content-container">
         <div className='main' />
         <div className='main-en' />
@@ -18,7 +18,7 @@ function ExtendReadingContents({ contents }) {
 
     return contents && contents.slice(0, 3).map((content, index) => {
         return (
-            <Link key={index} href={content.sitemapUrl} className="popular-content">
+            content.homeImagePath && <Link key={index} href={content.sitemapUrl} className="popular-content">
                 <Content
                     src={content.homeImagePath}
                     alt={content.altText}
