@@ -270,7 +270,6 @@ export async function getPreviewContentByID(payload) {
         htmlContent: previewContent.htmlContent,
         altText: previewContent.altText,
         contentImagePath: previewContent.contentImagePath,
-        homeImagePath: previewContent.homeImagePath,
         updatedAt: previewContent.updatedAt,
         // tags: previewContent.tags,
         // categories: previewContent.categories,

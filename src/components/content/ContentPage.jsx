@@ -49,7 +49,7 @@ export default function ContentPage({
             mapContentInto = (content) => content && ({
                 // _id: content._id,
                 category: content.categories.name,
-                sitemapUrl: '#',
+                sitemapUrl: `/preview/${mainContent._id}#`,
                 title: content.title,
             })
         }
