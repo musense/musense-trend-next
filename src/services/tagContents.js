@@ -2,23 +2,23 @@ import { instance } from "./AxiosInstance";
 import { getRenamedContent } from '@services/sitemap';
 
 //* LIST
-export async function getTagSitemapUrls(payload) {
-    const { apiUrl } = payload
-    const response = await instance(apiUrl).get(`/tags?limit=9999&pageNumber=1`)
-        .then(res => res.data)
-        .then(res => res.data.filter((item) =>
-            item.sitemapUrl !== undefined &&
-            // item.status !== "已排程" && item.status !== "草稿" &&
-            item.name !== "未分類"
-        ))
-        .then(res => { console.log("🚀 ~ file: tagContents.js:10 ~ res.sitemapUrl:", res.sitemapUrl); return res })
-        .then(tagList => tagList.filter(content => content.sitemapUrl.indexOf('/tag_') !== -1))
-    const idArray = response.reduce((acc, curr) => {
-        return [...acc, getRenamedContent(curr.sitemapUrl)]
-    }, [])
+// export async function getTagSitemapUrls(payload) {
+//     const { apiUrl } = payload
+//     const response = await instance(apiUrl).get(`/tags?limit=9999&pageNumber=1`)
+//         .then(res => res.data)
+//         .then(res => res.data.filter((item) =>
+//             item.sitemapUrl !== undefined &&
+//             // item.status !== "已排程" && item.status !== "草稿" &&
+//             item.name !== "未分類"
+//         ))
+//         .then(res => { console.log("🚀 ~ file: tagContents.js:10 ~ res.sitemapUrl:", res.sitemapUrl); return res })
+//         .then(tagList => tagList.filter(content => content.sitemapUrl.indexOf('/tag_') !== -1))
+//     const idArray = response.reduce((acc, curr) => {
+//         return [...acc, getRenamedContent(curr.sitemapUrl)]
+//     }, [])
 
-    return idArray
-}
+//     return idArray
+// }
 
 //* LIST
 export async function getTagList(payload) {
@@ -50,6 +50,17 @@ export async function getPopularTagList(payload) {
                 ...tag,
                 headTitle: tag.name,
                 sitemapUrl: getRenamedContent(tag.sitemapUrl)
+            }
+        }))
+        .then(res => res.map(tag => {
+            const {
+                name,
+                sitemapUrl,
+                ...rest
+            } = tag
+            return {
+                name,
+                sitemapUrl,
             }
         }))
     console.log("🚀 ~ file: tagContents.js:42 ~ getPopularTagList ~ response:", response)

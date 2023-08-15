@@ -7,7 +7,7 @@ export default function MarketingButtonList({
   paramName
 }) {
 
-  const { state, dispatch } = useAppContext();
+  const { state } = useAppContext();
 
   const showCategoryList = useMemo(() => {
     if (!categoryList) return null
@@ -15,14 +15,7 @@ export default function MarketingButtonList({
   }, [categoryList])
   console.log("🚀 ~ file: marketingButtonList.jsx:16 ~ showCategoryList ~ showCategoryList:", showCategoryList)
 
-  const useHandleDispatch = (props) => useCallback(() => {
-    dispatch({
-      type: 'FILTER_CATEGORY',
-      payload: {
-        ...props
-      }
-    });
-  }, [])
+
 
   const btnActive = useCallback((name) => {
     if (!state.categoryName) return false
@@ -35,6 +28,5 @@ export default function MarketingButtonList({
     paramName={paramName}
     showCategoryList={showCategoryList}
     btnActive={btnActive}
-    handleDispatch={useHandleDispatch}
   />
 }

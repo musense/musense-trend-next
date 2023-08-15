@@ -2,15 +2,14 @@ import { instance } from "./AxiosInstance";
 import { getRenamedContent } from '@services/sitemap';
 import { categoryKeyname } from "./categoryKeyname";
 
-
 /**
- * Returns the selected titleContent
+ * Returns the selected content by id
  * 
  * @param {string} _id
  * @param {string} apiUrl
  * @returns response
 */
-export async function getTitleContentsByID(payload) {
+export async function getMainContentByID(payload) {
   const { _id, apiUrl } = payload
   const response = await instance(apiUrl).get(`/editor/${_id}`)
     .then(res => res.data)
@@ -37,6 +36,82 @@ export async function getTitleContentsByID(payload) {
 }
 
 /**
+ * Returns the selected content by sitemapUrl
+ * 
+ * @param {string} sitemapUrl
+ * @param {string} apiUrl
+ * @returns response
+*/
+export async function getMainContentBySitemapUrl(payload) {
+  const { sitemapUrl, apiUrl } = payload
+  let encodedSitemapUrl = encodeURIComponent(sitemapUrl)
+  const response = await instance(apiUrl).get(`/checkUrl/${encodedSitemapUrl}`)
+    .then(res => res.data.data)
+    .then(mainContent => {
+      console.log("🚀 ~ file: titleContents.js:37 ~ getMainContentBySitemapUrl ~ mainContent:", mainContent)
+      return {
+        ...mainContent,
+        headTitle: mainContent.headTitle && mainContent.headTitle.length > 0
+          ? mainContent.headTitle : mainContent.title,
+        tags: mainContent.tags && mainContent.tags.length > 0 && mainContent.tags.map(tag => {
+          return {
+            ...tag,
+            sitemapUrl: getRenamedContent(tag.sitemapUrl)
+          }
+        }),
+        categories: {
+          ...mainContent.categories,
+          sitemapUrl: getRenamedContent(mainContent.categories.sitemapUrl),
+        }
+      }
+    })
+  const {
+    title,
+    headTitle,
+    headDescription,
+    headKeyword,
+    contentImagePath,
+    altText,
+    _id,
+    tags,
+    categories,
+    updatedAt,
+    publishedAt,
+    htmlContent,
+    ...rest } = response
+  console.log("🚀 ~ file: titleContents.js:72 ~ getMainContentBySitemapUrl ~ response:", response)
+  return {
+    title,
+    headTitle,
+    headDescription,
+    headKeyword,
+    contentImagePath,
+    altText,
+    _id,
+    tags,
+    categories,
+    updatedAt,
+    publishedAt,
+    htmlContent,
+  }
+}
+
+/**
+ * Returns the previous and next content infos of the selected content id
+ * 
+ * @param {string} _id
+ * @param {string} apiUrl
+ * @returns response
+*/
+export async function getPreviousAndNextPageById(payload) {
+  const { _id, apiUrl } = payload
+  const response = await instance(apiUrl).get(`/editor/adjacentArticle/${_id}`)
+    .then(res => res.data)
+  // .then(res => { console.log(res); return res })
+  return response
+}
+
+/**
  * Returns all titleContents
  * 
  * @param {string} apiUrl
@@ -50,8 +125,9 @@ export async function getTitleContents(payload) {
     // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
     .then(res => res.data && res.data.length > 0
       ? res.data.filter(item =>
-        item.status !== "已排程" && item.status !== "草稿" &&
-        item.categories.name !== "未分類")
+        item.status !== "已排程" && item.status !== "草稿"
+        // && item.categories.name !== "未分類"
+      )
       : []
     )
     // .then(res => { console.log("🚀 ~ file: titleContents.js:59 ~ getTitleContents ~ res:", res); return res })
@@ -77,30 +153,33 @@ export async function getTitleContents(payload) {
         sitemapUrl: getRenamedContent(content.sitemapUrl),
       }
     }))
-    // .then(res => { console.log("🚀 ~ file: titleContents.js:81 ~ getTitleContents ~ res:", res); return res })
+    .then(res => res.map((content) => {
+      const {
+        homeImagePath,
+        tags,
+        title,
+        altText,
+        publishedAt,
+        sitemapUrl,
+        hidden,
+        ...reset
+      } = content
+      const categoryName = content.categories.name;
+      return {
+        homeImagePath,
+        tags,
+        title,
+        altText,
+        publishedAt,
+        sitemapUrl,
+        hidden,
+        categoryName,
+      }
+    }))
+
   return response
 }
 
-/**
- * Returns a list a idArray of all titleContents
- * 
- * @param {string} apiUrl
- * @returns idArray 
- */
-export async function getAllTitleContentsAndGetOnlyID(payload) {
-  const { apiUrl } = payload
-  const response = await instance(apiUrl).get(encodeURI(`/editor?limit=9999&pageNumber=1`))
-    // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-    .then(res => res.data.data)
-  // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-  // .then(res => res.filter(item => item.draft === false))
-  // .then(res => { console.log("🚀 ~ file: titleContents.js:48 ~ getTitleContents ~ res:", res); return res })
-
-  const idArray = response.reduce((acc, curr) => {
-    return [...acc, curr._id]
-  }, [])
-  return idArray
-}
 
 /**
  * Returns the array of sitemap urls for all titleContent pages
@@ -155,16 +234,16 @@ export async function getCategoryInfo(payload) {
  * @param {string} apiUrl
  * @returns idArray 
  */
-export async function getTitleContentsByCategoryAndGetOnlyID(payload) {
-  const { categoryName, page, apiUrl } = payload
-  const response = await instance(apiUrl).get(`/categories/${categoryName}?limit=9999&pageNumber=${page}`)
-    .then(res => res.data)
-  const { data } = response
-  const idArray = data.reduce((acc, curr) => {
-    return [...acc, curr._id]
-  }, [])
-  return idArray
-}
+// export async function getTitleContentsByCategoryAndGetOnlyID(payload) {
+//   const { categoryName, page, apiUrl } = payload
+//   const response = await instance(apiUrl).get(`/categories/${categoryName}?limit=9999&pageNumber=${page}`)
+//     .then(res => res.data)
+//   const { data } = response
+//   const idArray = data.reduce((acc, curr) => {
+//     return [...acc, curr._id]
+//   }, [])
+//   return idArray
+// }
 
 
 /**
@@ -190,7 +269,23 @@ export async function getRelatedArticles(payload) {
         sitemapUrl: getRenamedContent(article.sitemapUrl)
       }
     }))
-    // .then(relatedArticles => { console.log("🚀 ~ file: titleContents.js:193 ~ getRelatedArticles ~ relatedArticles:", relatedArticles); return relatedArticles })
+    .then(relatedArticles => relatedArticles.map(article => {
+      const {
+        sitemapUrl,
+        homeImagePath,
+        altText,
+        title,
+        ...rest
+      } = article
+      return {
+        sitemapUrl,
+        homeImagePath,
+        altText,
+        title,
+      }
+    }).slice(0, 3)
+    )
+  // .then(relatedArticles => { console.log("🚀 ~ file: titleContents.js:193 ~ getRelatedArticles ~ relatedArticles:", relatedArticles); return relatedArticles })
   return response
 }
 
@@ -215,6 +310,17 @@ export async function getPopularContents(payload) {
         return {
           ...content,
           sitemapUrl: getRenamedContent(content.sitemapUrl)
+        }
+      }))
+      .then(popularContents => popularContents.map(content => {
+        const {
+          title,
+          sitemapUrl,
+          ...rest
+        } = content
+        return {
+          title,
+          sitemapUrl,
         }
       }))
     // .then(res => { console.log("🚀 ~ file: titleContents.js:209 ~ getPopularContents ~ res:", res); return res })

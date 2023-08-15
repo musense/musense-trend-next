@@ -4,6 +4,7 @@ import {
     MobileBtnMarketingWrapper,
     CommonTitle
 } from "./marketingButtonElements";
+import { useAppContext } from "@store/context";
 
 function BtnMarketingWrapperByClientWidth({
     selectedCategoryName,
@@ -11,14 +12,20 @@ function BtnMarketingWrapperByClientWidth({
     paramName,
     showCategoryList,
     btnActive,
-    handleDispatch,
 }) {
+    const { dispatch } = useAppContext();
 
-    const dispatchProps = (category) => ({
-        categoryName: category.name,
-        keyName: category.keyName,
-        categorySitemapUrl: category.sitemapUrl
-    })
+    const handleDispatch = useCallback((props) => {
+        const { name, keyName, sitemapUrl } = props
+        dispatch({
+            type: 'FILTER_CATEGORY',
+            payload: {
+                categoryName: name,
+                keyName: keyName,
+                categorySitemapUrl: sitemapUrl
+            }
+        });
+    }, [dispatch])
 
     const btnProps = useCallback((index, category) => {
         return {
@@ -27,9 +34,9 @@ function BtnMarketingWrapperByClientWidth({
             title: category.name,
             name: category.name,
             active: btnActive(category.name),
-            callback: handleDispatch(dispatchProps(category))
+            callback: () => handleDispatch(category)
         }
-    }, [btnActive, handleDispatch, dispatchProps])
+    }, [btnActive, handleDispatch])
 
     const [leftCategoryList, rightCategoryList] = useMemo(() => {
         if (!showCategoryList) return [null, null]
@@ -44,14 +51,12 @@ function BtnMarketingWrapperByClientWidth({
     return clientWidth > 768
         ? paramName === ''
             ? <DeskTopBtnMarketingWrapper
-                selectedCategoryName={selectedCategoryName}
                 showCategoryList={showCategoryList}
                 btnProps={btnProps}
             />
             : <CommonTitle paramName={paramName} />
         : paramName === ''
             ? <MobileBtnMarketingWrapper
-                selectedCategoryName={selectedCategoryName}
                 leftCategoryList={leftCategoryList}
                 rightCategoryList={rightCategoryList}
                 btnProps={btnProps}

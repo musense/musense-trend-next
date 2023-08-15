@@ -2,22 +2,18 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Card({
-  image,
-  content
-}) {
+export default function Card({ content }) {
+
   const {
     homeImagePath,
     tags,
     title,
     altText,
-    publishedAt
+    publishedAt,
+    sitemapUrl
   } = content;
 
 
-  console.log("🚀 ~ file: card.jsx:6 ~ content:", content)
-  console.log("🚀 ~ file: card.jsx:6 ~ Card ~ imgSrc:", image)
-  console.log("🚀 ~ file: card.jsx:6 ~ tags:", tags)
 
   const tagNameArray = tags && tags.reduce((acc, curr) => {
     return [...acc, curr.name]
@@ -25,7 +21,7 @@ export default function Card({
   return (
     <Link
       className='card'
-      href={`/${content.sitemapUrl}`}
+      href={`/${sitemapUrl}`}
     >
       <div>
         {homeImagePath && <Image

@@ -8,6 +8,16 @@ export async function getInfoBySitemap(payload) {
   return response
 }
 
+export async function getAllSitemapUrl(payload) {
+  const { apiUrl } = payload
+  const response = await instance(apiUrl).get(`/sitemap/getAllUrl`)
+    .then(res => res.data)
+  const sitemapUrlArray = response.reduce((acc, curr) => {
+    return [...acc, getRenamedContent(curr.url)]
+  }, [])
+  return sitemapUrlArray
+}
+
 const routeArray = ['/c_', '/tag_', '/p_'];
 export const getRenamedContent = (sitemapUrl) => {
   if (!sitemapUrl) return

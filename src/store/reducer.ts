@@ -73,7 +73,7 @@ const mainReducer = (
             if (state.filteredActive[action.payload.keyName!] === null || !state.filteredActive[action.payload.keyName!]) {
                 filteredActive = true
                 filteredContents = state.contents?.filter((content) =>
-                    content.categories.name === action.payload.categoryName
+                    content.categoryName === action.payload.categoryName
                 )
             } else {
                 filteredContents = state.contents!

@@ -26,8 +26,10 @@ export default function BtnMarketing({
         ? callback
         : null,
 
-  }), [target, title, name, to, callback, close, className])
-  const buttonProps = React.useMemo(() => ({
+  }), [target, title, to, callback, close, className])
+
+  // const buttonProps = React.useMemo(() => ({
+  const buttonProps = {
     disabled: disabled || false,
     title: title,
     className: cancelHoverState
@@ -37,7 +39,8 @@ export default function BtnMarketing({
         ? `btn-marketing ${className} ${active ? "active" : ""}`
         : `btn-marketing ${active ? "active" : ""}`,
     onClick: callback,
-  }), [disabled, title, cancelHoverState, name, active, callback, className])
+  }
+  // }), [disabled, title, cancelHoverState, className, active, callback])
   // console.log("🚀 ~ file: btnMarketing.jsx:31 ~ buttonProps ~ buttonProps:", buttonProps)
 
   const linkComponent = <Link {...linkProps}>{name}</Link>;

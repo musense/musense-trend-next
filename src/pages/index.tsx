@@ -1,12 +1,12 @@
-import type { GetStaticProps, InferGetStaticPropsType } from 'next';
+import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
-import { Main } from '@components/Main/Main';
-import { Meta } from '@layouts/Meta';
-import Index from '@components/marketing/Marketing';
-import { getCategoryList } from '@services/categoryContents';
-import { getPopularContents, getTitleContents } from '@services/titleContents';
+import { Main } from '@components/Main/Main'
+import { Meta } from '@layouts/Meta'
+import Index from '@components/marketing/Marketing'
+import { getCategoryList } from '@services/categoryContents'
+import { getPopularContents, getTitleContents } from '@services/titleContents'
 
-type MarketingProps = InferGetStaticPropsType<typeof getStaticProps>;
+type MarketingProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const Marketing = ({
   commonPageItems,
@@ -30,25 +30,39 @@ const Marketing = ({
         popularContents={popularContents}
       />
     </Main>
-  );
-};
+  )
+}
 
-export default Marketing;
+export default Marketing
 
 export const getStaticProps: GetStaticProps = async () => {
-  const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL
 
-  let categoryList, titleContents, commonPageItems, popularContents;
   let payload = {
     apiUrl: apiUrl,
     categoryName: '',
     page: 1,
-  };
-  titleContents = await getTitleContents(payload);
-  categoryList = await getCategoryList(payload);
-  popularContents = await getPopularContents(payload);
+  }
 
-  commonPageItems = [...titleContents];
+  const promiseTitleContents = getTitleContents(payload)
+  const promiseCategoryList = getCategoryList(payload)
+  const promisePopularContents = getPopularContents(payload)
+
+  const { titleContents, categoryList, popularContents } = await Promise.all([
+    promiseTitleContents,
+    promiseCategoryList,
+    promisePopularContents,
+  ]).then((res) => {
+    const response = {
+      titleContents: res[0],
+      categoryList: res[1],
+      popularContents: res[2],
+    }
+    console.log('🚀 ~ file: index.tsx:62 ~ ]).then ~ response:', response)
+    return response
+  })
+
+  const commonPageItems = [...titleContents]
   return {
     props: {
       commonPageItems: commonPageItems,
@@ -56,5 +70,5 @@ export const getStaticProps: GetStaticProps = async () => {
       popularContents: popularContents,
     },
     revalidate: 10,
-  };
-};
+  }
+}

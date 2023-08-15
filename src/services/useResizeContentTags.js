@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useAppContext } from "@store/context";
 
 export default function useResizeContentTags(contentTagsRef) {
@@ -50,7 +50,7 @@ export default function useResizeContentTags(contentTagsRef) {
         }
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (contentTagsRef.current === null || divider === null || unit === null) {
             return;
         } else {

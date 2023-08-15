@@ -3,25 +3,22 @@ import BtnMarketingWrapper from '@components/btnMarketingWrapper';
 // import useScrollToPosition from "@services/useScrollToPosition";
 
 function DeskTopBtnMarketingWrapper({
-    selectedCategoryName,
     showCategoryList,
     btnProps
 }) {
-    // useScrollToPosition(selectedCategoryName, 410)
     return <BtnMarketingWrapper position='upper'>
         {showCategoryList && showCategoryList.map((category, index) =>
+            // <p key={index}></p>
             <BtnMarketing key={index} {...btnProps(index, category)} />
         )}
     </BtnMarketingWrapper>;
 }
 
 function MobileBtnMarketingWrapper({
-    selectedCategoryName,
     leftCategoryList,
     rightCategoryList,
     btnProps,
 }) {
-    // useScrollToPosition(selectedCategoryName, 165)
     return (<BtnMarketingWrapper position='upper'>
         <div>
             {leftCategoryList && leftCategoryList.map((category, index) =>
