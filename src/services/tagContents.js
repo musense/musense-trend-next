@@ -75,7 +75,10 @@ export async function getTagInfo(payload) {
         .then(tag => ({
             ...tag,
             headTitle: tag.headTitle && tag.headTitle.length > 0
-                ? tag.headTitle : tag.name,
+                ? tag.headTitle || ''
+                : tag.name || '',
+            headDescription: tag.headDescription || '',
+            headKeyword: tag.headKeyword || '',
         }
         ))
 
