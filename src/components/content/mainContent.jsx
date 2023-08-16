@@ -42,8 +42,8 @@ export default function MainContent({
                     <div className="content-date-wrapper">
                         <span className="content-create-date">
                             {isPreview
-                                ? new Date(content.updatedAt).toLocaleDateString('en-ZA') 
-                                : new Date(content.publishedAt).toLocaleDateString('en-ZA') 
+                                ? new Date(content.updatedAt).toLocaleDateString('en-ZA')
+                                : new Date(content.publishedAt).toLocaleDateString('en-ZA')
                             }
                         </span>
                     </div>

@@ -1,7 +1,4 @@
 {
-    "cSpell.words": [
-        "Openhuninn",
-        "Pageview",
-        "PQVK"
-    ]
+  "cSpell.words": ["Openhuninn", "Pageview", "PQVK"],
+  "debug.javascript.unmapMissingSources": true
 }

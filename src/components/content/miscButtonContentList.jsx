@@ -9,7 +9,7 @@ export default function MiscButtonContentList({
   const { state } = useAppContext();
 
   const buttonProps = (info, isPrev) => ({
-    to: `${info.sitemapUrl}`,
+    to: info.sitemapUrl,
     name: isPrev ? '上一篇' : '下一篇',
     className: isPrev ? 'prev' : 'next',
     title: info.title,

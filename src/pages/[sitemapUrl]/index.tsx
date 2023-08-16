@@ -95,6 +95,10 @@ export default Page
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL
   const sitemapUrl = params?.sitemapUrl as string
+  console.log(
+    '🚀 ~ file: index.tsx:98 ~ constgetStaticProps:GetStaticProps= ~ sitemapUrl:',
+    sitemapUrl
+  )
   let payload = {
     apiUrl: apiUrl,
     sitemapUrl: `${process.env.NEXT_PUBLIC_SITE}/${sitemapUrl}`,

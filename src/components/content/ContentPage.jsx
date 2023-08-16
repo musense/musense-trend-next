@@ -12,8 +12,9 @@ export default function ContentPage({
     previousAndNextPage,
     relatedArticles,
     popularTagList,
-    isPreview = null
+    isPreview = false
 }) {
+    console.log("🚀 ~ file: ContentPage.jsx:31 ~ mainContent:", mainContent)
     console.log("🚀 ~ file: ContentPage.jsx:31 ~ ContentPage ~ previousAndNextPage:", previousAndNextPage)
     const { previousEditor, nextEditor } = previousAndNextPage;
 
