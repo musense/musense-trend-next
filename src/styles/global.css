@@ -785,6 +785,16 @@ a {
     top: 840px;
     left: 50%;
     transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 40px;
+    width: fit-content;
+    user-select: none;
+    font-family: NotoSans-Regular;
 }
 
 .page-wrapper .page {
@@ -810,18 +820,6 @@ a {
 .page-wrapper .page.toFirst,
 .page-wrapper .page.toLast {
     width: 80px;
-}
-
-.page-wrapper>div {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    margin: 0 auto;
-    justify-content: center;
-    gap: 40px;
-    width: fit-content;
-    user-select: none;
-    font-family: NotoSans-Regular;
 }
 
 .page-wrapper button {

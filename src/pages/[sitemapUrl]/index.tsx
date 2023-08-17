@@ -1,8 +1,4 @@
-import type {
-  GetStaticProps,
-  GetStaticPaths,
-  InferGetStaticPropsType,
-} from 'next'
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { Meta } from '@layouts/Meta'
 import { Main } from '@components/Main/Main'
 
@@ -26,106 +22,31 @@ import {
 import ContentPage from '@components/content/ContentPage'
 import Marketing from '@components/marketing/Marketing'
 import Index from '@components/marketing/Marketing'
-import { getAllSitemapUrl } from '@services/sitemap'
-type CommonProps = InferGetStaticPropsType<typeof getStaticProps>
+type CommonProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const Page = ({
-  popularContents,
-  relatedArticles,
-  previousAndNextPage,
-  popularTagList,
-  sitemapUrl,
-  meta,
-  mainContent,
-  mainTitle,
-  commonPageItems,
-  categoryList,
-}: CommonProps) => {
-  console.log('🚀 ~ file: index.tsx:75 ~ sitemapUrl:', sitemapUrl)
-  const page = sitemapUrl ? (
-    sitemapUrl.indexOf('p_') !== -1 ? (
-      <ContentPage
-        mainContent={mainContent}
-        relatedArticles={relatedArticles}
-        popularTagList={popularTagList}
-        previousAndNextPage={previousAndNextPage}
-      />
-    ) : sitemapUrl.indexOf('tag_') !== -1 ? (
-      <Marketing
-        paramName={`# ${mainTitle}`}
-        commonPageItems={commonPageItems}
-        popularContents={popularContents}
-        sitemapUrl={sitemapUrl}
-      />
-    ) : (
-      <Marketing
-        paramName={mainTitle}
-        commonPageItems={commonPageItems}
-        categoryList={categoryList}
-        popularContents={popularContents}
-        sitemapUrl={sitemapUrl}
-      />
-    )
-  ) : (
-    <Index
-      commonPageItems={commonPageItems}
-      categoryList={categoryList}
-      popularContents={popularContents}
-    />
-  )
-
-  return (
-    <Main
-      meta={
-        <Meta
-          title={meta.headTitle}
-          description={meta.headDescription}
-          keywords={meta.headKeyword}
-          canonical={`${process.env.NEXT_PUBLIC_SITE}/${sitemapUrl}`}
-        />
-      }
-    >
-      {page}
-    </Main>
-  )
-}
-
-export default Page
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL
   const sitemapUrl = params?.sitemapUrl as string
   console.log(
-    '🚀 ~ file: index.tsx:98 ~ constgetStaticProps:GetStaticProps= ~ sitemapUrl:',
+    '🚀 ~ file: index.tsx:98 ~ const getStaticProps:GetStaticProps= ~ sitemapUrl:',
     sitemapUrl
   )
   let payload = {
     apiUrl: apiUrl,
     sitemapUrl: `${process.env.NEXT_PUBLIC_SITE}/${sitemapUrl}`,
     _id: null,
-    page: 0,
+    page: 1,
     categoryName: '',
     tagName: '',
   }
 
-  let mainContent, categoryList, tagList, commonPageItems
+  let mainContent
 
   if (sitemapUrl.indexOf('p_') !== -1) {
     mainContent = await getMainContentBySitemapUrl(payload)
     if (!mainContent) {
       return {
-        props: {
-          mainTitle: '',
-          commonPageItems: '',
-          mainContent: '',
-          previousAndNextPage: '',
-          relatedArticles: '',
-          popularTagList: '',
-          titleContents: '',
-          sitemapUrl: null,
-          meta: '',
-        },
-        revalidate: 10,
+        props: {},
       }
     }
     mainContent = {
@@ -168,11 +89,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           headKeyword: mainContent.headKeyword,
         },
       },
-      revalidate: 10,
     }
   }
   if (sitemapUrl.indexOf('c_') !== -1) {
-    categoryList = await getCategoryList(payload)
+    const categoryList = await getCategoryList(payload)
     mainContent = categoryList.find(
       (category: any) => category.sitemapUrl === sitemapUrl
     )
@@ -180,7 +100,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       ...payload,
       apiUrl: apiUrl,
       categoryName: mainContent.name,
-      page: 1,
     }
 
     const promiseCategoryItems = getTitleContentsByCategory(payload)
@@ -201,11 +120,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       return response
     })
 
-    commonPageItems = [...categoryItems]
     return {
       props: {
         mainTitle: mainContent.name,
-        commonPageItems: commonPageItems,
+        commonPageItems: categoryItems,
         categoryList: categoryList,
         sitemapUrl: sitemapUrl,
         popularContents: popularContents,
@@ -215,15 +133,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
           headKeyword: categoryInfo.headKeyword,
         },
       },
-      revalidate: 10,
     }
   }
   if (sitemapUrl?.indexOf('tag_') !== -1) {
-    payload = {
-      ...payload,
-      page: 1,
-    }
-    tagList = await getTagList(payload)
+    const tagList = await getTagList(payload)
     mainContent = tagList.find((tag: any) => tag.sitemapUrl === sitemapUrl)
     payload = {
       ...payload,
@@ -245,47 +158,90 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         popularContents: res[2],
       }
     })
-    commonPageItems = [...tagItems]
 
     return {
       props: {
         mainTitle: mainContent.name,
-        commonPageItems: commonPageItems,
+        commonPageItems: tagItems,
         sitemapUrl: sitemapUrl,
+        popularContents: popularContents,
         meta: {
           headTitle: tagInfo.headTitle,
           headDescription: tagInfo.headDescription,
           headKeyword: tagInfo.headKeyword,
         },
-        popularContents: popularContents,
       },
-      revalidate: 10,
     }
   }
 
   return {
     props: {},
-    revalidate: 10,
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const payload = {
-    apiUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-  }
+const Page = ({
+  popularContents,
+  relatedArticles,
+  previousAndNextPage,
+  popularTagList,
+  sitemapUrl,
+  meta,
+  mainContent,
+  mainTitle,
+  commonPageItems,
+  categoryList,
+}: CommonProps) => {
+  console.log('🚀 ~ file: index.tsx:75 ~ sitemapUrl:', sitemapUrl)
 
-  const allSitemapUrl = await getAllSitemapUrl(payload)
-
-  console.log(
-    '🚀 ~ file: index.tsx:254 ~ const getStaticPaths:GetStaticPaths= ~ allSitemapUrl:',
-    allSitemapUrl
+  const metaComponent = (
+    <Meta
+      title={meta.headTitle}
+      description={meta.headDescription}
+      keywords={meta.headKeyword}
+      canonical={`${process.env.NEXT_PUBLIC_SITE}/${sitemapUrl}`}
+    />
   )
-  const paths = allSitemapUrl.map((sitemapUrl: string) => ({
-    params: { sitemapUrl },
-  }))
+  const contentPage = (
+    <ContentPage
+      mainContent={mainContent}
+      relatedArticles={relatedArticles}
+      popularTagList={popularTagList}
+      previousAndNextPage={previousAndNextPage}
+    />
+  )
+  const tagPage = (
+    <Marketing
+      paramName={`# ${mainTitle}`}
+      commonPageItems={commonPageItems}
+      popularContents={popularContents}
+      sitemapUrl={sitemapUrl}
+    />
+  )
+  const marketingPage = (
+    <Marketing
+      paramName={mainTitle}
+      commonPageItems={commonPageItems}
+      categoryList={categoryList}
+      popularContents={popularContents}
+      sitemapUrl={sitemapUrl}
+    />
+  )
+  const indexPage = (
+    <Index
+      commonPageItems={commonPageItems}
+      categoryList={categoryList}
+      popularContents={popularContents}
+    />
+  )
+  const page = sitemapUrl
+    ? sitemapUrl.indexOf('p_') !== -1
+      ? contentPage
+      : sitemapUrl.indexOf('tag_') !== -1
+      ? tagPage
+      : marketingPage
+    : indexPage
 
-  return {
-    paths,
-    fallback: 'blocking',
-  }
+  return <Main meta={metaComponent}>{page}</Main>
 }
+
+export default Page

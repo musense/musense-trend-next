@@ -115,7 +115,7 @@ const mainReducer = (
             );
             return {
                 ...state,
-                viewContents: [...state.viewContents!],
+                viewContents: state.viewContents && [...state.viewContents],
                 categoryName: action.payload.categoryName,
                 filteredActive: {
                     ...state.filteredActive,
@@ -125,15 +125,24 @@ const mainReducer = (
         }
         case ReducerActionEnum.SET_CURRENT_PAGE: {
             let currPage, start, end, slicedContents
+
+            if (action.payload.currPage === state.currPage) {
+                return {
+                    ...state,
+                };
+            }
             if (typeof action.payload.currPage === 'number') {
                 currPage = action.payload.currPage;
             } else {
                 if (action.payload.currPage === 'prev') {
-                    currPage = state.currPage! - 1
+                    currPage = state.currPage - 1
                 } else {
-                    currPage = state.currPage! + 1
+                    currPage = state.currPage + 1
                 }
             }
+            if (currPage < 1) currPage = 1
+            if (currPage > state.currTotalPage) currPage = state.currTotalPage
+
             start = (currPage - 1) * state.currMaxViewCount
             end = start + state.currMaxViewCount
             slicedContents = state.contents!.slice(start, end)

@@ -8,33 +8,6 @@ import { getPopularContents, getTitleContents } from '@services/titleContents'
 
 type MarketingProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const Marketing = ({
-  commonPageItems,
-  categoryList,
-  popularContents,
-}: MarketingProps) => {
-  return (
-    <Main
-      meta={
-        <Meta
-          title={process.env.NEXT_PUBLIC_TITLE || ''}
-          description={process.env.NEXT_PUBLIC_DESCRIPTION || ''}
-          keywords={process.env.NEXT_PUBLIC_KEYWORDS || ''}
-          canonical={process.env.NEXT_PUBLIC_SITE}
-        />
-      }
-    >
-      <Index
-        commonPageItems={commonPageItems}
-        categoryList={categoryList}
-        popularContents={popularContents}
-      />
-    </Main>
-  )
-}
-
-export default Marketing
-
 export const getServerSideProps: GetServerSideProps = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL
 
@@ -71,3 +44,28 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   }
 }
+
+const Marketing = ({
+  commonPageItems,
+  categoryList,
+  popularContents,
+}: MarketingProps) => {
+  const metaComponent = (
+    <Meta
+      title={process.env.NEXT_PUBLIC_TITLE || ''}
+      description={process.env.NEXT_PUBLIC_DESCRIPTION || ''}
+      keywords={process.env.NEXT_PUBLIC_KEYWORDS || ''}
+      canonical={process.env.NEXT_PUBLIC_SITE}
+    />
+  )
+  const indexPage = (
+    <Index
+      commonPageItems={commonPageItems}
+      categoryList={categoryList}
+      popularContents={popularContents}
+    />
+  )
+  return <Main meta={metaComponent}>{indexPage}</Main>
+}
+
+export default Marketing

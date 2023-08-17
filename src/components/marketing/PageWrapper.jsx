@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PageTemplate from "@components/page/pageTemplate";
 import { useAppContext } from "@store/context";
 
 export default function PageWrapper({ children = null }) {
 
-    const { state, dispatch } = useAppContext();
-    const maxNumber = useMemo(() => {
-        if (state.clientWidth === 0) return 0
-        if (state.clientWidth < 768) {
-            return 3
-        }
-        return 5
-    }, [state.clientWidth])
+    const { state } = useAppContext();
+    const maxNumber = state.clientWidth < 768
+        ? 3
+        : 5
+
+    console.log("🚀 ~ file: PageWrapper.jsx:9 ~ PageWrapper ~ maxNumber:", maxNumber)
 
     return <>
         {state.currTotalPage > 0 && <PageTemplate

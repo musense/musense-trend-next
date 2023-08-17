@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useEffect } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useAppContext } from "@store/context";
 import {
     FirstButton,
@@ -17,11 +17,7 @@ const PageTemplate = ({
     __MAX_SHOW_NUMBERS__ = 5
 }) => {
 
-    console.log("🚀 ~ file: pageTemplate.jsx:21 ~ currPage:", currPage)
-    // useScrollToPosition(currPage)
-
-    console.log("🚀 ~ file: pageTemplate.jsx:9 ~ totalPage:", totalPage)
-    const { state, dispatch } = useAppContext();
+    const { dispatch } = useAppContext();
 
     const prevPage = useCallback(() => {
         dispatch({
@@ -40,9 +36,6 @@ const PageTemplate = ({
         })
     }, [])
     const setPage = useCallback((page) => {
-        if (page < 1) page = 1
-        if (page > totalPage) page = totalPage
-
         dispatch({
             type: 'SET_CURRENT_PAGE',
             payload: {
@@ -51,7 +44,6 @@ const PageTemplate = ({
         })
     }, [])
 
-    const middleRightPoint = Math.ceil(__MAX_SHOW_NUMBERS__ / 2)
     const middleLeftPoint = Math.floor(__MAX_SHOW_NUMBERS__ / 2)
 
     const showArray = useMemo(() => {
@@ -65,15 +57,13 @@ const PageTemplate = ({
     }, [__MAX_SHOW_NUMBERS__, currPage, totalPage, middleLeftPoint])
 
     return (<div className={'page-wrapper'}>
-        <div>
-            <FirstButton setPage={setPage} currPage={currPage} />
-            <PrevButton prevPage={prevPage} currPage={currPage} />
-            <LeftDots cb={() => setPage(currPage - 3)} showArray={showArray} />
-            <PageNumber showArray={showArray} setPage={setPage} currentPage={currPage} />
-            <RightDots cb={() => setPage(currPage + 3)} showArray={showArray} totalPage={totalPage} />
-            <NextButton nextPage={nextPage} currPage={currPage} totalPage={totalPage} />
-            <LastButton setPage={setPage} currPage={currPage} totalPage={totalPage} />
-        </div>
+        <FirstButton setPage={setPage} currPage={currPage} />
+        <PrevButton prevPage={prevPage} currPage={currPage} />
+        <LeftDots cb={() => setPage(currPage - 3)} showArray={showArray} />
+        <PageNumber showArray={showArray} setPage={setPage} currentPage={currPage} />
+        <RightDots cb={() => setPage(currPage + 3)} showArray={showArray} totalPage={totalPage} />
+        <NextButton nextPage={nextPage} currPage={currPage} totalPage={totalPage} />
+        <LastButton setPage={setPage} currPage={currPage} totalPage={totalPage} />
     </div>);
 }
 

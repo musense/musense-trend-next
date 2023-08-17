@@ -20,29 +20,29 @@ function RightDots({ cb, showArray, totalPage }) {
     )
 };
 
-function FirstButton({ setPage, currPage }) {
-    return currPage !== 1 && <PageButton
+function FirstButton({ setPage }) {
+    return <PageButton
         cb={() => setPage(1)}
         styles={"toFirst"}
         label={'<<'} />;
 }
 
-function LastButton({ setPage, totalPage, currPage }) {
-    return currPage !== totalPage && <PageButton
+function LastButton({ setPage, totalPage }) {
+    return <PageButton
         cb={() => setPage(totalPage)}
         styles={"toLast"}
         label={'>>'} />;
 }
 
-function NextButton({ nextPage, currPage, totalPage }) {
-    return currPage !== totalPage && <PageButton
+function NextButton({ nextPage }) {
+    return <PageButton
         cb={() => nextPage()}
         styles={"next"}
         label={'>'} />;
 }
 
-function PrevButton({ prevPage, currPage }) {
-    return currPage !== 1 && <PageButton
+function PrevButton({ prevPage }) {
+    return <PageButton
         cb={() => prevPage()}
         styles={"prev"}
         label={'<'} />;

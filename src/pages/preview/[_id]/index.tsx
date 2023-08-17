@@ -8,37 +8,6 @@ import { getPopularTagList } from '@services/tagContents'
 
 type PreviewProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const PreviewPage = ({
-  mainContent,
-  previousAndNextPage,
-  popularTagList,
-  meta,
-}: PreviewProps) => {
-  return (
-    <Main
-      meta={
-        meta && (
-          <Meta
-            title={meta.headTitle}
-            description={meta.headDescription}
-            keywords={meta.headKeyword}
-          />
-        )
-      }
-    >
-      <ContentPage
-        mainContent={mainContent}
-        previousAndNextPage={previousAndNextPage}
-        relatedArticles={[]}
-        popularTagList={popularTagList}
-        isPreview={true}
-      />
-    </Main>
-  )
-}
-
-export default PreviewPage
-
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const _id = params?._id as string
   const payload = {
@@ -106,3 +75,31 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     }
   }
 }
+
+const PreviewPage = ({
+  mainContent,
+  previousAndNextPage,
+  popularTagList,
+  meta,
+}: PreviewProps) => {
+  const metaComponent = (
+    <Meta
+      title={meta.headTitle}
+      description={meta.headDescription}
+      keywords={meta.headKeyword}
+    />
+  )
+  const contentPage = (
+    <ContentPage
+      mainContent={mainContent}
+      previousAndNextPage={previousAndNextPage}
+      relatedArticles={[]}
+      popularTagList={popularTagList}
+      isPreview={true}
+    />
+  )
+
+  return <Main meta={metaComponent}>{contentPage}</Main>
+}
+
+export default PreviewPage
