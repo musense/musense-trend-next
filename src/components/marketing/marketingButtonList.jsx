@@ -4,7 +4,7 @@ import BtnMarketingWrapperByClientWidth from './BtnMarketingWrapperByClientWidth
 
 export default function MarketingButtonList({
   categoryList,
-  paramName
+  openTitleName
 }) {
 
   const { state } = useAppContext();
@@ -13,9 +13,6 @@ export default function MarketingButtonList({
     if (!categoryList) return null
     return categoryList.filter(category => category.keyName !== 'Uncategorized')
   }, [categoryList])
-  console.log("🚀 ~ file: marketingButtonList.jsx:16 ~ showCategoryList ~ showCategoryList:", showCategoryList)
-
-
 
   const btnActive = useCallback((name) => {
     if (!state.categoryName) return false
@@ -23,9 +20,8 @@ export default function MarketingButtonList({
   }, [state.categoryName])
 
   return <BtnMarketingWrapperByClientWidth
-    selectedCategoryName={state.categoryName}
     clientWidth={state.clientWidth}
-    paramName={paramName}
+    openTitleName={openTitleName}
     showCategoryList={showCategoryList}
     btnActive={btnActive}
   />

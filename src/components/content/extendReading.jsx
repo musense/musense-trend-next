@@ -3,20 +3,18 @@ import React from "react";
 import Image from "next/image";
 
 export default function ExtendReading({ contents }) {
-    console.log("🚀 ~ file: extendReading.jsx:7 ~ ExtendReading ~ contents:", contents)
-    return <div data-title="延伸閱讀" className="popular-content-container">
+    return contents && <div data-title="延伸閱讀" className="popular-content-container">
         <div className='main' />
         <div className='main-en' />
         <div className="popular-content-wrapper">
             <ExtendReadingContents contents={contents} />
-
         </div>
     </div>;
 }
 
 function ExtendReadingContents({ contents }) {
-
-    return contents && contents.slice(0, 3).map((content, index) => {
+    console.log("🚀 ~ file: extendReading.jsx:16 ~ ExtendReadingContents ~ contents:", contents)
+    return contents.slice(0, 3).map((content, index) => {
         return (
             content.homeImagePath && <Link key={index} href={content.sitemapUrl} className="popular-content">
                 <Content

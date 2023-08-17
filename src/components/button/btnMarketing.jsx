@@ -8,40 +8,24 @@ export default function BtnMarketing({
   className,
   type = "link",
   callback = null,
-  disabled = null,
   active = false,
-  target = "_self",
   cancelHoverState = false,
-  close = false
 }) {
 
-  const linkProps = React.useMemo(() => ({
-    target: target,
+  const linkProps = {
     title: title,
     className: `btn-marketing ${className}`,
     href: to,
-    onClick: close
-      ? () => { window.top.close(); }
-      : callback
-        ? callback
-        : null,
+    onClick: callback
+  }
 
-  }), [target, title, to, callback, close, className])
-
-  // const buttonProps = React.useMemo(() => ({
   const buttonProps = {
-    disabled: disabled || false,
     title: title,
     className: cancelHoverState
-      ? className
-        ? `btn-marketing ${className} ` : `btn-marketing`
-      : className
-        ? `btn-marketing ${className} ${active ? "active" : ""}`
-        : `btn-marketing ${active ? "active" : ""}`,
+      ? `btn-marketing ${className} `
+      : `btn-marketing ${className} ${active ? "active" : ""}`,
     onClick: callback,
   }
-  // }), [disabled, title, cancelHoverState, className, active, callback])
-  // console.log("🚀 ~ file: btnMarketing.jsx:31 ~ buttonProps ~ buttonProps:", buttonProps)
 
   const linkComponent = <Link {...linkProps}>{name}</Link>;
   const buttonComponent = <button {...buttonProps}>{title}</button>

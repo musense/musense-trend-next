@@ -1,6 +1,5 @@
-import BtnMarketing from '@components/btnMarketing';
-import BtnMarketingWrapper from '@components/btnMarketingWrapper';
-// import useScrollToPosition from "@services/useScrollToPosition";
+import BtnMarketing from '@components/button/btnMarketing';
+import BtnMarketingWrapper from '@components/button/btnMarketingWrapper';
 
 function DeskTopBtnMarketingWrapper({
     showCategoryList,
@@ -8,7 +7,6 @@ function DeskTopBtnMarketingWrapper({
 }) {
     return <BtnMarketingWrapper position='upper'>
         {showCategoryList && showCategoryList.map((category, index) =>
-            // <p key={index}></p>
             <BtnMarketing key={index} {...btnProps(index, category)} />
         )}
     </BtnMarketingWrapper>;
@@ -33,13 +31,13 @@ function MobileBtnMarketingWrapper({
     </BtnMarketingWrapper>);
 }
 
-function CommonTitle({ paramName }) {
+function CommonTitle({ openTitleName }) {
     return <BtnMarketingWrapper position='upper'>
         <BtnMarketing
             type="title"
             className="spots"
-            title={paramName}
-            name={paramName}
+            title={openTitleName}
+            name={openTitleName}
             cancelHoverState={true}
         />
     </BtnMarketingWrapper>;

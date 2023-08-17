@@ -211,7 +211,7 @@ const Page = ({
   )
   const tagPage = (
     <Marketing
-      paramName={`# ${mainTitle}`}
+      openTitleName={`# ${mainTitle}`}
       commonPageItems={commonPageItems}
       popularContents={popularContents}
       sitemapUrl={sitemapUrl}
@@ -219,7 +219,7 @@ const Page = ({
   )
   const marketingPage = (
     <Marketing
-      paramName={mainTitle}
+      openTitleName={mainTitle}
       commonPageItems={commonPageItems}
       categoryList={categoryList}
       popularContents={popularContents}

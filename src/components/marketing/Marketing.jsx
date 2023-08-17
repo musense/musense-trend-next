@@ -1,18 +1,16 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import MarketingButtonList from '@components/marketing/marketingButtonList';
 import CardWrapper from '@components/marketing/cardWrapper';
 import MiscButtonList from '@components/marketing/miscButtonList';
 import PopularContent from '@components/marketing/hotContent';
 import PageWrapper from '@components/marketing/pageWrapper';
 import { useAppContext } from "@store/context";
-import useSetCommonPageItems from "@services/useSetCommonPageItems";
 
 import MarketingBanner from "./marketingBanner";
 import useInitial from "@services/useInitial";
 
-
-export default function Page({
-    paramName = '',
+export default function MarketingPage({
+    openTitleName = '',
     commonPageItems,
     categoryList = null,
     popularContents,
@@ -20,12 +18,10 @@ export default function Page({
 }) {
     const { state, dispatch } = useAppContext();
     useInitial({ state, dispatch })
-    // useScrollToPosition(sitemapUrl,10)
-    useSetCommonPageItems(commonPageItems, dispatch)
 
     const banner = sitemapUrl === '' && <MarketingBanner />
-    const buttonList = <MarketingButtonList categoryList={categoryList} paramName={paramName} />
-    const cardWrapper = <CardWrapper />
+    const buttonList = <MarketingButtonList categoryList={categoryList} openTitleName={openTitleName} />
+    const cardWrapper = <CardWrapper commonPageItems={commonPageItems} />
     const cardFooter = sitemapUrl === ''
         ? <MiscButtonList />
         : (<PageWrapper>

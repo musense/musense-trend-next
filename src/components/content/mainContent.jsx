@@ -1,12 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Tag from "./tag";
 import HotTrendWrapper from "./hotTrendWrapper";
 import useResizeContentTags from "@services/useResizeContentTags";
 import useAddPageView from "@services/useAddPageView";
 import MiscButtonContentList from "./miscButtonContentList";
-// import useScrollToPosition from '@services/useScrollToPosition';
-
-const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
 export default function MainContent({
     content,
@@ -15,8 +12,6 @@ export default function MainContent({
     nextInfo,
     isPreview
 }) {
-    // console.log("🚀 ~ file: mainContent.jsx:13 ~ content:", content)
-    // console.log("🚀 ~ file: mainContent.jsx:13 ~ MainContent ~ popularTagList:", popularTagList)
 
     const contentTagsRef = useRef(null);
     console.log("🚀 ~ file: mainContent.jsx:15 ~ MainContent ~ contentTagsRef:", contentTagsRef)
@@ -25,40 +20,45 @@ export default function MainContent({
     useResizeContentTags(contentTagsRef);
     useAddPageView(content._id, isPreview);
 
+    const contentTags = content.tags && <div ref={contentTagsRef} className="content-tags">{
+        content.tags.map((tag, index) => {
+            return <Tag
+                key={index}
+                href={tag.sitemapUrl}
+                tagName={`# ${tag.name}`}
+            />
+        })}
+    </div>
+    const contentPublishedDate = isPreview
+        ? new Date(content.updatedAt).toLocaleDateString('en-ZA')
+        : new Date(content.publishedAt).toLocaleDateString('en-ZA')
+
+    const mainContent = <div
+        className="content-main-content"
+        dangerouslySetInnerHTML={{ __html: content.htmlContent }}
+    />
     return (
         <div className="main-content-wrapper">
             <div className="content-left-side">
-                <h1 className="content-title">{content.title}</h1>
+                <h1 className="content-title">
+                    {content.title}
+                </h1>
                 <div className="content-misc">
-                    {content.tags && <div ref={contentTagsRef} className="content-tags">{
-                        content.tags.map((tag, index) => {
-                            return <Tag
-                                key={index}
-                                href={tag.sitemapUrl}
-                                tagName={`# ${tag.name}`}
-                            />
-                        })}
-                    </div>}
+                    {contentTags}
                     <div className="content-date-wrapper">
-                        <span className="content-create-date">
-                            {isPreview
-                                ? new Date(content.updatedAt).toLocaleDateString('en-ZA')
-                                : new Date(content.publishedAt).toLocaleDateString('en-ZA')
-                            }
-                        </span>
+                        {contentPublishedDate}
                     </div>
                 </div>
-                <div
-                    className="content-main-content"
-                    dangerouslySetInnerHTML={{ __html: content.htmlContent }}
-                />
+                {mainContent}
                 <MiscButtonContentList
                     prevInfo={prevInfo}
                     nextInfo={nextInfo}
                 />
             </div>
 
-            <MemoizedHotTrendWrapper position="content" popularTagList={popularTagList} />
+            <HotTrendWrapper
+                position="content"
+                popularTagList={popularTagList} />
         </div>
     );
 

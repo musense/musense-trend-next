@@ -5,7 +5,6 @@ import HotTrendWrapper from '@components/content/hotTrendWrapper';
 import ExtendReading from '@components/content/extendReading';
 import { useAppContext } from "@store/context";
 import useInitial from "@services/useInitial";
-const MemoizedHotTrendWrapper = React.memo(HotTrendWrapper);
 
 export default function ContentPage({
     mainContent,
@@ -14,8 +13,6 @@ export default function ContentPage({
     popularTagList,
     isPreview = false
 }) {
-    console.log("🚀 ~ file: ContentPage.jsx:31 ~ mainContent:", mainContent)
-    console.log("🚀 ~ file: ContentPage.jsx:31 ~ ContentPage ~ previousAndNextPage:", previousAndNextPage)
     const { previousEditor, nextEditor } = previousAndNextPage;
 
     const { state, dispatch } = useAppContext();
@@ -23,6 +20,7 @@ export default function ContentPage({
 
     const extendReading = React.useMemo(() => {
         if (isPreview) return []
+        if (relatedArticles.length === 0) return null
         return relatedArticles
     }, [relatedArticles, isPreview])
 
@@ -39,11 +37,12 @@ export default function ContentPage({
                 nextInfo={nextEditor}
                 isPreview={isPreview}
             />
-
-            {extendReading.length > 0 && <ExtendReading
+            <ExtendReading
                 contents={extendReading}
-            />}
-            <MemoizedHotTrendWrapper position='bottom' popularTagList={popularTagList} />
+            />
+            <HotTrendWrapper
+                position='bottom'
+                popularTagList={popularTagList} />
         </>
     )
 

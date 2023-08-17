@@ -1,5 +1,5 @@
-import BtnMarketingWrapper from "../btnMarketingWrapper";
-import BtnMarketing from "../btnMarketing";
+import BtnMarketingWrapper from "@components/button/btnMarketingWrapper";
+import BtnMarketing from "@components/button/btnMarketing";
 import { useAppContext } from "@store/context";
 
 export default function MiscButtonContentList({

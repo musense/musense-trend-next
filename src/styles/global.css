@@ -771,8 +771,9 @@ a {
 }
 
 .btn-marketing-wrapper.content {
-    margin: 68px auto;
     width: 410px;
+    margin: auto;
+    margin-bottom: 50px;
 }
 
 .btn-marketing-wrapper.content .btn-marketing {
@@ -850,7 +851,7 @@ a {
     position: relative;
     width: 100%;
     height: fit-content;
-    top: var(--banner-top-offset);
+    margin-top: var(--banner-top-offset);
     overflow: hidden;
 }
 
@@ -881,18 +882,24 @@ a {
 .main-content-wrapper {
     position: relative;
     width: 1000px;
-    margin: calc(var(--banner-top-offset) + 33px) auto 0;
+    margin: 33px auto 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-family: Openhuninn;
+    /* 49px: top-banner-wrapper height */
+    /* 33px: self margin-top */
+    /* 298px: footer height */
 }
 
 .content-left-side {
     position: inherit;
     width: 668px;
+    min-height: calc(100vh - var(--banner-top-offset) - 49px - 33px - 298px);
     height: fit-content;
+    display: flex;
+    flex-direction: column;
 }
 
 .content-title {
@@ -928,6 +935,12 @@ a {
 
 .content-date-wrapper {
     margin-left: auto;
+
+    letter-spacing: 2px;
+    position: relative;
+    font-size: 13.5px;
+    color: #f88d2a;
+    white-space: nowrap;
 }
 
 .content-tags {
@@ -944,14 +957,6 @@ a {
     font-size: var(--tag-size);
 }
 
-.content-create-date {
-    letter-spacing: 2px;
-    position: relative;
-    font-size: 13.5px;
-    color: #f88d2a;
-    white-space: nowrap;
-}
-
 .content-main-content * {
     /* all: unset; */
 }
@@ -965,6 +970,7 @@ a {
     width: 100%;
     height: fit-content;
     margin-top: 26px;
+    margin-bottom: 30px;
     letter-spacing: 2px;
     line-height: 1.2;
     text-align: left;
@@ -1171,7 +1177,7 @@ a {
 }
 
 .popular-content-container {
-    margin-top: 67px;
+    /* margin-top: 67px; */
 }
 
 .popular-content-container::before,
@@ -1851,6 +1857,7 @@ a {
         top: unset;
         left: unset;
         transform: unset;
+        gap: 1rem;
     }
 
     .page-wrapper>div {
@@ -2336,7 +2343,7 @@ a {
         row-gap: var(--tag-row-gap);
     }
 
-    .content-create-date {
+    .content-date-wrapper {
         font-size: inherit;
     }
 

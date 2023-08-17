@@ -1,23 +1,27 @@
 import React from 'react'
 import Tag from './tag';
 
-export default function HotTrendWrapper({ 
+const InnerHotTrendWrapper = ({
     position,
     popularTagList,
+}) => {
 
- }) {
+    const content = popularTagList && popularTagList.map((tag, index) => {
+        return <Tag
+            key={index}
+            href={tag.sitemapUrl}
+            tagName={`# ${tag.name}`}
+        />;
+    })
 
-    console.log("🚀 ~ file: hotTrendWrapper.jsx:5 ~ HotTrendWrapper ~ popularTags:", popularTagList)
     return <div className={`content-right-side ${position}`}>
-        <div className="hot-trend"></div>
+        <div className="hot-trend" />
         <div className="hot-tag-wrapper">
-            {popularTagList && popularTagList.map((tag, index) => {
-                return <Tag
-                    key={index}
-                    href={tag.sitemapUrl}
-                    tagName={`# ${tag.name}`}
-                />;
-            })}
+            {content}
         </div>
     </div>;
 }
+
+const HotTrendWrapper = React.memo(InnerHotTrendWrapper);
+
+export default HotTrendWrapper

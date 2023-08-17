@@ -7,9 +7,8 @@ import {
 import { useAppContext } from "@store/context";
 
 function BtnMarketingWrapperByClientWidth({
-    selectedCategoryName,
     clientWidth,
-    paramName,
+    openTitleName,
     showCategoryList,
     btnActive,
 }) {
@@ -47,22 +46,20 @@ function BtnMarketingWrapperByClientWidth({
         ]
     }, [showCategoryList, clientWidth])
 
+    const isDesktopOdMobile = clientWidth > 786
+        ? <DeskTopBtnMarketingWrapper
+            showCategoryList={showCategoryList}
+            btnProps={btnProps} />
+        : <MobileBtnMarketingWrapper
+            leftCategoryList={leftCategoryList}
+            rightCategoryList={rightCategoryList}
+            btnProps={btnProps} />
 
-    return clientWidth > 768
-        ? paramName === ''
-            ? <DeskTopBtnMarketingWrapper
-                showCategoryList={showCategoryList}
-                btnProps={btnProps}
-            />
-            : <CommonTitle paramName={paramName} />
-        : paramName === ''
-            ? <MobileBtnMarketingWrapper
-                leftCategoryList={leftCategoryList}
-                rightCategoryList={rightCategoryList}
-                btnProps={btnProps}
-            />
-            : <CommonTitle paramName={paramName} />
-        ;
+    const isButtonOrHeaderWrapper = openTitleName
+        ? <CommonTitle openTitleName={openTitleName} />
+        : isDesktopOdMobile
+
+    return isButtonOrHeaderWrapper
 }
 
 export default BtnMarketingWrapperByClientWidth 

@@ -45,6 +45,7 @@ const PageTemplate = ({
     }, [])
 
     const middleLeftPoint = Math.floor(__MAX_SHOW_NUMBERS__ / 2)
+    const middleRightPoint = Math.ceil(__MAX_SHOW_NUMBERS__ / 2)
 
     const showArray = useMemo(() => {
         if (!currPage) return
@@ -59,9 +60,9 @@ const PageTemplate = ({
     return (<div className={'page-wrapper'}>
         <FirstButton setPage={setPage} currPage={currPage} />
         <PrevButton prevPage={prevPage} currPage={currPage} />
-        <LeftDots cb={() => setPage(currPage - 3)} showArray={showArray} />
+        <LeftDots cb={() => setPage(currPage - middleRightPoint)} showArray={showArray} />
         <PageNumber showArray={showArray} setPage={setPage} currentPage={currPage} />
-        <RightDots cb={() => setPage(currPage + 3)} showArray={showArray} totalPage={totalPage} />
+        <RightDots cb={() => setPage(currPage + middleRightPoint)} showArray={showArray} totalPage={totalPage} />
         <NextButton nextPage={nextPage} currPage={currPage} totalPage={totalPage} />
         <LastButton setPage={setPage} currPage={currPage} totalPage={totalPage} />
     </div>);
