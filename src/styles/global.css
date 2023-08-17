@@ -478,7 +478,7 @@ a {
     opacity: 1;
 }
 
-.card-wrapper.no-card {
+.card-wrapper:has(h3) {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -486,11 +486,12 @@ a {
     height: calc(var(--card-height) * 2 + var(--card-wrapper-row-gap));
 }
 
-.card-wrapper.no-card>h3 {
+.card-wrapper>h3 {
     color: grey;
-    width: 100%;
+    width: inherit;
     text-align: center;
     font-size: 48px;
+    white-space: nowrap;
 }
 
 .card {

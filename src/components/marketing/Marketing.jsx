@@ -3,11 +3,13 @@ import MarketingButtonList from '@components/marketing/marketingButtonList';
 import CardWrapper from '@components/marketing/cardWrapper';
 import MiscButtonList from '@components/marketing/miscButtonList';
 import PopularContent from '@components/marketing/hotContent';
+import PageWrapper from '@components/marketing/pageWrapper';
 import { useAppContext } from "@store/context";
-import PageTemplate from "@components/page/pageTemplate";
+import useSetCommonPageItems from "@services/useSetCommonPageItems";
+
 import MarketingBanner from "./marketingBanner";
 import useInitial from "@services/useInitial";
-// import useScrollToPosition from "@services/useScrollToPosition";
+
 
 export default function Page({
     paramName = '',
@@ -19,50 +21,24 @@ export default function Page({
     const { state, dispatch } = useAppContext();
     useInitial({ state, dispatch })
     // useScrollToPosition(sitemapUrl,10)
-    useEffect(() => {
-        console.log("🚀 ~ file: index.jsx:19 ~ useEffect ~ commonPageItems:", commonPageItems)
-        dispatch({
-            type: "RESET_FILTER_STATE",
-        })
-        dispatch({
-            type: "SET_ALL_CONTENTS",
-            payload: {
-                contents: commonPageItems,
-            }
-        })
-    }, [commonPageItems, dispatch]);
+    useSetCommonPageItems(commonPageItems, dispatch)
+
+    const banner = sitemapUrl === '' && <MarketingBanner />
+    const buttonList = <MarketingButtonList categoryList={categoryList} paramName={paramName} />
+    const cardWrapper = <CardWrapper />
+    const cardFooter = sitemapUrl === ''
+        ? <MiscButtonList />
+        : (<PageWrapper>
+            <MiscButtonList />
+        </PageWrapper>)
+    const popularContent = <PopularContent contents={popularContents} />
 
     return (<>
-        {sitemapUrl === '' && <MarketingBanner />}
-        <MarketingButtonList categoryList={categoryList} paramName={paramName} />
-        <CardWrapper />
-        {sitemapUrl === ''
-            ? <MiscButtonList />
-            : (<PageWrapper>
-                <MiscButtonList />
-            </PageWrapper>)}
-        <PopularContent contents={popularContents} />
+        {banner}
+        {buttonList}
+        {cardWrapper}
+        {cardFooter}
+        {popularContent}
     </>);
 }
 
-function PageWrapper({ children = null }) {
-
-    const { state, dispatch } = useAppContext();
-    const maxNumber = useMemo(() => {
-        if (state.clientWidth === 0) return 0
-        if (state.clientWidth < 768) {
-            return 3
-        }
-        return 5
-    }, [state.clientWidth])
-
-    return <>
-        {state.currTotalPage > 0 && <PageTemplate
-            currPage={state.currPage}
-            totalPage={state.currTotalPage}
-            __MAX_SHOW_NUMBERS__={maxNumber}
-        />}
-        {children}
-    </>
-
-}

@@ -91,7 +91,7 @@ const mainReducer = (
                 categoryName: filteredActive ? action.payload.categoryName : null,
                 keyName: filteredActive ? action.payload.keyName : null,
                 categorySitemapUrl: filteredActive ? action.payload.categorySitemapUrl : null,
-                viewContents: filteredContents?.slice(0, 6),
+                viewContents: filteredContents!.length > 0 ? filteredContents?.slice(0, 6) : null,
                 currTotalPage: filteredContents && Math.ceil(filteredContents?.length / 6),
                 filteredActive: {
                     ...state.filteredActive,

@@ -1,4 +1,4 @@
-import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
 import { Main } from '@components/Main/Main'
 import { Meta } from '@layouts/Meta'
@@ -6,7 +6,7 @@ import Index from '@components/marketing/Marketing'
 import { getCategoryList } from '@services/categoryContents'
 import { getPopularContents, getTitleContents } from '@services/titleContents'
 
-type MarketingProps = InferGetStaticPropsType<typeof getStaticProps>
+type MarketingProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const Marketing = ({
   commonPageItems,
@@ -35,7 +35,7 @@ const Marketing = ({
 
 export default Marketing
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL
 
   let payload = {
@@ -69,6 +69,5 @@ export const getStaticProps: GetStaticProps = async () => {
       categoryList: categoryList,
       popularContents: popularContents,
     },
-    revalidate: 10,
   }
 }
