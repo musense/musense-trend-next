@@ -3,7 +3,7 @@ import MarketingButtonList from '@components/marketing/marketingButtonList';
 import CardWrapper from '@components/marketing/cardWrapper';
 import MiscButtonList from '@components/marketing/miscButtonList';
 import PopularContent from '@components/marketing/hotContent';
-import PageWrapper from '@components/marketing/pageWrapper';
+import PageWrapper from '@components/marketing/PageWrapper';
 import { useAppContext } from "@store/context";
 
 import MarketingBanner from "./marketingBanner";
