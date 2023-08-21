@@ -14,7 +14,8 @@ export default function MiscButtonList() {
           to={state.mainSiteHref}
           name={state.mainSiteHref === '/' ? '返回' : '回首頁'}
         />
-        {state.categorySitemapUrl && <BtnMarketing
+        {/* {state.categorySitemapUrl && */}
+        <BtnMarketing
           title="看更多文章"
           name='看更多文章'
           to={state.categorySitemapUrl}
@@ -23,9 +24,11 @@ export default function MiscButtonList() {
             payload: {
               active: true,
               categoryName: state.categoryName,
+              keyName: state.keyName,
             }
           })}
-        />}
+        />
+        {/* } */}
       </BtnMarketingWrapper>
     </>
   );;

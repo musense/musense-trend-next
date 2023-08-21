@@ -12,6 +12,7 @@ import {
   getPreviousAndNextPageById,
   getMainContentBySitemapUrl,
   getPopularContents,
+  getTitleContents,
 } from '@services/titleContents'
 import {
   getTagContents,
@@ -92,6 +93,43 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     }
   }
   if (sitemapUrl.indexOf('c_') !== -1) {
+    //* special case
+    if (sitemapUrl === 'c_all_contents.html') {
+      mainContent = {
+        name: '全部文章',
+      }
+
+      const promiseTitleContents = getTitleContents(payload)
+      const promiseCategoryList = getCategoryList(payload)
+      const promisePopularContents = getPopularContents(payload)
+
+      const { titleContents, categoryList, popularContents } =
+        await Promise.all([
+          promiseTitleContents,
+          promiseCategoryList,
+          promisePopularContents,
+        ]).then((res) => {
+          const response = {
+            titleContents: res[0],
+            categoryList: res[1],
+            popularContents: res[2],
+          }
+          console.log('🚀 ~ file: index.tsx:62 ~ ]).then ~ response:', response)
+          return response
+        })
+
+      const commonPageItems = [...titleContents]
+      return {
+        props: {
+          mainTitle: mainContent.name,
+          commonPageItems: commonPageItems,
+          categoryList: categoryList,
+          sitemapUrl: sitemapUrl,
+          popularContents: popularContents,
+        },
+      }
+    }
+
     const categoryList = await getCategoryList(payload)
     mainContent = categoryList.find(
       (category: any) => category.sitemapUrl === sitemapUrl
@@ -195,9 +233,9 @@ const Page = ({
 
   const metaComponent = (
     <Meta
-      title={meta.headTitle}
-      description={meta.headDescription}
-      keywords={meta.headKeyword}
+      title={meta?.headTitle || process.env.NEXT_PUBLIC_TITLE}
+      description={meta?.headDescription || process.env.NEXT_PUBLIC_DESCRIPTION}
+      keywords={meta?.headKeyword || process.env.NEXT_PUBLIC_KEYWORDS}
       canonical={`${process.env.NEXT_PUBLIC_SITE}/${sitemapUrl}`}
     />
   )

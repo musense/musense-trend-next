@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import PageTemplate from "@components/page/pageTemplate";
 import { useAppContext } from "@store/context";
 

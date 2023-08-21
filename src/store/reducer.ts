@@ -4,6 +4,8 @@ import {
     ReducerActionEnum,
 } from './types';
 
+const allContentSitemapUrl = 'c_all_contents.html'
+
 const initialState: StateProps = {
     clientWidth: 0,
     clientHeight: 0,
@@ -11,7 +13,7 @@ const initialState: StateProps = {
     viewContents: null,
     categoryName: '',
     keyName: '',
-    categorySitemapUrl: '',
+    categorySitemapUrl: allContentSitemapUrl,
     mainSiteHref: process.env.NEXT_PUBLIC_FRONT_SITE || '/',
     pathname: '',
     lastPathname: '',
@@ -70,12 +72,14 @@ const mainReducer = (
         }
         case ReducerActionEnum.FILTER_CATEGORY: {
             let filteredContents, filteredActive
+            console.log("🚀 ~ file: reducer.ts:74 ~ action.payload.keyName:", action.payload.keyName)
             if (state.filteredActive[action.payload.keyName!] === null || !state.filteredActive[action.payload.keyName!]) {
                 filteredActive = true
                 filteredContents = state.contents?.filter((content) =>
                     content.categoryName === action.payload.categoryName
                 )
             } else {
+                // includes un-categories items
                 filteredContents = state.contents!
             }
             filteredActive = !state.filteredActive[action.payload.keyName!]
@@ -90,7 +94,7 @@ const mainReducer = (
                 ...state,
                 categoryName: filteredActive ? action.payload.categoryName : null,
                 keyName: filteredActive ? action.payload.keyName : null,
-                categorySitemapUrl: filteredActive ? action.payload.categorySitemapUrl : null,
+                categorySitemapUrl: filteredActive ? action.payload.categorySitemapUrl : allContentSitemapUrl,
                 viewContents: filteredContents!.length > 0 ? filteredContents?.slice(0, 6) : null,
                 currTotalPage: filteredContents && Math.ceil(filteredContents?.length / 6),
                 filteredActive: {
@@ -110,9 +114,11 @@ const mainReducer = (
             };
         }
         case ReducerActionEnum.SEE_MORE: {
-            Object.keys(state.filteredActive)?.forEach((key) =>
-                state.filteredActive[key] = false
-            );
+            if (action.payload.keyName) {
+                Object.keys(state.filteredActive)?.forEach((key) =>
+                    state.filteredActive[key] = false
+                );
+            }
             return {
                 ...state,
                 viewContents: state.viewContents && [...state.viewContents],
@@ -158,7 +164,7 @@ const mainReducer = (
                 ...state,
                 categoryName: null,
                 keyName: null,
-                categorySitemapUrl: null,
+                categorySitemapUrl: allContentSitemapUrl,
                 filteredActive: {
                     seeMore: false,
                 }
