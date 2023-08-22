@@ -5,7 +5,7 @@ export default function BtnMarketing({
   name,
   to,
   title,
-  className,
+  className = '',
   type = "link",
   callback = null,
   active = false,
