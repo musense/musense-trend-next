@@ -783,7 +783,7 @@ a {
 .page-wrapper {
     position: absolute;
     margin: unset;
-    top: 840px;
+    top: 870px;
     left: 50%;
     transform: translateX(-50%);
 
@@ -792,7 +792,7 @@ a {
     flex-wrap: nowrap;
     margin: 0 auto;
     justify-content: center;
-    gap: 40px;
+    gap: 20px;
     width: fit-content;
     user-select: none;
     font-family: NotoSans-Regular;
@@ -838,7 +838,7 @@ a {
 }
 
 .page-wrapper+.btn-marketing-wrapper {
-    top: 920px;
+    top: 950px;
 }
 
 .page-wrapper .page.active {
