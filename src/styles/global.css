@@ -800,13 +800,12 @@ a {
 
 .page-wrapper .page {
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     box-sizing: border-box;
-    border: 5px solid var(--theme-color-hex);
+    border: 2px solid var(--theme-color-hex);
     color: var(--theme-color-hex);
     background-color: transparent;
-    line-height: 44px;
 }
 
 .page-wrapper .page.prev,
@@ -826,7 +825,7 @@ a {
 .page-wrapper button {
     background-color: transparent;
     color: var(--theme-red);
-    font-size: 28px;
+    font-size: 18px;
     display: block;
     padding: unset;
     margin-top: 0;
