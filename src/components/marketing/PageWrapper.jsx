@@ -1,22 +1,18 @@
 import React from "react";
 import PageTemplate from "@components/page/pageTemplate";
 import { useAppContext } from "@store/context";
+import MiscButtonList from "./miscButtonList";
 
-export default function PageWrapper({ children = null }) {
+export default function PageWrapper({ sitemapUrl }) {
 
     const { state } = useAppContext();
-    const maxNumber = state.clientWidth < 768
-        ? 3
-        : 5
-
-    console.log("🚀 ~ file: PageWrapper.jsx:9 ~ PageWrapper ~ maxNumber:", maxNumber)
-
+    const maxNumber = state.clientWidth < 768 ? 3 : 5
     return <>
-        {state.currTotalPage > 0 && <PageTemplate
+        {(state.currTotalPage > 0 && sitemapUrl !== "") && <PageTemplate
             currPage={state.currPage}
             totalPage={state.currTotalPage}
             __MAX_SHOW_NUMBERS__={maxNumber}
         />}
-        {children}
+        <MiscButtonList sitemapUrl={sitemapUrl} />
     </>
 }
