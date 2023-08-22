@@ -895,7 +895,7 @@ a {
 
 .content-left-side {
     position: inherit;
-    width: 668px;
+    width: 740px;
     min-height: calc(100vh - var(--banner-top-offset) - 49px - 33px - 298px);
     height: fit-content;
     display: flex;
