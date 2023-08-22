@@ -1,17 +1,7 @@
 import PageButton from "./PageButton";
 
-function LeftDots({ cb, showArray }) {
-    return showArray[0] !== 1 && (
-        <PageButton
-            cb={cb}
-            styles='dots'
-            label="···"
-        />
-    )
-};
-
-function RightDots({ cb, showArray, totalPage }) {
-    return showArray[showArray.length - 1] !== totalPage && (
+function Dots({ cb }) {
+    return (
         <PageButton
             cb={cb}
             styles="dots"
@@ -48,21 +38,64 @@ function PrevButton({ prevPage }) {
         label={'<'} />;
 }
 
-function PageNumber({ showArray, setPage, currentPage }) {
+function PageNumber({ showArray, setPage, currentPage, showDots, totalPage }) {
     return showArray && showArray.map((item, index) => {
-        return <PageButton
-            key={index}
-            cb={() => setPage(item)}
-            styles={currentPage === item ? 'active number' : "number"}
-            label={(item)} />;
+        if (showDots === false) {
+            return <PageButton
+                key={index}
+                cb={() => setPage(item)}
+                styles={currentPage === item ? 'active number' : "number"}
+                label={(item)} />
+        }
+        if (currentPage < 3) {
+            if (index < 4) {
+                return <PageButton
+                    key={index}
+                    cb={() => setPage(item)}
+                    styles={currentPage === item ? 'active number' : "number"}
+                    label={(item)} />
+            } else {
+                return <Dots
+                    key={index}
+                    cb={() => setPage(item)}
+                />
+            }
+        }
+        if (currentPage >= 3 && currentPage <= totalPage - 2) {
+            if (index === 0 || index === 4) {
+                return <Dots
+                    key={index}
+                    cb={() => setPage(item)}
+                />
+            }
+            return <PageButton
+                key={index}
+                cb={() => setPage(item)}
+                styles={currentPage === item ? 'active number' : "number"}
+                label={(item)} />
+        }
+        if (currentPage > totalPage - 2) {
+            if (index === 0) {
+                return <Dots
+                    key={index}
+                    cb={() => setPage(item)}
+                />
+            } else {
+                return <PageButton
+                    key={index}
+                    cb={() => setPage(item)}
+                    styles={currentPage === item ? 'active number' : "number"}
+                    label={(item)} />
+            }
+        }
     });
 }
 export {
     FirstButton,
     PrevButton,
-    LeftDots,
+    // LeftDots,
     PageNumber,
-    RightDots,
+    // RightDots,
     NextButton,
     LastButton,
 }

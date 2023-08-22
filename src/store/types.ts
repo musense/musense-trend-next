@@ -11,7 +11,7 @@ export interface StateProps {
     lastPathname: string;
     currMaxViewCount: number;
     currTotalPage: number;
-    currPage: number;
+    currentPage: number;
     filteredActive: {
         [key: string]: false,
     }
@@ -27,7 +27,7 @@ export type payloadProps = {
     pathname?: string,
     lastPathname?: string,
     active?: boolean,
-    currPage?: number | string,
+    currentPage?: number | string,
 }
 export enum ReducerActionEnum {
     SET_WINDOW_SIZE = 'SET_WINDOW_SIZE',

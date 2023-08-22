@@ -50,10 +50,16 @@ const PageTemplate = ({
         if (!currentPage) return
         if (!__MAX_SHOW_NUMBERS__) return
         let array
-        if (totalPage <= __MAX_SHOW_NUMBERS__ || currentPage <= middleLeftPoint) {
+        if (totalPage <= __MAX_SHOW_NUMBERS__) {
+            array = Array.from(Array(totalPage), (_, index) => index + 1)
+            return array
+        }
+
+        if (currentPage <= middleLeftPoint) {
             array = Array.from(Array(__MAX_SHOW_NUMBERS__), (_, index) => index + 1)
             return array
         }
+
         if (currentPage >= totalPage - middleLeftPoint) {
             array = Array.from(Array(totalPage), (_, index) => index + 1)
             array = array.slice(totalPage - 5, totalPage)
@@ -66,16 +72,18 @@ const PageTemplate = ({
             return item > 0 && item <= totalPage
         })
     }, [__MAX_SHOW_NUMBERS__, currentPage, totalPage, middleLeftPoint])
+    console.log("🚀 ~ file: pageTemplate.jsx:69 ~ showArray ~ showArray:", showArray)
 
-    return (<div className={'page-wrapper'}>
+    const showDots = totalPage > __MAX_SHOW_NUMBERS__
+    const pageContent = <div className={'page-wrapper'}>
         <FirstButton setPage={setPage} currentPage={currentPage} />
         <PrevButton prevPage={prevPage} currentPage={currentPage} />
-        {/* <LeftDots cb={() => setPage(currentPage - middleRightPoint)} showArray={showArray} /> */}
-        <PageNumber showArray={showArray} setPage={setPage} currentPage={currentPage} />
-        {/* <RightDots cb={() => setPage(currentPage + middleRightPoint)} showArray={showArray} totalPage={totalPage} /> */}
+        <PageNumber setPage={setPage} currentPage={currentPage} showDots={showDots} showArray={showArray} totalPage={totalPage} />
         <NextButton nextPage={nextPage} currentPage={currentPage} totalPage={totalPage} />
         <LastButton setPage={setPage} currentPage={currentPage} totalPage={totalPage} />
-    </div>);
+    </div>
+
+    return pageContent;
 }
 
 export default PageTemplate
