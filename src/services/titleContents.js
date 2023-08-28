@@ -53,6 +53,7 @@ export async function getMainContentBySitemapUrl(payload) {
         ...mainContent,
         headTitle: mainContent.headTitle && mainContent.headTitle.length > 0
           ? mainContent.headTitle : mainContent.title,
+        altText: mainContent.altText || 'Musense main image',
         tags: mainContent.tags && mainContent.tags.length > 0 && mainContent.tags.map(tag => {
           return {
             ...tag,
