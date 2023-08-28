@@ -15,7 +15,7 @@ export async function getCategoryList(payload) {
                 ...category,
                 headTitle: category.headTitle && category.headTitle.length > 0
                     ? category.headTitle : category.name,
-                sitemapUrl: getRenamedContent(category.sitemapUrl),
+                sitemapUrl: getRenamedContent(category.sitemapUrl) || '#',
             }
         }))
         .then(categoryList => categoryList.map((category) => {
@@ -76,7 +76,7 @@ export async function getTitleContentsByCategory(payload) {
             }
             return {
                 ...content,
-                sitemapUrl: getRenamedContent(content.sitemapUrl)
+                sitemapUrl: getRenamedContent(content.sitemapUrl) || '#'
             }
         }))
     // .then(res => { console.log(res); return res })

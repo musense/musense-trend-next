@@ -13,7 +13,7 @@ export async function getAllSitemapUrl(payload) {
   const response = await instance(apiUrl).get(`/sitemap/getAllUrl`)
     .then(res => res.data)
   const sitemapUrlArray = response.reduce((acc, curr) => {
-    return [...acc, getRenamedContent(curr.url)]
+    return [...acc, getRenamedContent(curr.url) || '#']
   }, [])
   return sitemapUrlArray
 }

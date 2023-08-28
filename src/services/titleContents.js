@@ -21,13 +21,13 @@ export async function getMainContentByID(payload) {
         tags: mainContent.tags && mainContent.tags.length > 0 && mainContent.tags.map(tag => {
           return {
             ...tag,
-            sitemapUrl: getRenamedContent(tag.sitemapUrl)
+            sitemapUrl: getRenamedContent(tag.sitemapUrl) || '#'
           }
         }),
         categories: mainContent.categories ? {
           _id: mainContent.categories._id,
           name: mainContent.categories.name,
-          sitemapUrl: getRenamedContent(mainContent.categories.sitemapUrl)
+          sitemapUrl: getRenamedContent(mainContent.categories.sitemapUrl) || '#'
         } : null
       }
     })
@@ -56,12 +56,12 @@ export async function getMainContentBySitemapUrl(payload) {
         tags: mainContent.tags && mainContent.tags.length > 0 && mainContent.tags.map(tag => {
           return {
             ...tag,
-            sitemapUrl: getRenamedContent(tag.sitemapUrl)
+            sitemapUrl: getRenamedContent(tag.sitemapUrl) || '#'
           }
         }),
         categories: {
           ...mainContent.categories,
-          sitemapUrl: getRenamedContent(mainContent.categories.sitemapUrl),
+          sitemapUrl: getRenamedContent(mainContent.categories.sitemapUrl) || '#',
         }
       }
     })
@@ -142,15 +142,15 @@ export async function getTitleContents(payload) {
         tags: content.tags && content.tags.length > 0 ? content.tags.map(tag => {
           return {
             ...tag,
-            sitemapUrl: getRenamedContent(tag.sitemapUrl)
+            sitemapUrl: getRenamedContent(tag.sitemapUrl) || '#'
           }
         }) : null,
         categories: {
           _id: content.categories._id,
           name: content.categories.name,
-          sitemapUrl: getRenamedContent(content.categories.sitemapUrl)
+          sitemapUrl: getRenamedContent(content.categories.sitemapUrl) || '#'
         },
-        sitemapUrl: getRenamedContent(content.sitemapUrl),
+        sitemapUrl: getRenamedContent(content.sitemapUrl) || '#',
       }
     }))
     .then(res => res.map((content) => {
@@ -200,7 +200,7 @@ export async function getEditorSitemapUrls(payload) {
 
 
   const idArray = response.reduce((acc, curr) => {
-    return [...acc, getRenamedContent(curr.sitemapUrl)]
+    return [...acc, getRenamedContent(curr.sitemapUrl) || '#']
   }, [])
   return idArray
 }
@@ -266,7 +266,7 @@ export async function getRelatedArticles(payload) {
     .then(relatedArticles => relatedArticles.map(article => {
       return {
         ...article,
-        sitemapUrl: getRenamedContent(article.sitemapUrl)
+        sitemapUrl: getRenamedContent(article.sitemapUrl) || '#'
       }
     }))
     .then(relatedArticles => relatedArticles.map(article => {
@@ -309,7 +309,7 @@ export async function getPopularContents(payload) {
       .then(popularContents => popularContents.map(content => {
         return {
           ...content,
-          sitemapUrl: getRenamedContent(content.sitemapUrl)
+          sitemapUrl: getRenamedContent(content.sitemapUrl) || '#'
         }
       }))
       .then(popularContents => popularContents.map(content => {

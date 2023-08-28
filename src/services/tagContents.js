@@ -31,7 +31,7 @@ export async function getTagList(payload) {
                 ...tag,
                 headTitle: tag.headTitle && tag.headTitle.length > 0
                     ? tag.headTitle : tag.name,
-                sitemapUrl: getRenamedContent(tag.sitemapUrl)
+                sitemapUrl: getRenamedContent(tag.sitemapUrl) || '#'
             }
         }))
     // console.log("🚀 ~ file: tagContents.js:7 ~ getTagList ~ response:", response)
@@ -49,7 +49,7 @@ export async function getPopularTagList(payload) {
             return {
                 ...tag,
                 headTitle: tag.name,
-                sitemapUrl: getRenamedContent(tag.sitemapUrl)
+                sitemapUrl: getRenamedContent(tag.sitemapUrl) || '#'
             }
         }))
         .then(res => res.map(tag => {
@@ -105,7 +105,7 @@ export async function getTagContents(payload) {
             }
             return {
                 ...content,
-                sitemapUrl: getRenamedContent(content.sitemapUrl)
+                sitemapUrl: getRenamedContent(content.sitemapUrl) || '#'
             }
         }))
     // .then(res => { console.log("🚀 ~ file: tagContents.js:26 ~ getTagsContent ~ res:", res); return res })
