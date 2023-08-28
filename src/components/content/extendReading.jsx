@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 
 export default function ExtendReading({ contents }) {
-    return contents && <div data-title="延伸閱讀" className="popular-content-container">
+    return contents.length > 0 && <div data-title="延伸閱讀" className="popular-content-container">
         <div className='main' />
         <div className='main-en' />
         <div className="popular-content-wrapper">

@@ -18,12 +18,6 @@ export default function ContentPage({
     const { state, dispatch } = useAppContext();
     useInitial({ state, dispatch })
 
-    const extendReading = React.useMemo(() => {
-        if (isPreview) return []
-        if (relatedArticles.length === 0) return null
-        return relatedArticles
-    }, [relatedArticles, isPreview])
-
     return mainContent && (
         <>
             <MainImage
@@ -38,7 +32,7 @@ export default function ContentPage({
                 isPreview={isPreview}
             />
             <ExtendReading
-                contents={extendReading}
+                contents={relatedArticles}
             />
             <HotTrendWrapper
                 position='bottom'
