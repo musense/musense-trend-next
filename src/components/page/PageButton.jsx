@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useRouter } from 'next/router';
 import { useAppContext } from "@store/context";
 
-export default function PageButton({ cb, styles, label, value }) {
+export default function PageButton({ styles, label, value }) {
     const router = useRouter();
     const { dispatch } = useAppContext();
 
@@ -13,9 +13,10 @@ export default function PageButton({ cb, styles, label, value }) {
                 currentPage: value
             }
         })
-    }, [])
+    }, [dispatch])
 
-    const handleClick = useCallback((e) => {
+    const handleClick = useCallback(() => {
+        if (Number(value) === Number(router.query.currentPage)) return
         router.push(
             `/trend/${router.query.sitemapUrl}?currentPage=${value}`,
             undefined,
@@ -23,7 +24,6 @@ export default function PageButton({ cb, styles, label, value }) {
                 shallow: true,
                 scroll: true
             }
-
         )
         setPage(value)
     }, [router, value, setPage])
@@ -31,7 +31,6 @@ export default function PageButton({ cb, styles, label, value }) {
     const props = {
         onClick: handleClick,
         className: `page ${styles}`,
-
     }
     return (
         <button {...props}>

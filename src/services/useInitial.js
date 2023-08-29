@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 export default function useInitial({
     state,
@@ -11,11 +11,11 @@ export default function useInitial({
         dispatch({
             type: 'SET_PATHNAME',
             payload: {
-                lastPathname: localStorage.getItem("prevPath"),
+                // lastPathname: localStorage.getItem("prevPath"),
                 pathname: window.location.pathname,
             },
         });
-    }, [path, dispatch, state.pathname]);
+    }, [path, dispatch]);
 
     useEffect(() => {
         if (state.clientWidth === 0) {

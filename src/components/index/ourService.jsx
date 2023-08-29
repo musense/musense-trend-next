@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './css/ourService.module.css';
 import ServiceBox from "./serviceBox";
 import WhyMusense from "./whyMusense";

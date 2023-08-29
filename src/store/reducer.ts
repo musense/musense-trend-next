@@ -19,7 +19,6 @@ const initialState: StateProps = {
     lastPathname: '',
     currMaxViewCount: 6,
     currTotalPage: 0,
-    currentPage: 1,
     filteredActive: {
         seeMore: false,
     }
@@ -58,7 +57,6 @@ const mainReducer = (
                 contents: sortedContents,
                 viewContents: sortedContents ? sortedContents.slice(0, 6) : null,
                 currTotalPage: sortedContents ? Math.ceil(sortedContents.length / 6) : 0,
-                currentPage: 1,
                 filteredActive: {
                     seeMore: false,
                 },
@@ -106,8 +104,8 @@ const mainReducer = (
         case ReducerActionEnum.SET_PATHNAME: {
             return {
                 ...state,
-                lastPathname: action.payload.lastPathname,
-                pathname: action.payload.pathname,
+                // lastPathname: action.payload.lastPathname,
+                // pathname: action.payload.pathname,
                 mainSiteHref: ['/c_', '/tag_'].some(route => action.payload.pathname?.includes(route)) ? '/trend' : '/'
             };
         }
@@ -128,24 +126,10 @@ const mainReducer = (
             };
         }
         case ReducerActionEnum.SET_CURRENT_PAGE: {
-            let currentPage, start, end, slicedContents
-
-            if (action.payload.currentPage === state.currentPage) {
-                return {
-                    ...state,
-                };
-            }
-            if (typeof action.payload.currentPage === 'number') {
-                currentPage = action.payload.currentPage;
-            } else {
-                if (action.payload.currentPage === 'prev') {
-                    currentPage = state.currentPage - 1
-                } else {
-                    currentPage = state.currentPage + 1
-                }
-            }
-            if (currentPage < 1) currentPage = 1
-            if (currentPage > state.currTotalPage) currentPage = state.currTotalPage
+            let currentPage = action.payload.currentPage || 1,
+                start,
+                end,
+                slicedContents
 
             start = (currentPage - 1) * state.currMaxViewCount
             end = start + state.currMaxViewCount
@@ -153,7 +137,6 @@ const mainReducer = (
             return {
                 ...state,
                 viewContents: slicedContents,
-                currentPage: currentPage
             };
         }
         case ReducerActionEnum.RESET_FILTER_STATE: {

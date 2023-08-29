@@ -8,13 +8,15 @@ import {
     LastButton,
 } from "./pageElement";
 import { useRouter } from 'next/router';
+import { useAppContext } from "@store/context";
 
-const PageTemplate = ({
-    totalPage,
-    __MAX_SHOW_NUMBERS__ = 5
-}) => {
+const PageTemplate = () => {
     const router = useRouter();
+    const { state } = useAppContext();
+
     const currentPage = Number(router.query.currentPage) || 1;
+    const totalPage = state.currTotalPage
+    const __MAX_SHOW_NUMBERS__ = state.clientWidth < 768 ? 3 : 5
 
     const pageContent = <div className={'page-wrapper'}>
         <FirstButton currentPage={currentPage} />
