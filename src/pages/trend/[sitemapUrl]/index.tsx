@@ -28,13 +28,10 @@ type CommonProps = InferGetServerSidePropsType<typeof getServerSideProps>
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL
   const sitemapUrl = params?.sitemapUrl as string
-  console.log(
-    '🚀 ~ file: index.tsx:98 ~ const getStaticProps:GetStaticProps= ~ sitemapUrl:',
-    sitemapUrl
-  )
+  console.log('🚀 ~ file: index.tsx:98 ~ sitemapUrl:', sitemapUrl)
   let payload = {
     apiUrl: apiUrl,
-    sitemapUrl: `${process.env.NEXT_PUBLIC_SITE}/${sitemapUrl}`,
+    sitemapUrl: `${process.env.NEXT_PUBLIC_TREND_SITE}/${sitemapUrl}`,
     _id: null,
     page: 1,
     categoryName: '',

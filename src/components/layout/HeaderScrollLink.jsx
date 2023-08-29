@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useMemo } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
+import styles from './css/headerScrollLink.module.css'
 import Link from 'next/link';
-import { useAppContext } from "@store/context";
 
 const navMap = new Map([
   ['about', {
@@ -35,58 +35,66 @@ const navMap = new Map([
   }],
 ])
 
-export default function HeaderScrollLink({
-  className,
-  name,
+const HeaderScrollLink = React.forwardRef(({
+  offset,
+  href = '',
   to,
+  name,
+  className,
   disableScroll = false,
-  callbackHandler = null,
-}) {
-  const { state } = useAppContext();
+  callbackHandler = null
+}, ref) => {
+  const destRef = useRef(null)
 
-  const linkRef = useRef(null)
-  const scrollHandler = useCallback(() => {
-    callbackHandler && callbackHandler()
-  }, [callbackHandler]);
+  const scrollHandler = useCallback((e, destObject) => {
+    console.log("🚀 ~ file: HeaderScrollLink.jsx:87 ~ scrollHandler ~ destObject:", destObject)
+    if (!destObject) return
+    if (!disableScroll) {
+      e.preventDefault()
+      const { top: destTop } = destObject && destObject.getBoundingClientRect()
+      window.scrollBy({
+        top: destTop + offset,
+        behavior: 'smooth',
+      })
+      callbackHandler && callbackHandler()
+    }
+  }, [callbackHandler, offset, disableScroll]);
 
   useEffect(() => {
     if (!disableScroll) {
-      if (!linkRef.current) {
+
+      destRef.current = document.querySelector(to)
+      if (((!ref || !ref.current) || !destRef.current)) {
         return
       } else {
-        linkRef.current.addEventListener('click', scrollHandler)
+        ref.current.addEventListener('click', scrollHandler)
       }
-      const myBtnRef = linkRef.current
+      const myLinkRef = ref.current
       return () => {
-        myBtnRef && myBtnRef.removeEventListener('click', scrollHandler)
+        myLinkRef && myLinkRef.removeEventListener('click', scrollHandler)
       }
     }
-  }, [linkRef, disableScroll, scrollHandler, to]);
+  }, [ref, destRef, offset, disableScroll, scrollHandler, to]);
+
   const color = name === 'marketing' ? 'blue' : 'orange'
-  const mainClassName = className ? className : 'nav-button'
-  const href = useMemo(() => {
-    if (state.clientWidth === 0) return to
-    /* mobile auto scroll needs more concerns */
-    if (state.clientWidth <= 768) {
-      if (to.includes('#')) {
-        return to.slice(0, to.indexOf('#') + 1)
-      } else {
-        return to
-      }
-    } else {
-      return to
-    }
-  }, [state.clientWidth, to])
-  return <Link
-    ref={linkRef}
+  const mainClassName = className ? className : styles['nav-button']
+
+  return (<Link
+    ref={ref}
+    alt={name}
     title={navMap.get(name).name.ch}
+    onClick={(e) => scrollHandler(e, destRef.current)}
     href={href}
     className={mainClassName}
   >
-    <div className={`bubble ${color}`} />
-    <div className={'nav-text-wrapper'}>
+    <div className={`${styles['bubble']} ${styles[color]}`} />
+    <div className={styles['nav-text-wrapper']}>
       <div>{navMap.get(name).name.en}</div>
       <div>{navMap.get(name).name.ch}</div>
     </div>
-  </Link>
-}
+  </Link>)
+})
+
+HeaderScrollLink.displayName = 'HeaderScrollLink'
+
+export default HeaderScrollLink

@@ -11,7 +11,7 @@ export default function PageWrapper({ sitemapUrl }) {
     const content = (hasSitemapUrl) => hasSitemapUrl
         ? <>
             {state.currTotalPage > 0 && <PageTemplate
-                currentPage={state.currentPage}
+                // currentPage={state.currentPage}
                 totalPage={state.currTotalPage}
                 __MAX_SHOW_NUMBERS__={maxNumber}
             />}

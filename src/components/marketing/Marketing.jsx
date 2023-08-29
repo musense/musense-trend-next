@@ -1,7 +1,7 @@
 import React from "react";
 import MarketingButtonList from '@components/marketing/marketingButtonList';
 import CardWrapper from '@components/marketing/cardWrapper';
-import PopularContent from '@components/marketing/hotContent';
+import PopularArticles from '@components/marketing/popularArticles';
 import PageWrapper from '@components/marketing/PageWrapper';
 import { useAppContext } from "@store/context";
 
@@ -22,14 +22,14 @@ export default function MarketingPage({
     const buttonList = <MarketingButtonList categoryList={categoryList} openTitleName={openTitleName} />
     const cardWrapper = <CardWrapper commonPageItems={commonPageItems} />
     const cardFooter = <PageWrapper sitemapUrl={sitemapUrl} />
-    const popularContent = <PopularContent contents={popularContents} />
+    const popularArticles = <PopularArticles contents={popularContents} />
 
     return (<>
         {banner}
         {buttonList}
         {cardWrapper}
         {cardFooter}
-        {popularContent}
+        {popularArticles}
     </>);
 }
 

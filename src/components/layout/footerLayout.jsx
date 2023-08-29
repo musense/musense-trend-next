@@ -5,9 +5,9 @@ import Link from 'next/link';
 export default function FooterLayout() {
 
   const pathname = usePathname()
+  const footerClassName = pathname === '/' ? 'index-footer' : ''
   return (
-    pathname !== undefined &&
-    <footer className='footer-wrapper'>
+    <footer className={`footer-wrapper ${footerClassName}`}>
       <div className='footer-box'>
         <div className='left-side'>
           <Logo position='footer' color='white' />

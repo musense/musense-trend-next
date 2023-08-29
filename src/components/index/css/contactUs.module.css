@@ -1,0 +1,397 @@
+.contact-us-wrapper {
+  position: relative;
+  margin-top: 122px;
+}
+
+/* .contact-us-wrapper > div,
+.contact-us-wrapper * button,
+.contact-us-wrapper
+  *
+  div:not([class$='content']):not([class$='wrapper']):not([class$='form']) {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+} */
+.contact-us-wrapper :where(> div,
+  * button,
+  * div:not([class$='content']):not([class$='wrapper']):not([class$='form'])) {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+}
+
+/* .contact-us {
+  position: relative;
+  width: 100%;
+  height: 58px;
+  background-image: url(./../../../assets/index/contactUs_big.webp);
+} */
+
+.contact-us-content {
+  --contact-us-width: 1445px;
+  position: relative;
+  margin: 129px auto 0;
+  width: var(--contact-us-width);
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  gap: 76px;
+}
+
+.img-wrapper {
+  position: relative;
+  width: 516px;
+  height: calc(494px + 70px + 64px);
+  margin-top: -35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* .image-down {
+  position: relative;
+  width: 516px;
+  height: 494px;
+  background-image: url(./../../../assets/index/image_down.webp);
+} */
+
+.orange-box {
+  position: relative;
+  width: 335px;
+  height: 64px;
+  background-image: url(./../../../assets/index/orangeBox.webp);
+  margin-left: -119px;
+}
+
+.contact-us-form {
+  --contact-us-form-width: 403px;
+  position: relative;
+  width: var(--contact-us-form-width);
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 76px;
+}
+
+.left-form,
+.right-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-form {
+  gap: 85px;
+}
+
+.right-form {
+  gap: 76px;
+}
+
+.enter-box {
+  --enter-box-height: 43px;
+  position: relative;
+  width: var(--contact-us-form-width);
+  height: var(--enter-box-height);
+  background-image: url(./../../../assets/mobile/contact/enterBox.webp);
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.input-class {
+  outline: none;
+  border: none;
+  position: relative;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+
+.input-class:focus {
+  border: 0;
+  outline-width: 0;
+  resize: none;
+}
+
+
+.enter-box.large {
+  --enter-box-height: 181px;
+  background-image: url(./../../../assets/mobile/contact/enterBox_large.webp);
+}
+
+
+.enter-checkbox {
+  position: relative;
+  height: 2.5rem;
+  width: 2.5rem;
+  background-image: url(./../../../assets/mobile/contact/box.webp);
+}
+
+.enter-checkbox>input[type='checkbox'] {
+  padding: 12px;
+  margin: unset;
+  appearance: none;
+  cursor: pointer;
+}
+
+.enter-checkbox>input[type='checkbox']:checked {
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: var(--theme-color-hex);
+}
+
+.enter-checkbox-list {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: 20px;
+  padding-top: 1rem;
+}
+
+
+.enter-checkbox-list::before,
+.enter-box::before {
+  background-repeat: no-repeat;
+  content: attr(data-title);
+  display: block;
+  left: 0px;
+  position: absolute;
+  top: -33px;
+  width: 100%;
+  font-size: 24px;
+  letter-spacing: 4px;
+  color: var(--theme-color-hex);
+  font-weight: bold;
+  font-family: Openhuninn;
+}
+
+/* .enter-checkbox-list::before {
+  top: -3.2rem;
+  left: 0;
+  width: 100%;
+  height: 2.5rem;
+  background-image: url(./../../../assets/mobile/contact/need.webp);
+} */
+
+.enter-checkbox::before {
+  color: var(--theme-color-hex);
+  content: attr(data-title);
+  display: block;
+  font-family: Openhuninn;
+  font-size: 20px;
+  font-weight: 700;
+  height: 2.5rem;
+  letter-spacing: 4px;
+  position: absolute;
+  width: 200px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3.5rem;
+  line-height: 2.5rem;
+}
+
+.send-button {
+  position: relative;
+  padding: 0;
+  width: 102px;
+  height: 34px;
+  background-image: url(./../../../assets/button/send.webp);
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  margin-top: -20px;
+  align-self: flex-end;
+  filter: drop-shadow(0px 5px 5px rgba(0 0 0 /0.5));
+}
+
+.send-button:hover {
+  background-image: url(./../../../assets/button/send_h.webp);
+}
+
+.modal-close {
+  appearance: none;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  cursor: pointer;
+  padding: unset;
+}
+
+.modal-close:checked {
+  border: 1px solid red;
+}
+
+@media (max-width: 1500px) {
+  .contact-us-content {
+    justify-content: center;
+  }
+
+  .contact-us-form {
+    flex-direction: column;
+  }
+
+  .contact-us {
+    width: 100vw;
+    height: 5vw;
+  }
+
+  .contact-us-content {
+    --contact-us-width: 80vw;
+    margin: 10vw auto 0;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-us-form {
+    align-items: center;
+    gap: 85px;
+  }
+
+  .img-wrapper {
+    height: 512px;
+  }
+
+  .orange-box {
+    display: none;
+  }
+
+  .send-button {
+    align-self: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .send-button {
+    margin: 0;
+  }
+
+  .contact-us-wrapper {
+    margin-top: 4rem;
+    overflow-x: hidden;
+  }
+
+  .contact-us {
+    position: relative;
+    width: calc(100% - 2.7rem);
+    height: 2.2rem;
+    margin: 0 auto;
+    background-image: url(./../../../assets/mobile/contact/contactUs.webp);
+  }
+
+  .contact-us-content {
+    flex-direction: column;
+    gap: 5.5rem;
+  }
+
+  .img-wrapper {
+    margin: 0;
+    width: 100%;
+    height: unset;
+    gap: 2.8rem;
+    align-items: center;
+  }
+
+  .image-down {
+    position: relative;
+    width: 25rem;
+    height: 18rem;
+    /* background-image: url(./../../../assets/mobile/contact/image_down.webp); */
+  }
+
+  .orange-box {
+    position: relative;
+    display: block;
+    width: 27rem;
+    height: 6.8rem;
+    background-image: url(./../../../assets/mobile/contact/word.webp);
+    margin-left: unset;
+  }
+
+  .contact-us-form {
+    --contact-us-form-width: 29.2rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4.5rem;
+  }
+
+  .left-form,
+  .right-form {
+    gap: 44px;
+  }
+
+  .input-class {
+    height: 100%;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  .enter-box {
+    --enter-box-height: 3.1rem;
+    font-size: 1.6rem;
+    background-size: contain;
+  }
+
+  .enter-box.large {
+    --enter-box-height: 13.1rem;
+  }
+
+  .enter-checkbox-list {
+    position: relative;
+    width: 100%;
+
+    padding-left: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    box-sizing: border-box;
+
+    margin-top: unset;
+  }
+
+  .enter-checkbox {
+    position: relative;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-image: url(./../../../assets/mobile/contact/box.webp);
+  }
+
+
+  .enter-checkbox>input[type='checkbox'] {
+    padding: 1.2rem;
+    margin: unset;
+    appearance: none;
+  }
+
+  .enter-checkbox>input[type='checkbox']:checked {
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: var(--theme-color-hex);
+  }
+
+  .enter-checkbox-list::before,
+  .enter-checkbox::before,
+  .enter-box::before {
+    font-size: 2rem;
+  }
+
+
+  .send-button {
+    position: relative;
+    width: 11.5rem;
+    height: 3.7rem;
+    background-image: url(./../../../assets/mobile/contact/send.webp);
+    background-color: transparent;
+    margin-top: 0.4rem;
+
+    filter: unset;
+  }
+}

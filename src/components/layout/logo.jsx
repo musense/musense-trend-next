@@ -31,7 +31,7 @@ export default function Logo({ active, color = 'gray', position = "header" }) {
     ) :
     (
       <Link className={`logo ${position}`}
-        href={process.env.NEXT_PUBLIC_FRONT_SITE}>
+        href={'/'}>
         <div>
           <Image
             title="Musense Marketing"

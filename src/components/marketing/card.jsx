@@ -12,16 +12,20 @@ export default function Card({ content }) {
     publishedAt,
     sitemapUrl
   } = content;
+  console.log("🚀 ~ file: card.jsx:15 ~ Card ~ sitemapUrl:", sitemapUrl)
 
 
-
+  const route = {
+    pathname: "/trend/[sitemapUrl]",
+    query: { sitemapUrl: sitemapUrl },
+  }
   const tagNameArray = tags && tags.reduce((acc, curr) => {
     return [...acc, curr.name]
   }, [])
   return (
     <Link
       className='card'
-      href={`/${sitemapUrl}`}
+      href={route}
     >
       <div>
         {homeImagePath && <Image
@@ -54,6 +58,6 @@ export default function Card({ content }) {
           </div>
         </div>
       </div>
-    </Link>
+    </Link >
   );
 }

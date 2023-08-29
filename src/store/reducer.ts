@@ -14,7 +14,7 @@ const initialState: StateProps = {
     categoryName: '',
     keyName: '',
     categorySitemapUrl: allContentSitemapUrl,
-    mainSiteHref: process.env.NEXT_PUBLIC_FRONT_SITE || '/',
+    mainSiteHref: '/',
     pathname: '',
     lastPathname: '',
     currMaxViewCount: 6,
@@ -108,9 +108,7 @@ const mainReducer = (
                 ...state,
                 lastPathname: action.payload.lastPathname,
                 pathname: action.payload.pathname,
-                mainSiteHref: action.payload.pathname?.indexOf('/c_') === -1
-                    ? process.env.NEXT_PUBLIC_FRONT_SITE
-                    : '/',
+                mainSiteHref: ['/c_', '/tag_'].some(route => action.payload.pathname?.includes(route)) ? '/trend' : '/'
             };
         }
         case ReducerActionEnum.SEE_MORE: {

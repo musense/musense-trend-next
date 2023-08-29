@@ -1,91 +1,135 @@
 import PageButton from "./PageButton";
+import { useMemo } from "react"
 
-function Dots({ cb }) {
+function Dots({ value }) {
     return (
         <PageButton
-            cb={cb}
             styles="dots"
             label="···"
+            value={value}
         />
     )
 };
 
-function FirstButton({ setPage }) {
+function FirstButton() {
     return <PageButton
-        cb={() => setPage(1)}
         styles={"toFirst"}
-        label={'<<'} />;
+        label={'<<'}
+        value={1}
+    />;
 }
 
-function LastButton({ setPage, totalPage }) {
+function LastButton({ totalPage }) {
     return <PageButton
-        cb={() => setPage(totalPage)}
         styles={"toLast"}
-        label={'>>'} />;
+        label={'>>'}
+        value={totalPage}
+    />;
 }
 
-function NextButton({ nextPage }) {
+function NextButton({ currentPage, totalPage }) {
     return <PageButton
-        cb={() => nextPage()}
         styles={"next"}
-        label={'>'} />;
+        label={'>'}
+        value={currentPage + 1 > totalPage ? totalPage : currentPage + 1}
+    />;
 }
 
-function PrevButton({ prevPage }) {
+function PrevButton({ currentPage }) {
     return <PageButton
-        cb={() => prevPage()}
         styles={"prev"}
-        label={'<'} />;
+        label={'<'}
+        value={currentPage - 1 < 1 ? 1 : currentPage - 1}
+    />;
 }
 
-function PageNumber({ showArray, setPage, currentPage, showDots, totalPage }) {
-    return showArray && showArray.map((item, index) => {
+function PageNumber({
+    currentPage,
+    totalPage,
+    __MAX_SHOW_NUMBERS__
+}) {
+
+    const middleLeftPoint = Math.floor(__MAX_SHOW_NUMBERS__ / 2)
+    const middleRightPoint = __MAX_SHOW_NUMBERS__ - middleLeftPoint
+
+    const showArray = useMemo(() => {
+        if (!currentPage) return
+        if (!__MAX_SHOW_NUMBERS__) return
+        let array
+        if (totalPage <= __MAX_SHOW_NUMBERS__) {
+            array = Array.from(Array(totalPage), (_, index) => index + 1)
+            return array
+        }
+
+        if (currentPage <= middleLeftPoint) {
+            array = Array.from(Array(__MAX_SHOW_NUMBERS__), (_, index) => index + 1)
+            return array
+        }
+
+        if (currentPage >= totalPage - middleLeftPoint) {
+            array = Array.from(Array(totalPage), (_, index) => index + 1)
+            array = array.slice(totalPage - __MAX_SHOW_NUMBERS__, totalPage)
+            return array
+        }
+
+        array = Array.from(Array(__MAX_SHOW_NUMBERS__), (_, index) => index - middleLeftPoint)
+            .map(item => item + currentPage);
+        return array.filter((item) => {
+            return item > 0 && item <= totalPage
+        })
+    }, [__MAX_SHOW_NUMBERS__, currentPage, totalPage, middleLeftPoint])
+
+    const showDots = totalPage > __MAX_SHOW_NUMBERS__
+
+    return showArray && showArray.map((value, index) => {
         if (showDots === false) {
             return <PageButton
                 key={index}
-                cb={() => setPage(item)}
-                styles={currentPage === item ? 'active number' : "number"}
-                label={(item)} />
+                styles={currentPage === value ? 'active number' : "number"}
+                label={value}
+                value={(value)} />
         }
-        if (currentPage < 3) {
-            if (index < 4) {
+        if (currentPage < middleRightPoint) {
+            if (index < __MAX_SHOW_NUMBERS__ - 1) {
                 return <PageButton
                     key={index}
-                    cb={() => setPage(item)}
-                    styles={currentPage === item ? 'active number' : "number"}
-                    label={(item)} />
+                    styles={currentPage === value ? 'active number' : "number"}
+                    label={value}
+                    value={(value)}
+                />
             } else {
                 return <Dots
                     key={index}
-                    cb={() => setPage(item)}
+                    value={(value)}
                 />
             }
         }
-        if (currentPage >= 3 && currentPage <= totalPage - 2) {
-            if (index === 0 || index === 4) {
+        if (currentPage >= middleRightPoint && currentPage <= totalPage - middleLeftPoint) {
+            if (index === 0 || index === __MAX_SHOW_NUMBERS__ - 1) {
                 return <Dots
                     key={index}
-                    cb={() => setPage(item)}
+                    value={(value)}
                 />
             }
             return <PageButton
                 key={index}
-                cb={() => setPage(item)}
-                styles={currentPage === item ? 'active number' : "number"}
-                label={(item)} />
+                styles={currentPage === value ? 'active number' : "number"}
+                label={value}
+                value={value} />
         }
-        if (currentPage > totalPage - 2) {
+        if (currentPage > totalPage - middleLeftPoint) {
             if (index === 0) {
                 return <Dots
                     key={index}
-                    cb={() => setPage(item)}
+                    value={(value)}
                 />
             } else {
                 return <PageButton
                     key={index}
-                    cb={() => setPage(item)}
-                    styles={currentPage === item ? 'active number' : "number"}
-                    label={(item)} />
+                    styles={currentPage === value ? 'active number' : "number"}
+                    label={value}
+                    value={(value)}
+                />
             }
         }
     });
@@ -93,9 +137,7 @@ function PageNumber({ showArray, setPage, currentPage, showDots, totalPage }) {
 export {
     FirstButton,
     PrevButton,
-    // LeftDots,
     PageNumber,
-    // RightDots,
     NextButton,
     LastButton,
 }

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-export default function PopularContent({ contents }) {
+export default function PopularArticles({ contents }) {
   // console.log("🚀 ~ file: hotContent.jsx:5 ~ PopularContent ~ contents:", contents)
   return (
     <div data-title="熱門文章" className='hot-content-container'>

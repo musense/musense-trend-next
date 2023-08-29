@@ -21,7 +21,7 @@ export async function getAllSitemapUrl(payload) {
 const routeArray = ['/c_', '/tag_', '/p_'];
 export const getRenamedContent = (sitemapUrl) => {
   if (!sitemapUrl) return
-  // console.log("🚀 ~ file: sitemap.js:13 ~ getRenamedContent ~ sitemapUrl:", sitemapUrl)
+  console.log("🚀 ~ file: sitemap.js:13 ~ getRenamedContent ~ sitemapUrl:", sitemapUrl)
   const route = routeArray.find(item => sitemapUrl.indexOf(item) !== -1);
   if (!route) return ''
   const startIndex = sitemapUrl.indexOf(route) + 1;
