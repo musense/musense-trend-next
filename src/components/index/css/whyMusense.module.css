@@ -104,13 +104,11 @@
     height: 64px;
 }
 
-@media (max-width: 1200px) and (min-width: 768px) {}
-
-
 @media (max-width: 768px) {
     .why-musense {
         margin: 6rem 0 0;
         height: 26rem;
+        gap: 2rem;
     }
 
     .why-musense .bird {
@@ -121,9 +119,11 @@
     }
 
     .why-musense .main {
-        margin: 3rem auto 0;
         height: 3rem;
         width: 25.9rem;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
         background-color: transparent;
     }
 
@@ -149,11 +149,10 @@
     .why-musense .sub-title {
         font-size: 2rem;
         letter-spacing: 1rem;
-        margin: 3rem auto 0;
     }
 
     .why-musense .article {
-        margin: 2rem 1.6rem 0;
+        margin: 0 1.6rem;
         font-size: 1.5rem;
         align-items: center;
         text-align: center;

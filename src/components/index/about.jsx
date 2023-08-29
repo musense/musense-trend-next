@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './css/about.module.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -52,7 +52,11 @@ export default function About() {
         blurDataURL={backgroundImage.default.blurDataURL}
         src={backgroundImage.default.src}
         width={backgroundImage.default.width}
-        height={backgroundImage.default.height} />}
+        height={backgroundImage.default.height}
+        style={{
+          width: '100%',
+          objectFit: 'contain',
+        }} />}
       <div id='about' className={styles['about-box']}>
         <div className={styles['slogan']} >
           <div className={styles['text-zhtw']}>傾聽陌聲、傳遞陌生</div>
