@@ -9,24 +9,33 @@
 
 .service-box>a,
 .service-box>div {
-  box-sizing: border-box;
+  position: relative;
+
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
   font-family: Openhuninn, Arial, Helvetica, sans-serif;
   font-size: 15px;
-  height: 392px;
-  padding: 130px 59px 30px;
-  position: relative;
-  width: 231px;
-  letter-spacing: 1px;
   font-weight: bold;
-  user-select: none;
-  justify-content: space-between;
-  cursor: pointer;
+  letter-spacing: 1px;
+  white-space: pre;
+
+  height: 392px;
+  width: 231px;
+  padding-top: 127px;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+
   background-repeat: no-repeat;
   background-position: top center;
   background-size: contain;
-  white-space: pre;
+
+  user-select: none;
+  cursor: pointer;
+
+  filter: drop-shadow(1px 3px 3px rgba(0 0 0/0.2));
 }
 
 .service-box>a::after,
@@ -46,14 +55,14 @@
   height: 67px;
   width: 131px;
 
-  border: 3px solid var(--theme-color-hex);
+  border: 2px solid var(--theme-color-hex);
   border-radius: 8px;
 
   padding-left: 2px;
   box-sizing: border-box;
 
   background-color: white;
-  filter: drop-shadow(1px 3px 3px rgba(0 0 0 /0.4));
+  filter: drop-shadow(1px 3px 3px rgba(0 0 0/0.2));
 
   display: flex;
   align-items: center;
@@ -136,6 +145,9 @@
     width: 15rem;
     height: 26rem;
     padding: unset;
+    padding-top: 8rem;
+    filter: unset;
+    justify-content: unset;
   }
 
   .service-box>a::after,
@@ -148,10 +160,10 @@
 
   .service-header {
     align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    padding-top: 9.3rem;
+    justify-content: space-evenly;
+    flex-shrink: 0;
+    height: 5rem;
+    width: 100%;
     text-align: center;
     transform: scale(0.7);
   }
