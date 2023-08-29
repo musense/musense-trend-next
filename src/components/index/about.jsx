@@ -55,7 +55,7 @@ export default function About() {
         height={backgroundImage.default.height}
         style={{
           width: '100%',
-          objectFit: 'contain',
+          objectFit: 'cover',
         }} />}
       <div id='about' className={styles['about-box']}>
         <div className={styles['slogan']} >
