@@ -46,6 +46,7 @@ function PrevButton({ currentPage }) {
 function PageNumber({
     currentPage,
     totalPage,
+    deviceType,
     __MAX_SHOW_NUMBERS__
 }) {
 
@@ -81,58 +82,73 @@ function PageNumber({
 
     const showDots = totalPage > __MAX_SHOW_NUMBERS__
 
-    return showArray && showArray.map((value, index) => {
-        if (showDots === false) {
+    let pageView
+    if (deviceType === 'desktop') {
+        pageView = showArray && showArray.map((value, index) => {
+            if (showDots === false) {
+                return <PageButton
+                    key={index}
+                    styles={currentPage === value ? 'active number' : "number"}
+                    label={value}
+                    value={(value)} />
+            }
+            if (currentPage < middleRightPoint) {
+                if (index < __MAX_SHOW_NUMBERS__ - 1) {
+                    return <PageButton
+                        key={index}
+                        styles={currentPage === value ? 'active number' : "number"}
+                        label={value}
+                        value={(value)}
+                    />
+                } else {
+                    return <Dots
+                        key={index}
+                        value={(value)}
+                    />
+                }
+            }
+            if (currentPage >= middleRightPoint && currentPage <= totalPage - middleLeftPoint) {
+                if (index === 0 || index === __MAX_SHOW_NUMBERS__ - 1) {
+                    return <Dots
+                        key={index}
+                        value={(value)}
+                    />
+                }
+                return <PageButton
+                    key={index}
+                    styles={currentPage === value ? 'active number' : "number"}
+                    label={value}
+                    value={value} />
+            }
+            if (currentPage > totalPage - middleLeftPoint) {
+                if (index === 0) {
+                    return <Dots
+                        key={index}
+                        value={(value)}
+                    />
+                } else {
+                    return <PageButton
+                        key={index}
+                        styles={currentPage === value ? 'active number' : "number"}
+                        label={value}
+                        value={(value)}
+                    />
+                }
+            }
+        });
+    } else if (deviceType === 'mobile') {
+        pageView = showArray && showArray.map((value, index) => {
             return <PageButton
                 key={index}
                 styles={currentPage === value ? 'active number' : "number"}
                 label={value}
                 value={(value)} />
-        }
-        if (currentPage < middleRightPoint) {
-            if (index < __MAX_SHOW_NUMBERS__ - 1) {
-                return <PageButton
-                    key={index}
-                    styles={currentPage === value ? 'active number' : "number"}
-                    label={value}
-                    value={(value)}
-                />
-            } else {
-                return <Dots
-                    key={index}
-                    value={(value)}
-                />
-            }
-        }
-        if (currentPage >= middleRightPoint && currentPage <= totalPage - middleLeftPoint) {
-            if (index === 0 || index === __MAX_SHOW_NUMBERS__ - 1) {
-                return <Dots
-                    key={index}
-                    value={(value)}
-                />
-            }
-            return <PageButton
-                key={index}
-                styles={currentPage === value ? 'active number' : "number"}
-                label={value}
-                value={value} />
-        }
-        if (currentPage > totalPage - middleLeftPoint) {
-            if (index === 0) {
-                return <Dots
-                    key={index}
-                    value={(value)}
-                />
-            } else {
-                return <PageButton
-                    key={index}
-                    styles={currentPage === value ? 'active number' : "number"}
-                    label={value}
-                    value={(value)}
-                />
-            }
-        }
-    });
+        });
+    } else {
+        pageView = null
+    }
+
+    return pageView
 }
 export {
     FirstButton,

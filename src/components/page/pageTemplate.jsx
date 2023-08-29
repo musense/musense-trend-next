@@ -24,6 +24,7 @@ const PageTemplate = () => {
         <PageNumber
             currentPage={currentPage}
             totalPage={totalPage}
+            deviceType={state.clientWidth <= 768 ? 'mobile' : 'desktop'}
             __MAX_SHOW_NUMBERS__={__MAX_SHOW_NUMBERS__}
         />
         <NextButton currentPage={currentPage} totalPage={totalPage} />
