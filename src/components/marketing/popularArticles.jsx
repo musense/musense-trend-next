@@ -33,7 +33,7 @@ function HotContents({ contents }) {
         return <Content
           key={index}
           title={content.title}
-          href={content.sitemapUrl} />;
+          href={`/trend/${content.sitemapUrl}`} />;
       })}
     </div>
     <div className='hot-right-side'>
@@ -41,7 +41,7 @@ function HotContents({ contents }) {
         return <Content
           key={index}
           title={content.title}
-          href={content.sitemapUrl} />;
+          href={`/trend/${content.sitemapUrl}`} />;
       })}
     </div>
   </>;
