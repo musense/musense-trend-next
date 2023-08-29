@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useMemo } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import HeaderScrollLink from './HeaderScrollLink';
 import { useAppContext } from "@store/context";
 
@@ -21,20 +21,9 @@ export default function NavWrapper({ active, pathname, unCheck, headerForceHide 
     e.stopPropagation()
   }
 
-  const serviceOffset = useMemo(() => {
-    let offset = -150
-    const clientWidth = state.clientWidth
-    if (clientWidth <= 768)
-      offset = -80
-    return offset;
-  }, [state.clientWidth])
-  const contactUsOffset = useMemo(() => {
-    let offset = -150
-    const clientWidth = state.clientWidth
-    if (clientWidth <= 768)
-      offset = -80
-    return offset;
-  }, [state.clientWidth])
+  const serviceOffset = state.clientWidth <= 768 ? -80 : -150
+  const contactUsOffset = state.clientWidth <= 768 ? -80 : -150
+
   console.log("🚀 ~ file: NavWrapper.jsx:39 ~ contactUsOffset ~ contactUsOffset:", contactUsOffset)
 
   useEffect(() => {
@@ -63,7 +52,7 @@ export default function NavWrapper({ active, pathname, unCheck, headerForceHide 
         <HeaderScrollLink
           ref={aboutRef}
           offset={-200}
-          href={`${process.env.NEXT_PUBLIC_SITE}/#about`}
+          href={`/#about`}
           to='#about'
           name='about'
           callbackHandler={callbackHandler} />
@@ -72,7 +61,7 @@ export default function NavWrapper({ active, pathname, unCheck, headerForceHide 
         <HeaderScrollLink
           ref={serviceRef}
           offset={serviceOffset}
-          href={`${process.env.NEXT_PUBLIC_SITE}/#service`}
+          href={`/#service`}
           to='#service'
           name='service'
           callbackHandler={callbackHandler} />
@@ -81,7 +70,7 @@ export default function NavWrapper({ active, pathname, unCheck, headerForceHide 
         <HeaderScrollLink
           ref={contactRef}
           offset={contactUsOffset}
-          href={`${process.env.NEXT_PUBLIC_SITE}/#contact`}
+          href={`/#contact`}
           to='#contact'
           name='contact'
           callbackHandler={callbackHandler} />
@@ -90,7 +79,7 @@ export default function NavWrapper({ active, pathname, unCheck, headerForceHide 
         <HeaderScrollLink
           ref={marketingRef}
           offset={0}
-          href={process.env.NEXT_PUBLIC_TREND_SITE}
+          href={'/trend'}
           name='marketing'
           disableScroll
           callbackHandler={callbackHandler} />

@@ -30,8 +30,6 @@ export default function OurService() {
         }}
       />}
       <ServiceBox />
-
-      <WhyMusense />
     </div>
   );
 }

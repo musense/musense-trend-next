@@ -57,21 +57,19 @@
 }
 
 @media (max-width: 1200px) {
-  
+
   .nav-button>.bubble {
-
     filter:
-      drop-shadow(1px 0px 0px rgba(255, 255, 255, 1)) 
-      drop-shadow(0px 1px 0px rgba(255, 255, 255, 1)) 
-      drop-shadow(-1px 0px 0px rgba(255, 255, 255, 1))  
-      drop-shadow(0px -1px 0px rgba(255, 255, 255, 1));
-  }
-
-  .nav-button>.nav-text-wrapper {
-    color: white;
+      drop-shadow(1px 0px 0px rgba(255, 255, 255, 1)) drop-shadow(0px 1px 0px rgba(255, 255, 255, 1)) drop-shadow(-1px 0px 0px rgba(255, 255, 255, 1)) drop-shadow(0px -1px 0px rgba(255, 255, 255, 1));
   }
 
   .nav-text-wrapper>div:first-child {
     margin-bottom: -0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-button>.nav-text-wrapper {
+    color: white;
   }
 }

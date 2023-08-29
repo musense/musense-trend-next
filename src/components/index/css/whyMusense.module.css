@@ -7,10 +7,16 @@
     --why-musense-main: url(./../../../assets/index/whyMusense.webp);
     --whi-musense-hr: unset;
     position: relative;
-    margin: calc(258px - 78px) 0 0;
+    margin: calc(258px - 78px + 229px) 0 0;
     height: var(--why-musense-height);
     background-color: var(--theme-color-hex);
     user-select: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 70px;
 }
 
 .why-musense .bird {
@@ -25,7 +31,7 @@
 }
 
 .why-musense .main {
-    margin: 90px auto 0;
+    margin: 0 auto;
     background-image: var(--why-musense-main);
     height: 76px;
     position: relative;
@@ -55,7 +61,7 @@
 
 .why-musense .sub-title {
     color: white;
-    margin: 60px auto 0;
+    margin: 0 auto;
     position: relative;
     width: fit-content;
     line-height: 1;
@@ -65,7 +71,7 @@
 
 .why-musense .article {
     color: rgb(83, 87, 90);
-    margin: 60px auto 0;
+    margin: 0 auto;
     position: relative;
     width: fit-content;
     line-height: 1;
