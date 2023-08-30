@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 
 export default function useWaitState(active) {
-    const [prevState, setPrevState] = useState();
+    const [prevState, setPrevState] = useState(false);
     useEffect(() => {
-        if (active) {
+        if (prevState && !active) {
             setTimeout(() => {
                 setPrevState(active)
-            }, 500)
+            }, 300)
+            return
         }
-    }, [active]);
-    return  prevState ;
+        if (active) {
+            setPrevState(active)
+            return
+        }
+
+    }, [active, prevState]);
+    return prevState;
 }

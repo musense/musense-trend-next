@@ -3,7 +3,7 @@ import HeaderScrollLink from './HeaderScrollLink';
 import { useAppContext } from "@store/context";
 
 export default function NavWrapper() {
-  const { state, dispatch } = useAppContext();
+  const { state } = useAppContext();
 
   const navRef = useRef(null);
 
@@ -41,32 +41,28 @@ export default function NavWrapper() {
           offset={-200}
           href={`/#about`}
           to='#about'
-          name='about'
-          callbackHandler={() => dispatch({ type: 'CLOSE_MENU' })} />
+          name='about' />
       </li>
       <li>
         <HeaderScrollLink
           offset={serviceOffset}
           href={`/#service`}
           to='#service'
-          name='service'
-          callbackHandler={() => dispatch({ type: 'CLOSE_MENU' })} />
+          name='service' />
       </li>
       <li>
         <HeaderScrollLink
           offset={contactUsOffset}
           href={`/#contact`}
           to='#contact'
-          name='contact'
-          callbackHandler={() => dispatch({ type: 'CLOSE_MENU' })} />
+          name='contact' />
       </li>
       <li>
         <HeaderScrollLink
           offset={0}
           href={'/trend'}
           name='marketing'
-          disableScroll
-          callbackHandler={() => dispatch({ type: 'CLOSE_MENU' })} />
+          disableScroll />
       </li>
     </ul>
   </nav>;

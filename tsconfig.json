@@ -40,7 +40,8 @@
     ".next/types/**/*.ts",
     "src/pages/_app.jsx",
     "src/services/emailService.js",
-    "src/pages/preview/[_id]/index.tsx"
+    "src/pages/preview/[_id]/index.tsx",
+    "src/components/Navbar/Layout.jsx"
   ],
   "exclude": ["node_modules"]
 }

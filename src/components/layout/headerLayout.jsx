@@ -3,10 +3,12 @@ import Hamburger from './hamburger';
 import NavWrapper from './NavWrapper';
 import NavBackDrop from './NavBackDrop';
 import { useAppContext } from "@store/context";
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import useWaitState from '@services/useWaitState'
 
 export default function HeaderLayout() {
   const { state } = useAppContext();
+  const prevState = useWaitState(state.menuOpen)
 
   useEffect(() => {
     if (!localStorage.getItem('pathname')) {
@@ -19,7 +21,7 @@ export default function HeaderLayout() {
   return (
     <header>
       {state.clientWidth <= 768 && <>
-        <NavBackDrop />
+        {prevState && <NavBackDrop />}
         <Hamburger />
       </>
       }

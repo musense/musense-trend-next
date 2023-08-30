@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { contactUs, imageDown } from "@components/index/images";
 import useLoadImage from "@services/useLoadImage";
 import { createPortal } from 'react-dom'
+import useModalRootRef from '@services/useModalRootRef'
 
 const enterBoxList = [
   { title: '公司/品牌名稱', name: 'company-name', typ: 'text' },
@@ -17,16 +18,13 @@ const enterBoxList = [
 ]
 
 export default function ContactUs() {
-  const modalRootRef = useRef()
+
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [headerContent, setHeaderContent] = useState(null);
   const [bodyContent, setBodyContent] = useState(null);
 
-  useEffect(() => {
-    modalRootRef.current = document.querySelector('#modal-root')
-    if (modalRootRef.current === null) return
-  }, [modalRootRef]);
+  const modalRoot = useModalRootRef()
 
   const contactUsImage = useLoadImage(contactUs);
   const imageDownImage = useLoadImage(imageDown);
@@ -91,14 +89,14 @@ export default function ContactUs() {
   return (
     <div id="contact" className={styles['contact-us-wrapper']}>
       {
-        modalRootRef.current && createPortal(
+        modalRoot && createPortal(
           <Modal
             modalIsOpen={modalIsOpen}
             closeModal={closeModal}
             headerContent={headerContent}
             bodyContent={bodyContent}
           />,
-          modalRootRef.current
+          modalRoot
         )
       }
       {contactUsImage && <Image

@@ -1,19 +1,12 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import useWaitState from '@services/useWaitState'
+import React, { useEffect, useRef } from 'react'
 import { useAppContext } from "@store/context";
 
 export default function NavBackDrop() {
-  const { state, dispatch } = useAppContext();
+  const { dispatch } = useAppContext();
   const navBackdropRef = useRef(null);
 
-  const prevState = useWaitState(state.menuOpen)
-
-  const navBackdropHandler = useCallback((e) => {
-    console.log(e.target)
-    dispatch({ type: 'CLOSE_MENU' })
-  }, [dispatch])
-
   useEffect(() => {
+    const navBackdropHandler = () => dispatch({ type: 'CLOSE_MENU' })
     if (navBackdropRef.current === null) {
       return
     } else {
@@ -22,6 +15,7 @@ export default function NavBackDrop() {
       navBackdropRef.current.addEventListener("wheel", navBackdropHandler)
       navBackdropRef.current.addEventListener("scroll", navBackdropHandler)
     }
+
     const myNavBackdrop = navBackdropRef.current
     return () => {
       myNavBackdrop.removeEventListener("touchstart", navBackdropHandler)
@@ -29,12 +23,7 @@ export default function NavBackDrop() {
       myNavBackdrop.removeEventListener("wheel", navBackdropHandler)
       myNavBackdrop.removeEventListener("scroll", navBackdropHandler)
     }
-  }, [navBackdropRef, navBackdropHandler]);
+  }, [dispatch, navBackdropRef]);
 
-
-  return <div
-    ref={navBackdropRef}
-    id="nav-backdrop"
-    className={`${prevState ? 'active' : ''}`}
-  />;
+  return <div ref={navBackdropRef} id="nav-backdrop" />;
 }

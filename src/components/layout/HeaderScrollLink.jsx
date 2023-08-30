@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import styles from './css/headerScrollLink.module.css'
 import Link from 'next/link';
 import navMap from './navMap'
+import { useAppContext } from "@store/context";
 
 const HeaderScrollLink = ({
   offset,
@@ -10,8 +11,8 @@ const HeaderScrollLink = ({
   name,
   className,
   disableScroll = false,
-  callbackHandler = null
 }) => {
+  const { dispatch } = useAppContext();
   const destRef = useRef(null)
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const HeaderScrollLink = ({
   }, [to]);
 
   const scrollHandler = useCallback((e, destObject) => {
-    console.log("🚀 ~ file: HeaderScrollLink.jsx:87 ~ scrollHandler ~ destObject:", destObject)
+    dispatch({ type: 'CLOSE_MENU' })
     if (!destObject) return
     if (disableScroll) return
     e.preventDefault()
@@ -29,9 +30,7 @@ const HeaderScrollLink = ({
       top: destTop + offset,
       behavior: 'smooth',
     })
-    callbackHandler && callbackHandler()
-
-  }, [callbackHandler, offset, disableScroll]);
+  }, [dispatch, offset, disableScroll]);
 
   const color = name === 'marketing' ? 'blue' : 'orange'
   const mainClassName = className ? className : styles['nav-button']

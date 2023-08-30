@@ -1509,13 +1509,9 @@ a {
     #nav-backdrop {
         position: fixed;
         inset: 0;
-        z-index: calc(var(--header-z-index) - 1);
         z-index: 2;
-        display: none;
-    }
-
-    #nav-backdrop.active {
         display: block;
+        /* background-color: #777; */
     }
 
     .navbar-wrapper {
@@ -1637,7 +1633,7 @@ a {
         height: var(--header-btn-height);
     }
 
-    .btn-wrapper {
+    .btn-layout {
         --fixed-btn-width: 11.5rem;
         --fixed-btn-gap: 2rem;
         position: fixed;
@@ -1647,11 +1643,11 @@ a {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        z-index: var(--header-z-index);
         box-sizing: border-box;
         padding: 0 0.7rem;
         left: 50%;
         transform: translateX(-50%);
+        z-index: calc(var(--header-z-index) + 1);
     }
 
     .fixedBtn {
