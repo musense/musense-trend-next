@@ -2,19 +2,21 @@ import React from "react";
 import styles from './css/hamburger.module.css'
 import { useAppContext } from "@store/context";
 
-function Hamburger({ toggleHamburger, unCheck }) {
-    const { state } = useAppContext();
-    function handClick(e) {
-        toggleHamburger(e)
-    }
+function Hamburger() {
+    const { state, dispatch } = useAppContext();
 
     return (
         <div className={styles['hamburger']}>
-            <input className={styles['hamburger-check']} checked={state.menuOpen} type="checkbox" onClick={handClick} />
+            <input className={styles['hamburger-check']} checked={state.menuOpen} type="checkbox"
+                onChange={() =>
+                    dispatch({ type: "TOGGLE_MENU" })
+                } />
             <span></span>
             <span></span>
             <span></span>
-            <button onClick={unCheck} type="button"
+            <button onClick={() =>
+                dispatch({ type: 'CLOSE_MENU' })
+            } type="button"
                 style={{
                     position: 'absolute',
                     display: 'none',

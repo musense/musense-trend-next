@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import HeaderScrollLink from './HeaderScrollLink';
 import { useAppContext } from "@store/context";
 
-export default function NavWrapper({ unCheck }) {
+export default function NavWrapper() {
   const { state, dispatch } = useAppContext();
 
   const navRef = useRef(null);
@@ -42,7 +42,7 @@ export default function NavWrapper({ unCheck }) {
           href={`/#about`}
           to='#about'
           name='about'
-          callbackHandler={unCheck} />
+          callbackHandler={() => dispatch({ type: 'CLOSE_MENU' })} />
       </li>
       <li>
         <HeaderScrollLink
@@ -50,7 +50,7 @@ export default function NavWrapper({ unCheck }) {
           href={`/#service`}
           to='#service'
           name='service'
-          callbackHandler={unCheck} />
+          callbackHandler={() => dispatch({ type: 'CLOSE_MENU' })} />
       </li>
       <li>
         <HeaderScrollLink
@@ -58,7 +58,7 @@ export default function NavWrapper({ unCheck }) {
           href={`/#contact`}
           to='#contact'
           name='contact'
-          callbackHandler={unCheck} />
+          callbackHandler={() => dispatch({ type: 'CLOSE_MENU' })} />
       </li>
       <li>
         <HeaderScrollLink
@@ -66,7 +66,7 @@ export default function NavWrapper({ unCheck }) {
           href={'/trend'}
           name='marketing'
           disableScroll
-          callbackHandler={unCheck} />
+          callbackHandler={() => dispatch({ type: 'CLOSE_MENU' })} />
       </li>
     </ul>
   </nav>;
