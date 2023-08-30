@@ -1,8 +1,5 @@
-// import styles from './css/headerLayout.module.css'
 import Logo from './logo';
-
 import usePathname from '@services/usePathname';
-import useRefresh from '@services/useRefresh';
 import Hamburger from './hamburger';
 import NavWrapper from './NavWrapper';
 import NavBackDrop from './NavBackDrop';
@@ -12,9 +9,7 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function HeaderLayout() {
 
-  useRefresh()
   const router = useRouter();
-  const pathname = usePathname();
   const hamburgerRef = useRef(null);
 
   const [active, setActive] = useState(false);

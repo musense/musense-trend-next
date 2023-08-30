@@ -16,7 +16,6 @@ export default function MainContent({
     const contentTagsRef = useRef(null);
     console.log("🚀 ~ file: mainContent.jsx:15 ~ MainContent ~ contentTagsRef:", contentTagsRef)
 
-    // useScrollToPosition(content._id)
     useResizeContentTags(contentTagsRef);
     useAddPageView(content._id, isPreview);
 
