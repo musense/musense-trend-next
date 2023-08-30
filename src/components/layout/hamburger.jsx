@@ -1,14 +1,15 @@
+import React from "react";
 import styles from './css/hamburger.module.css'
 
-export default function Hamburger({ id, toggleHamburger, unCheck }) {
+function InnerHamburger({ toggleHamburger, unCheck }, ref) {
 
-    function handClick(e) {        
+    function handClick(e) {
         toggleHamburger(e)
     }
 
     return (
         <div className={styles['hamburger']}>
-            <input className={styles['hamburger-check']} id={id} type="checkbox" onClick={handClick} name="hamburger-check" />
+            <input ref={ref} className={styles['hamburger-check']} type="checkbox" onClick={handClick} name="hamburger-check" />
             <span></span>
             <span></span>
             <span></span>
@@ -21,3 +22,7 @@ export default function Hamburger({ id, toggleHamburger, unCheck }) {
         </div>
     )
 }
+
+const Hamburger = React.forwardRef(InnerHamburger)
+
+export default Hamburger

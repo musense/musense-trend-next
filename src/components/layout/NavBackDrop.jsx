@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useRef } from 'react'
+import useWaitState from '@services/useWaitState'
 
 export default function NavBackDrop({ active, unCheck }) {
 
   const navBackdropRef = useRef(null);
+
+  const prevState = useWaitState(active)
 
   const navBackdropHandler = useCallback((e) => {
     console.log(e.target)
@@ -21,5 +24,9 @@ export default function NavBackDrop({ active, unCheck }) {
   }, [navBackdropRef, navBackdropHandler]);
 
 
-  return <div ref={navBackdropRef} id="nav-backdrop" className={`${active ? 'active' : ''}`} />;
+  return <div
+    ref={navBackdropRef}
+    id="nav-backdrop"
+    className={`${prevState ? 'active' : ''}`}
+  />;
 }
