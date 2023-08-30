@@ -19,6 +19,7 @@ const initialState: StateProps = {
     lastPathname: '',
     currMaxViewCount: 6,
     currTotalPage: 0,
+    menuOpen: false,
     filteredActive: {
         seeMore: false,
     }
@@ -137,6 +138,18 @@ const mainReducer = (
             return {
                 ...state,
                 viewContents: slicedContents,
+            };
+        }
+        case ReducerActionEnum.TOGGLE_MENU: {
+            return {
+                ...state,
+                menuOpen: !state.menuOpen,
+            };
+        }
+        case ReducerActionEnum.CLOSE_MENU: {
+            return {
+                ...state,
+                menuOpen: false,
             };
         }
         case ReducerActionEnum.RESET_FILTER_STATE: {

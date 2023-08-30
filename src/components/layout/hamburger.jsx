@@ -1,15 +1,16 @@
 import React from "react";
 import styles from './css/hamburger.module.css'
+import { useAppContext } from "@store/context";
 
-function InnerHamburger({ toggleHamburger, unCheck }, ref) {
-
+function Hamburger({ toggleHamburger, unCheck }) {
+    const { state } = useAppContext();
     function handClick(e) {
         toggleHamburger(e)
     }
 
     return (
         <div className={styles['hamburger']}>
-            <input ref={ref} className={styles['hamburger-check']} type="checkbox" onClick={handClick} name="hamburger-check" />
+            <input className={styles['hamburger-check']} checked={state.menuOpen} type="checkbox" onClick={handClick} />
             <span></span>
             <span></span>
             <span></span>
@@ -22,7 +23,5 @@ function InnerHamburger({ toggleHamburger, unCheck }, ref) {
         </div>
     )
 }
-
-const Hamburger = React.forwardRef(InnerHamburger)
 
 export default Hamburger

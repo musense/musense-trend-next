@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 import useWaitState from '@services/useWaitState'
+import { useAppContext } from "@store/context";
 
-export default function NavBackDrop({ active, unCheck }) {
-
+export default function NavBackDrop({ unCheck }) {
+  const { state } = useAppContext();
   const navBackdropRef = useRef(null);
 
-  const prevState = useWaitState(active)
+  const prevState = useWaitState(state.menuOpen)
 
   const navBackdropHandler = useCallback((e) => {
     console.log(e.target)

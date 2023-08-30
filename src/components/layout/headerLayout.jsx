@@ -2,15 +2,13 @@ import Logo from './logo';
 import Hamburger from './hamburger';
 import NavWrapper from './NavWrapper';
 import NavBackDrop from './NavBackDrop';
-import { useRouter } from "next/router";
-
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useAppContext } from "@store/context";
+import { useEffect, useRef } from 'react';
 
 export default function HeaderLayout() {
+  const { state, dispatch } = useAppContext();
 
-  const router = useRouter();
   const hamburgerRef = useRef(null);
-  const [active, setActive] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem('pathname')) {
@@ -18,36 +16,32 @@ export default function HeaderLayout() {
     } else if (window.location.pathname !== localStorage.getItem('pathname')) {
       localStorage.setItem('pathname', window.location.pathname)
     }
-  }, [active]);
+  }, []);
 
   const unCheck = () => {
-    if (hamburgerRef.current == null) return
-    setActive(false)
-    const hamburger = hamburgerRef.current
-    hamburger.checked = false;
+    dispatch({ type: 'CLOSE_MENU' })
   }
 
   function toggleHamburger(e) {
-    setActive(e.target.checked)
+    dispatch({ type: 'TOGGLE_MENU' })
   }
 
   return (
     <header>
-      <NavBackDrop
-        active={active}
-        unCheck={unCheck}
-        hamburgerRef={hamburgerRef}
-      />
-      <Hamburger
-        ref={hamburgerRef}
-        toggleHamburger={toggleHamburger}
-        unCheck={unCheck}
-      />
+      {state.clientWidth <= 768 && <>
+        <NavBackDrop
+          active={state.menuOpen}
+          unCheck={unCheck}
+        />
+        <Hamburger
+          toggleHamburger={toggleHamburger}
+          unCheck={unCheck}
+        />
+      </>
+      }
       <div className={'navbar-wrapper'}>
-        <Logo active={active} color={'gray'} />
+        <Logo color={'gray'} />
         <NavWrapper
-          active={active}
-          pathname={router.asPath}
           unCheck={unCheck}
         />
       </div>

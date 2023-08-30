@@ -2,29 +2,22 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import HeaderScrollLink from './HeaderScrollLink';
 import { useAppContext } from "@store/context";
 
-export default function NavWrapper({ active, pathname, unCheck, headerForceHide = null }) {
+export default function NavWrapper({ unCheck }) {
   const { state, dispatch } = useAppContext();
-  console.log("🚀 ~ file: NavWrapper.jsx:7 ~ NavWrapper ~ state:", state)
-  const navRef = useRef(null);
 
-  const aboutRef = useRef(null);
-  const serviceRef = useRef(null);
-  const contactRef = useRef(null);
-  const marketingRef = useRef(null);
+  const navRef = useRef(null);
 
   const navHandler = useCallback((e) => {
     console.log(e.type)
     e.preventDefault()
   }, [])
-  const liHandler = (e) => {
+  const liHandler = useCallback((e) => {
     console.log(e);
     e.stopPropagation()
-  }
+  }, [])
 
   const serviceOffset = state.clientWidth <= 768 ? -80 : -150
   const contactUsOffset = state.clientWidth <= 768 ? -80 : -150
-
-  console.log("🚀 ~ file: NavWrapper.jsx:39 ~ contactUsOffset ~ contactUsOffset:", contactUsOffset)
 
   useEffect(() => {
     if (navRef.current === null) {
@@ -39,50 +32,41 @@ export default function NavWrapper({ active, pathname, unCheck, headerForceHide 
         li.addEventListener("touchstart", liHandler)
       })
     }
-  }, [navRef, navHandler]);
+  }, [navRef, navHandler, liHandler]);
 
-  const callbackHandler = useCallback((e) => {
-    unCheck()
-    headerForceHide && headerForceHide()
-  }, [unCheck, headerForceHide])
-
-  return <nav ref={navRef} className={`${active ? 'active' : ''}`}>
+  return <nav ref={navRef} className={`${state.menuOpen ? 'active' : ''}`}>
     <ul>
       <li>
         <HeaderScrollLink
-          ref={aboutRef}
           offset={-200}
           href={`/#about`}
           to='#about'
           name='about'
-          callbackHandler={callbackHandler} />
+          callbackHandler={unCheck} />
       </li>
       <li>
         <HeaderScrollLink
-          ref={serviceRef}
           offset={serviceOffset}
           href={`/#service`}
           to='#service'
           name='service'
-          callbackHandler={callbackHandler} />
+          callbackHandler={unCheck} />
       </li>
       <li>
         <HeaderScrollLink
-          ref={contactRef}
           offset={contactUsOffset}
           href={`/#contact`}
           to='#contact'
           name='contact'
-          callbackHandler={callbackHandler} />
+          callbackHandler={unCheck} />
       </li>
       <li>
         <HeaderScrollLink
-          ref={marketingRef}
           offset={0}
           href={'/trend'}
           name='marketing'
           disableScroll
-          callbackHandler={callbackHandler} />
+          callbackHandler={unCheck} />
       </li>
     </ul>
   </nav>;

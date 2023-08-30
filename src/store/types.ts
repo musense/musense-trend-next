@@ -11,6 +11,7 @@ export interface StateProps {
     lastPathname: string;
     currMaxViewCount: number;
     currTotalPage: number;
+    menuOpen: boolean;
     filteredActive: {
         [key: string]: false,
     }
@@ -42,6 +43,8 @@ export enum ReducerActionEnum {
     FILTER_CIS = 'FILTER_CIS',
     FILTER_CATEGORY = 'FILTER_CATEGORY',
     SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
+    CLOSE_MENU = 'CLOSE_MENU',
+    TOGGLE_MENU = 'TOGGLE_MENU',
     RESET_FILTER_STATE = 'RESET_FILTER_STATE',
 }
 

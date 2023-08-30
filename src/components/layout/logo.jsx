@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Logo({ color = 'gray', position = "header" }) {
-
   const logo = color === 'gray' ? logo_gray : logo_white
 
   return <Link className={`logo ${position}`} href={'/'}>
