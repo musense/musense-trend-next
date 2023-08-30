@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from './css/contactUs.module.css';
 import Modal from "./modal";
 import sendEmail from "@services/emailService";
@@ -6,9 +6,8 @@ import EnterBox from "./EnterBox";
 import CheckBoxList from './CheckBoxList';
 import Image from 'next/image';
 import { contactUs, imageDown } from "@components/index/images";
-import { useAppContext } from "@store/context";
-import useInitial from "@services/useInitial";
 import useLoadImage from "@services/useLoadImage";
+import { createPortal } from 'react-dom'
 
 const enterBoxList = [
   { title: '公司/品牌名稱', name: 'company-name', typ: 'text' },
@@ -18,15 +17,16 @@ const enterBoxList = [
 ]
 
 export default function ContactUs() {
-  const { state, dispatch } = useAppContext();
-  useInitial({
-    state,
-    dispatch
-  });
+  const modalRootRef = useRef()
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [headerContent, setHeaderContent] = useState(null);
   const [bodyContent, setBodyContent] = useState(null);
+
+  useEffect(() => {
+    modalRootRef.current = document.querySelector('#modal-root')
+    if (modalRootRef.current === null) return
+  }, [modalRootRef]);
 
   const contactUsImage = useLoadImage(contactUs);
   const imageDownImage = useLoadImage(imageDown);
@@ -90,12 +90,17 @@ export default function ContactUs() {
 
   return (
     <div id="contact" className={styles['contact-us-wrapper']}>
-      <Modal
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        headerContent={headerContent}
-        bodyContent={bodyContent}
-      />
+      {
+        modalRootRef.current && createPortal(
+          <Modal
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
+            headerContent={headerContent}
+            bodyContent={bodyContent}
+          />,
+          modalRootRef.current
+        )
+      }
       {contactUsImage && <Image
         alt=""
         src={contactUsImage.default.src}
