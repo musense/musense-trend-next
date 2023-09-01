@@ -233,7 +233,7 @@ const Page = ({
       title={meta?.headTitle || process.env.NEXT_PUBLIC_TITLE}
       description={meta?.headDescription || process.env.NEXT_PUBLIC_DESCRIPTION}
       keywords={meta?.headKeyword || process.env.NEXT_PUBLIC_KEYWORDS}
-      canonical={`${process.env.NEXT_PUBLIC_SITE}/${sitemapUrl}`}
+      canonical={`${process.env.NEXT_PUBLIC_SITE}/trend/${sitemapUrl}`}
     />
   )
   const contentPage = (
