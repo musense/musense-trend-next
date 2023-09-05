@@ -20,7 +20,7 @@ const Meta = (props: IMetaProps) => {
       ? {
           url: props.mainImagePath!,
           width: 1200,
-          height: 620,
+          height: 677,
           alt: props.title,
         }
       : {
