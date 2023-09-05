@@ -17,7 +17,7 @@ const Meta = (props: IMetaProps) => {
 
   const openGraphImage = [
     {
-      url: props.mainImagePath,
+      url: props.mainImagePath || '',
       width: 1200,
       height: 550,
       alt: props.title,
