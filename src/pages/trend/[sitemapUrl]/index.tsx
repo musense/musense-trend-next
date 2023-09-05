@@ -85,7 +85,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           headTitle: mainContent.headTitle,
           headDescription: mainContent.headDescription,
           headKeyword: mainContent.headKeyword,
-          mainImagePath: mainContent.homeImagePath,
+          mainImagePath: mainContent.mainImagePath,
         },
       },
     }

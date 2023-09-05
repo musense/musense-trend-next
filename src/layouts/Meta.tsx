@@ -15,20 +15,20 @@ const Meta = (props: IMetaProps) => {
   const router = useRouter()
   console.log('🚀 ~ file: Meta.tsx:15 ~ Meta ~ router:', router)
 
-  const openGraphImage =
-    router.asPath.indexOf('/p_') !== -1
-      ? {
-          url: props.mainImagePath!,
-          width: 1200,
-          height: 580,
-          alt: props.title,
-        }
-      : {
-          url: `${router.basePath}/fb_musense_image.jpg`,
-          width: 1200,
-          height: 628,
-          alt: props.title,
-        }
+  const openGraphImage = [
+    {
+      url: props.mainImagePath,
+      width: 1200,
+      height: 550,
+      alt: props.title,
+    },
+    {
+      url: `${router.basePath}/fb_musense_image.jpg`,
+      width: 1200,
+      height: 628,
+      alt: props.title,
+    },
+  ]
 
   return (
     <>
@@ -78,7 +78,7 @@ const Meta = (props: IMetaProps) => {
           url: props.canonical,
           locale: AppConfig.locale,
           site_name: AppConfig.site_name,
-          images: [openGraphImage],
+          images: openGraphImage,
         }}
         twitter={{
           cardType: 'summary_large_image',
