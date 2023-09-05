@@ -85,6 +85,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
           headTitle: mainContent.headTitle,
           headDescription: mainContent.headDescription,
           headKeyword: mainContent.headKeyword,
+          mainImagePath: mainContent.homeImagePath,
         },
       },
     }
@@ -234,6 +235,7 @@ const Page = ({
       description={meta?.headDescription || process.env.NEXT_PUBLIC_DESCRIPTION}
       keywords={meta?.headKeyword || process.env.NEXT_PUBLIC_KEYWORDS}
       canonical={`${process.env.NEXT_PUBLIC_SITE}/trend/${sitemapUrl}`}
+      mainImagePath={meta.mainImagePath || ''}
     />
   )
   const contentPage = (

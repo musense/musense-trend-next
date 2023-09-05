@@ -8,11 +8,12 @@ type IMetaProps = {
   description: string
   keywords: string
   canonical?: string
+  mainImagePath?: string
 }
 
 const Meta = (props: IMetaProps) => {
   const router = useRouter()
-  // console.log('🚀 ~ file: Meta.tsx:15 ~ Meta ~ router:', router);
+  console.log('🚀 ~ file: Meta.tsx:15 ~ Meta ~ router:', router)
 
   return (
     <>
@@ -64,7 +65,10 @@ const Meta = (props: IMetaProps) => {
           site_name: AppConfig.site_name,
           images: [
             {
-              url: `${router.basePath}/fb_musense_image.jpg`,
+              url:
+                router.asPath.indexOf('/p_') !== -1
+                  ? props.mainImagePath!
+                  : `${router.basePath}/fb_musense_image.jpg`,
               width: 1200,
               height: 628,
               alt: props.title,
