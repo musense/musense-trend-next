@@ -3,7 +3,6 @@ import '@styles/global.css';
 import Script from 'next/script';
 
 export default function MyApp({ Component, pageProps }) {
-
   return (
     <>
       <Script
@@ -24,7 +23,7 @@ export default function MyApp({ Component, pageProps }) {
       <Script id="fb-script" strategy="lazyOnload">
         {`
             var chatbox = document.getElementById('fb-customer-chat');
-            chatbox.setAttribute("page_id", "102981139386541");
+            chatbox.setAttribute("page_id", 102981139386541);
             chatbox.setAttribute("attribution", "biz_inbox");
       
             window.fbAsyncInit = function() {
@@ -38,7 +37,7 @@ export default function MyApp({ Component, pageProps }) {
               var js, fjs = d.getElementsByTagName(s)[0];
               if (d.getElementById(id)) return;
               js = d.createElement(s); js.id = id;
-              js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+              js.src = 'https://connect.facebook.net/zh_TW/sdk/xfbml.customerchat.js';
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         `}
