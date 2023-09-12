@@ -5,6 +5,8 @@ export default function Document() {
     <Html lang='zh-tw'>
       <Head />
       <body>
+        <div id="fb-root" />
+        <div id="fb-customer-chat" className="fb-customerchat" />
         <div id="modal-root" />
         <Main />
         <NextScript />

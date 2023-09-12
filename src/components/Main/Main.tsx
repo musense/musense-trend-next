@@ -1,22 +1,22 @@
-import { type ReactNode } from 'react';
-import Navbar from '@components/Navbar/Layout';
+import { type ReactNode } from 'react'
+import Layout from '@components/Navbar/Layout'
 
 type IMainProps = {
-  meta: ReactNode;
-  children: ReactNode;
-};
+  meta: ReactNode
+  children: ReactNode
+}
 
 function Main({ meta, children }: IMainProps) {
   return (
     <div className='w-full'>
       {meta}
       <div className='mx-auto'>
-        <Navbar path={'/'}>
+        <Layout>
           <main className='relative z-10'>{children}</main>
-        </Navbar>
+        </Layout>
       </div>
     </div>
-  );
+  )
 }
 
-export { Main };
+export { Main }
