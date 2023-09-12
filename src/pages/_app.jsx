@@ -23,7 +23,7 @@ export default function MyApp({ Component, pageProps }) {
       <Script id="fb-script" strategy="lazyOnload">
         {`
             var chatbox = document.getElementById('fb-customer-chat');
-            chatbox.setAttribute("page_id", 102981139386541);
+            chatbox.setAttribute("page_id", "102981139386541");
             chatbox.setAttribute("attribution", "biz_inbox");
       
             window.fbAsyncInit = function() {
