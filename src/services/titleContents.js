@@ -64,7 +64,7 @@ export async function getMainContentBySitemapUrl(payload) {
           ...mainContent.categories,
           sitemapUrl: getRenamedContent(mainContent.categories.sitemapUrl) || '#',
         },
-        mainImagePath: mainContent.contentImagePath.indexOf('<iframe') !== -1
+        mainImagePath: mainContent.contentImagePath?.indexOf('<iframe') !== -1
           ? mainContent.homeImagePath : mainContent.contentImagePath
       }
     })
