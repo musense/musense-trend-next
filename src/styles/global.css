@@ -932,7 +932,7 @@ a {
   font-family: Openhuninn;
 }
 
-.content-main-content image {
+.content-main-content .image {
   margin: unset;
 }
 
