@@ -920,6 +920,7 @@ a {
   --h1-font-size: 3.5rem;
   --h2-font-size: 3rem;
   --h3-font-size: 2.5rem;
+  --h4-font-size: 2rem;
   --normal-font-size: 2rem;
   position: inherit;
   width: 100%;
@@ -993,6 +994,10 @@ a {
 
 .content-main-content h3 {
   font-size: var(--h3-font-size);
+}
+
+.content-main-content h4 {
+  font-size: var(--h4-font-size);
 }
 
 .content-main-content button {
