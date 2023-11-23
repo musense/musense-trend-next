@@ -10,6 +10,11 @@ export default function Document() {
         <div id="modal-root" />
         <Main />
         <NextScript />
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQVK3G7" height="0" width="0" style="display: none; visibility: hidden;" />`,
+          }}
+        />
       </body>
     </Html>
   )
