@@ -18,7 +18,7 @@ jobs:
       - run:
           name: Deploy to GCP Compute Engine
           command: |
-            ssh -o StrictHostKeyChecking=no $VM_USER@$UAT_VM_IP "cd /home/dino_wu/musense-trend-next/ && sudo git pull && sudo yarn install && sudo rm -r .next/ && sudo yarn build:uat:local && pm2 restart musense-homepage"
+            ssh -o StrictHostKeyChecking=no $VM_USER@$UAT_VM_IP "cd /home/dino_wu/musense-trend-next/ && sudo git pull && sudo yarn install && sudo rm -r .next/ && sudo yarn build:uat:local && sudo pm2 restart musense-homepage"
 
   production_deploy:
     machine:
@@ -30,7 +30,7 @@ jobs:
       - run:
           name: Deploy to GCP Compute Engine
           command: |
-            ssh -o StrictHostKeyChecking=no $VM_USER@$PROD_VM_IP "cd /home/dino_wu/musense-trend-next/ && sudo git pull && sudo yarn install && sudo rm -r .next/ && sudo yarn build && pm2 restart musense-homepage"
+            ssh -o StrictHostKeyChecking=no $VM_USER@$PROD_VM_IP "cd /home/dino_wu/musense-trend-next/ && sudo git pull && sudo yarn install && sudo rm -r .next/ && sudo yarn build && sudo pm2 restart musense-homepage"
 
 workflows:
   build-and-deploy:
