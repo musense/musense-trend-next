@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000 -H 10.88.0.103",
+    "dev": "next dev -p 3000 -H 10.42.208.19",
     "build": "next build",
     "build:dev": "env-cmd -f .env.development yarn build",
     "build:dev:local": "env-cmd -f .env.development.local yarn build",
@@ -13,7 +13,7 @@
     "build:prod:local": "env-cmd -f .env.production.local yarn build",
     "start": "next start -p 3000",
     "lint": "next lint",
-    "build:serve": "next build & next start -p 3000 -H 10.88.0.103"
+    "build:serve": "next build & next start -p 3000 -H 10.42.208.19"
   },
   "dependencies": {
     "@emailjs/browser": "^3.10.0",
