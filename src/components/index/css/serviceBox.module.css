@@ -91,19 +91,26 @@
 }
 
 .advertising {
-  background-image: url(./../../../assets/index/advertising.webp)
+  background-image: url(./../../../assets/index/advertising.webp);
 }
 
-.seo-service {
-  background-image: url(./../../../assets/index/seoService.webp)
+/*! className should be changed */
+.event-planning {
+  /*! imageName should be changed as well */
+  background-image: url(./../../../assets/index/eventPlanning.webp);
+  padding-top: 137px !important;
+}
+
+.event-planning .service-header {
+  gap: 0;
 }
 
 .social-media {
-  background-image: url(./../../../assets/index/socialMedia.webp)
+  background-image: url(./../../../assets/index/socialMedia.webp);
 }
 
 .cis {
-  background-image: url(./../../../assets/index/cis.webp)
+  background-image: url(./../../../assets/index/cis.webp);
 }
 
 
