@@ -84,8 +84,8 @@
   font-weight: bold;
 }
 
-.content-main-content h4.h4_Custom {
-  font-size: var(--h4-font-size);
+.content-main-content h4 {
+  font-size: 2rem;
 }
 
 .content-right-side {
