@@ -239,7 +239,7 @@ function BubbleBoxMobile() {
     <div>
       <div
         className={'blue-bubble-seo'} >
-        ＳＥＯ是什麼？<br />對我有什麼幫助？
+        公司要辦發新品表會，<br />該怎麼執行才好？
       </div>
       <div
         className={'blue-bubble-time'} >
@@ -270,7 +270,7 @@ function BubbleBox() {
         className={'blue-bubble-left'}
         data-aos='blue-slide-left'
         data-aos-delay='600' >
-        ＳＥＯ是什麼？<br />對我有什麼幫助？
+        公司要辦發新品表會，<br />該怎麼執行才好？
       </div>
       <div
         className={'blue-bubble-right'}
