@@ -77,17 +77,6 @@
   text-align: left;
 }
 
-.content-main-content h1,
-.content-main-content h2,
-.content-main-content h3,
-.content-main-content h4 {
-  font-weight: bold;
-}
-
-.content-main-content h4 {
-  font-size: 2rem;
-}
-
 .content-right-side {
   position: inherit;
   width: 154px;
