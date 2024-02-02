@@ -13,7 +13,7 @@ export default function FooterLayout() {
           <Logo position='footer' color='white' />
           <span>聯絡電話：(04)2201-0520</span>
           <span>營業時間：周一至周五 9:00~18:00</span>
-          <span>服務地址：403台中市西區台灣大道二段二號四樓之一</span>
+          <span>服務地址：403518臺中市西區英才路530號23樓之5</span>
           <span>E-mail：service@musense.tw</span>
         </div>
         <div className='right-side'>
